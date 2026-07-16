@@ -1,4 +1,5 @@
 import { AtSign, MapPin, MessageCircle, MonitorSmartphone } from "lucide-react";
+import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import { contactConfig } from "@/lib/contact";
 
@@ -62,25 +63,30 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
                 aria-hidden="true"
                 className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_center,rgba(123,47,190,0.28),transparent_66%)]"
               />
-              <div className="relative flex aspect-[4/5] flex-col justify-between rounded-[22px] border border-white/10 bg-[#070707] p-6">
-                <div className="flex items-center justify-between gap-4">
+              <div className="relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-[22px] border border-white/10 bg-[#070707] p-6">
+                <Image
+                  src="/perfil/diego.png"
+                  alt="Foto profissional de Diego Ewerton."
+                  fill
+                  sizes="(min-width: 1024px) 360px, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,7,0.04)_0%,rgba(7,7,7,0.18)_44%,rgba(7,7,7,0.88)_100%)]" />
+                <div className="relative flex items-center justify-between gap-4">
                   <span className="font-accent text-sm font-semibold text-white/58">
                     Diego Ewerton
                   </span>
                   <span className="h-2.5 w-2.5 rounded-full bg-[var(--success)] shadow-[0_0_14px_rgba(61,220,132,0.7)]" />
                 </div>
 
-                <div>
-                  <p className="font-display text-[88px] uppercase leading-none text-white md:text-[112px]">
-                    DC
-                  </p>
+                <div className="relative">
                   <p className="mt-4 max-w-xs text-base leading-7 text-white/68">
                     Desenvolvimento web em Recife com atendimento próximo,
                     estratégia clara e publicação acompanhada.
                   </p>
                 </div>
 
-                <div className="grid gap-3">
+                <div className="relative mt-5 grid gap-3">
                   <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
                     <MapPin aria-hidden="true" className="h-5 w-5 text-[var(--success)]" />
                     <span className="text-sm text-white/72">

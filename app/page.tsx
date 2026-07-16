@@ -71,7 +71,7 @@ export default function Home() {
       <Hero whatsappUrl={whatsappUrl} />
       <TrustBar />
       <AudienceSection />
-      <Projects limit={3} />
+      <Projects limit={4} />
       <Deliverables />
       <HowItWorks whatsappUrl={whatsappUrl} />
       <WhyChoose whatsappUrl={whatsappUrl} />
