@@ -9,7 +9,7 @@ export default function WhatsAppFloat({ whatsappUrl }: WhatsAppFloatProps) {
       target="_blank"
       rel="noreferrer"
       aria-label="Falar no WhatsApp com Diego"
-      data-track="whatsapp_cta_click"
+      data-track="whatsapp_float_click"
       data-track-label="floating_whatsapp"
       className="group fixed bottom-5 right-5 z-50 inline-flex items-center gap-3 rounded-full border border-[rgba(255,255,255,0.14)] bg-[linear-gradient(135deg,var(--accent-primary),var(--accent-hover))] px-4 py-3 text-white shadow-[0_18px_48px_rgba(123,47,190,0.35)] transition duration-300 hover:scale-[1.03] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:bottom-7 md:right-7"
     >
@@ -17,11 +17,11 @@ export default function WhatsAppFloat({ whatsappUrl }: WhatsAppFloatProps) {
         <WhatsAppIcon />
       </span>
       <span className="hidden pr-1 text-left md:block">
-        <span className="block font-accent text-[10px] font-semibold uppercase tracking-[0.24em] text-white/72">
+        <span className="block font-accent text-xs font-semibold text-white/72">
           WhatsApp
         </span>
-        <span className="mt-1 block font-accent text-sm font-semibold uppercase tracking-[0.12em] text-white">
-          Pedir orçamento
+        <span className="mt-1 block font-accent text-sm font-semibold text-white">
+          Solicitar orçamento
         </span>
       </span>
     </a>

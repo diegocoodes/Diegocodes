@@ -29,33 +29,31 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Diego Codes | Sites que transformam visitas em clientes",
+  title: "Criação de Sites em Recife | DiegoCodes",
   description:
-    "Sites profissionais para negócios locais de Recife que querem passar mais confiança, aparecer melhor online e receber contatos pelo WhatsApp.",
-  applicationName: "diegocodes",
-  authors: [{ name: "Diego", url: siteUrl }],
+    "Criação de sites e landing pages em Recife para profissionais e negócios locais. Projetos responsivos, personalizados e integrados ao WhatsApp.",
+  applicationName: "DiegoCodes",
+  authors: [{ name: "Diego Ewerton", url: siteUrl }],
   keywords: [
+    "criação de sites em Recife",
+    "desenvolvedor web em Recife",
+    "landing pages em Recife",
+    "sites para negócios locais",
+    "criação de site profissional",
+    "desenvolvimento web em Pernambuco",
     "desenvolvedor web Recife",
-    "freelancer Recife",
-    "site para clínica",
-    "site para barbearia",
     "site para personal trainer",
-    "site para psicólogo",
-    "site para advogado",
-    "site para empresas",
-    "landing page restaurante",
-    "identidade visual Recife",
-    "Next.js Recife",
+    "landing page profissional",
   ],
   alternates: {
     canonical: siteUrl,
   },
   openGraph: {
-    title: "Diego Codes | Sites que transformam visitas em clientes",
+    title: "Criação de Sites em Recife | DiegoCodes",
     description:
-      "Criação de sites para negócios locais que querem uma presença profissional e contato direto pelo WhatsApp.",
+      "Criação de sites e landing pages em Recife para profissionais e negócios locais, com projetos responsivos e integrados ao WhatsApp.",
     url: siteUrl,
-    siteName: "diegocodes",
+    siteName: "DiegoCodes",
     locale: "pt_BR",
     type: "website",
     images: [
@@ -63,15 +61,15 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "diegocodes - sites premium para negócios locais",
+        alt: "DiegoCodes - criação de sites em Recife para negócios locais",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Diego Codes | Sites que transformam visitas em clientes",
+    title: "Criação de Sites em Recife | DiegoCodes",
     description:
-      "Sites profissionais para negócios locais que precisam de uma presença digital mais clara.",
+      "Sites e landing pages em Recife para negócios locais apresentarem serviços e receberem contatos pelo WhatsApp.",
     images: ["/opengraph-image"],
   },
   robots: {

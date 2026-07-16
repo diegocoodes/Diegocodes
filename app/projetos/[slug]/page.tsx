@@ -117,7 +117,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="container-shell relative z-10">
           <Link
             href="/projetos"
-            className="inline-flex items-center gap-2 font-accent text-[11px] font-semibold uppercase tracking-[0.18em] text-white/56 transition hover:text-white"
+            className="inline-flex items-center gap-2 font-accent text-xs font-semibold text-white/56 transition hover:text-white"
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" />
             Voltar aos projetos
@@ -149,7 +149,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noreferrer"
-                  data-track="whatsapp_cta_click"
+                  data-track="whatsapp_project_click"
                   data-track-label={`projeto_${project.slug}_hero`}
                   className="button-secondary"
                 >
@@ -175,7 +175,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
                   key={fact.label}
                   className="surface-card rounded-[20px] bg-[rgba(17,17,17,0.86)] p-5"
                 >
-                  <p className="font-accent text-[10px] font-semibold uppercase tracking-[0.22em] text-[var(--text-secondary)]">
+                  <p className="font-accent text-xs font-semibold text-[var(--text-secondary)]">
                     {fact.label}
                   </p>
                   <p className="mt-3 text-base font-semibold leading-6 text-white">
@@ -286,7 +286,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                data-track="whatsapp_cta_click"
+                data-track="whatsapp_project_click"
                 data-track-label={`projeto_${project.slug}_final`}
                 className="button-primary mt-8"
               >
@@ -307,7 +307,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
 function InfoBlock({ title, body }: { title: string; body: string }) {
   return (
     <article className="surface-card h-full rounded-[24px] bg-[rgba(17,17,17,0.9)] p-7 md:p-8">
-      <h2 className="font-display text-[52px] uppercase leading-none tracking-[0.04em] text-white">
+      <h2 className="font-display text-[52px] uppercase leading-none text-white">
         {title}
       </h2>
       <p className="mt-6 text-base leading-8 text-[var(--text-secondary)] md:text-lg">
@@ -353,7 +353,7 @@ function ProjectDesktopVisual({
         </div>
       </div>
       <figcaption
-        className={`px-2 pt-4 font-accent text-[11px] font-semibold uppercase tracking-[0.18em] ${
+        className={`px-2 pt-4 font-accent text-xs font-semibold ${
           light ? "text-black/48" : "text-white/52"
         }`}
       >
@@ -364,45 +364,71 @@ function ProjectDesktopVisual({
 }
 
 function getProjectJsonLd(project: PortfolioProject, projectUrl: string) {
-  return {
-    "@context": "https://schema.org",
-    "@type": "CreativeWork",
-    name: `Projeto ${project.name}`,
-    headline: project.metaTitle,
-    description: project.metaDescription,
-    url: projectUrl,
-    image: project.visuals.map((visual) =>
-      new URL(visual.src, siteUrl).toString()
-    ),
-    creator: {
-      "@type": "Person",
-      name: "Diego Codes",
-      url: siteUrl,
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "CreativeWork",
+      name: `Projeto ${project.name}`,
+      headline: project.metaTitle,
+      description: project.metaDescription,
+      url: projectUrl,
+      image: project.visuals.map((visual) =>
+        new URL(visual.src, siteUrl).toString()
+      ),
+      creator: {
+        "@type": "Person",
+        name: "Diego Ewerton",
+        url: siteUrl,
+      },
+      about: project.niche,
+      dateCreated: project.year,
+      keywords: [
+        project.niche,
+        project.service,
+        "site profissional",
+        "WhatsApp",
+        "DiegoCodes",
+      ].join(", "),
+      mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": projectUrl,
+      },
+      isPartOf: {
+        "@type": "WebSite",
+        name: "DiegoCodes",
+        url: siteUrl,
+      },
+      workExample: project.liveUrl
+        ? {
+            "@type": "WebSite",
+            name: project.name,
+            url: project.liveUrl,
+          }
+        : undefined,
     },
-    about: project.niche,
-    dateCreated: project.year,
-    keywords: [
-      project.niche,
-      project.service,
-      "site profissional",
-      "WhatsApp",
-      "Diego Codes",
-    ].join(", "),
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": projectUrl,
-    },
-    isPartOf: {
-      "@type": "WebSite",
-      name: "Diego Codes",
-      url: siteUrl,
-    },
-    workExample: project.liveUrl
-      ? {
-          "@type": "WebSite",
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Início",
+          item: siteUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Projetos",
+          item: `${siteUrl}/projetos`,
+        },
+        {
+          "@type": "ListItem",
+          position: 3,
           name: project.name,
-          url: project.liveUrl,
-        }
-      : undefined,
-  };
+          item: projectUrl,
+        },
+      ],
+    },
+  ];
 }

@@ -1,4 +1,6 @@
-const defaultWhatsAppNumber = "5581992388506";
+import { contactConfig } from "@/lib/contact";
+
+const defaultWhatsAppNumber = contactConfig.whatsappNumber;
 const invalidWhatsAppNumbers = new Set(["5581999999999"]);
 
 export function getWhatsAppNumber(rawValue?: string) {
@@ -10,7 +12,10 @@ export function getWhatsAppNumber(rawValue?: string) {
     : defaultWhatsAppNumber;
 }
 
-export function createWhatsAppUrl(message: string, rawNumber?: string) {
+export function createWhatsAppUrl(
+  message: string = contactConfig.defaultMessage,
+  rawNumber?: string
+) {
   const whatsappNumber = getWhatsAppNumber(
     rawNumber ?? process.env.NEXT_PUBLIC_WHATSAPP_NUMBER
   );

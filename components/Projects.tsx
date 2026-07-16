@@ -3,7 +3,15 @@ import ProjectCard from "@/components/ProjectCard";
 import Reveal from "@/components/ui/Reveal";
 import { portfolioProjects } from "@/lib/projects";
 
-export default function Projects() {
+type ProjectsProps = {
+  limit?: number;
+};
+
+export default function Projects({ limit }: ProjectsProps) {
+  const visibleProjects = limit
+    ? portfolioProjects.slice(0, limit)
+    : portfolioProjects;
+
   return (
     <section
       id="projetos"
@@ -14,7 +22,7 @@ export default function Projects() {
           <Reveal>
             <span className="section-kicker">Projetos</span>
             <h2 className="section-title mt-5">
-              Sites criados para transformar visitas em pedidos de orçamento.
+              Projetos em destaque
             </h2>
           </Reveal>
 
@@ -26,7 +34,7 @@ export default function Projects() {
               </p>
               <Link
                 href="/projetos"
-                className="inline-flex items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-accent text-[11px] font-semibold uppercase tracking-[0.18em] text-white transition duration-300 hover:border-[var(--accent-primary)] hover:text-[var(--accent-hover)]"
+                className="inline-flex min-h-11 items-center justify-center rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:border-[var(--accent-primary)] hover:text-[var(--accent-hover)]"
               >
                 Ver todos os projetos
               </Link>
@@ -35,7 +43,7 @@ export default function Projects() {
         </div>
 
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
-          {portfolioProjects.map((project, index) => {
+          {visibleProjects.map((project, index) => {
             const isFeatured = index === 0;
 
             return (

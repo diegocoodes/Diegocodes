@@ -26,6 +26,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  overflow-x: hidden;
   background:
     radial-gradient(circle at top left, rgba(123, 47, 190, 0.14), transparent 30%),
     radial-gradient(circle at 85% 18%, rgba(45, 27, 105, 0.18), transparent 28%),
@@ -181,14 +182,14 @@ summary:focus-visible {
   }
 
   .section-kicker {
-    @apply font-accent text-xs font-semibold uppercase tracking-[0.35em] text-[var(--text-secondary)];
+    @apply font-accent text-xs font-semibold uppercase text-[var(--text-secondary)];
   }
 
   .section-title {
     font-family: var(--font-bebas), sans-serif;
     font-size: clamp(40px, 6vw, 80px);
     line-height: 0.95;
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -196,7 +197,7 @@ summary:focus-visible {
     font-family: var(--font-bebas), sans-serif;
     font-size: clamp(64px, 10vw, 140px);
     line-height: 0.9;
-    letter-spacing: 0.02em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -259,7 +260,7 @@ summary:focus-visible {
   }
 
   .button-primary {
-    @apply inline-flex items-center justify-center gap-3 rounded-full border border-transparent bg-[var(--accent-primary)] px-8 py-3.5 font-accent text-sm font-semibold uppercase tracking-[0.18em] text-white transition duration-300;
+    @apply inline-flex items-center justify-center gap-3 rounded-full border border-transparent bg-[var(--accent-primary)] px-8 py-3.5 font-accent text-sm font-semibold text-white transition duration-300;
   }
 
   .button-primary:hover {
@@ -268,7 +269,7 @@ summary:focus-visible {
   }
 
   .button-secondary {
-    @apply inline-flex items-center justify-center gap-3 rounded-full border-[1.5px] border-[var(--accent-primary)] bg-transparent px-8 py-3.5 font-accent text-sm font-semibold uppercase tracking-[0.18em] text-[var(--accent-primary)] transition duration-300;
+    @apply inline-flex items-center justify-center gap-3 rounded-full border-[1.5px] border-[var(--accent-primary)] bg-transparent px-8 py-3.5 font-accent text-sm font-semibold text-[var(--accent-primary)] transition duration-300;
   }
 
   .button-secondary:hover {

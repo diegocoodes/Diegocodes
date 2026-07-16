@@ -1,0 +1,29 @@
+import type { MetadataRoute } from "next";
+import { getProjectPath, portfolioProjects } from "@/lib/projects";
+import { getSiteUrl } from "@/lib/site";
+
+export default function sitemap(): MetadataRoute.Sitemap {
+  const siteUrl = getSiteUrl();
+  const now = new Date();
+
+  return [
+    {
+      url: siteUrl,
+      lastModified: now,
+      changeFrequency: "weekly",
+      priority: 1,
+    },
+    {
+      url: `${siteUrl}/projetos`,
+      lastModified: now,
+      changeFrequency: "monthly",
+      priority: 0.8,
+    },
+    ...portfolioProjects.map((project) => ({
+      url: `${siteUrl}${getProjectPath(project)}`,
+      lastModified: now,
+      changeFrequency: "monthly" as const,
+      priority: 0.7,
+    })),
+  ];
+}

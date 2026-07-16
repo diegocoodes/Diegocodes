@@ -12,16 +12,16 @@ const siteUrl = getSiteUrl();
 const ogImageUrl = new URL("/opengraph-image", siteUrl).toString();
 
 export const metadata: Metadata = {
-  title: "Projetos de sites profissionais | Diego Codes",
+  title: "Projetos de Sites e Landing Pages | DiegoCodes",
   description:
-    "Conheça projetos de sites, landing pages e portais criados pela Diego Codes para apresentar negócios com mais confiança e gerar contatos pelo WhatsApp.",
+    "Conheça projetos de sites e landing pages criados pela DiegoCodes para negócios locais apresentarem serviços, transmitirem confiança e receberem contatos pelo WhatsApp.",
   alternates: {
     canonical: `${siteUrl}/projetos`,
   },
   openGraph: {
-    title: "Projetos de sites profissionais | Diego Codes",
+    title: "Projetos de Sites e Landing Pages | DiegoCodes",
     description:
-      "Veja projetos reais de sites profissionais com foco em apresentação, confiança e contato pelo WhatsApp.",
+      "Veja projetos reais de sites e landing pages com foco em apresentação, confiança e contato pelo WhatsApp.",
     url: `${siteUrl}/projetos`,
     type: "website",
     images: [
@@ -29,13 +29,13 @@ export const metadata: Metadata = {
         url: ogImageUrl,
         width: 1200,
         height: 630,
-        alt: "Projetos Diego Codes",
+        alt: "Projetos DiegoCodes",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Projetos de sites profissionais | Diego Codes",
+    title: "Projetos de Sites e Landing Pages | DiegoCodes",
     description:
       "Projetos reais de sites, landing pages e portais criados para negócios locais.",
     images: [ogImageUrl],
@@ -46,12 +46,17 @@ export default function ProjectsPage() {
   const whatsappUrl = createWhatsAppUrl(
     "Olá, Diego! Vi seus projetos e quero um site profissional para meu negócio."
   );
+  const jsonLd = getProjectsPageJsonLd();
 
   return (
     <main
       id="topo"
       className="relative overflow-x-clip bg-[var(--bg-primary)] pt-28"
     >
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <Navbar whatsappUrl={whatsappUrl} />
 
       <section className="section-space overflow-hidden">
@@ -105,4 +110,25 @@ export default function ProjectsPage() {
       <WhatsAppFloat whatsappUrl={whatsappUrl} />
     </main>
   );
+}
+
+function getProjectsPageJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Início",
+        item: siteUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Projetos",
+        item: `${siteUrl}/projetos`,
+      },
+    ],
+  };
 }

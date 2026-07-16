@@ -79,53 +79,6 @@ export const portfolioProjects = [
       "Conheça o projeto de landing page profissional desenvolvido para Matheus Personal, com foco em apresentação fitness, planos e contato pelo WhatsApp.",
   },
   {
-    slug: "personal-trainer-recife",
-    name: "Cleyton Vieira",
-    liveUrl: "https://cleytonvieira.vercel.app",
-    status: "Ao vivo",
-    niche: "Personal trainer",
-    service: "Landing page profissional",
-    goal: "Apresentar a oferta fitness e gerar contatos pelo WhatsApp",
-    shortDescription:
-      "Landing page fitness criada para explicar a oferta, transmitir autoridade e facilitar o contato direto.",
-    cardDescription:
-      "Oferta fitness clara, autoridade visual e CTA para WhatsApp.",
-    resultSummary:
-      "Mais clareza para apresentar o serviço, enviar o link para interessados e levar o visitante ao WhatsApp.",
-    challenge:
-      "O projeto precisava organizar a oferta de treino em uma página simples de entender, com visual forte e um caminho direto para quem quer pedir informações.",
-    solution:
-      "Foi criada uma landing page responsiva com apresentação do profissional, destaque para benefícios, prova visual, chamada clara para WhatsApp e estrutura preparada para divulgação em redes sociais.",
-    deliverables: [
-      "Design responsivo",
-      "Página inicial estratégica",
-      "Botões para WhatsApp",
-      "Apresentação da oferta",
-      "Seção de benefícios",
-      "Prova visual",
-      "SEO básico",
-      "Publicação do site",
-    ],
-    visuals: [
-      {
-        label: "Versão desktop",
-        description: "Prévia principal da landing page fitness.",
-        src: "/projects/cleyton-vieira-cover.png",
-        alt: "Prévia desktop do projeto Cleyton Vieira.",
-        format: "desktop",
-        className: "object-center",
-      },
-    ],
-    imageSrc: "/projects/cleyton-vieira-cover.png",
-    imageAlt:
-      "Prévia do projeto Cleyton Vieira com landing page fitness e personagem ilustrado.",
-    imageClassName: "object-center",
-    metaTitle:
-      "Site para personal trainer no Recife | Projeto Cleyton Vieira",
-    metaDescription:
-      "Conheça o projeto de landing page profissional desenvolvido para Cleyton Vieira, com foco em apresentação da oferta fitness e contato pelo WhatsApp.",
-  },
-  {
     slug: "holanda-personal",
     name: "Holanda Personal",
     liveUrl: "https://holandapersonal.vercel.app",

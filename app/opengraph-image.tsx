@@ -88,7 +88,7 @@ export default function OpenGraphImage() {
                 maxWidth: 940,
               }}
             >
-              Seu próximo cliente já está pesquisando no Google.
+              Criação de sites em Recife para negócios locais.
             </div>
             <div
               style={{
@@ -114,7 +114,7 @@ export default function OpenGraphImage() {
             }}
           >
             diegocodes_
-            <span style={{ color: "#FFFFFF" }}>20+ projetos entregues</span>
+            <span style={{ color: "#FFFFFF" }}>Projetos responsivos e integrados ao WhatsApp</span>
           </div>
         </div>
       </div>

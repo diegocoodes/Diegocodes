@@ -4,6 +4,11 @@ import { useEffect } from "react";
 
 type DataLayerWindow = Window & {
   dataLayer?: Array<Record<string, string>>;
+  fbq?: (
+    action: "trackCustom",
+    eventName: string,
+    parameters?: Record<string, string>
+  ) => void;
 };
 
 export default function AnalyticsBridge() {
@@ -27,6 +32,9 @@ export default function AnalyticsBridge() {
 
       dataLayerWindow.dataLayer?.push({
         event: eventName,
+        label: eventLabel,
+      });
+      dataLayerWindow.fbq?.("trackCustom", eventName, {
         label: eventLabel,
       });
     }

@@ -3,49 +3,7 @@
 import { useId, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
 import ScrollLink from "@/components/ui/ScrollLink";
-
-const faqs = [
-  {
-    question: "Preciso pagar mensalidade?",
-    answer:
-      "Não há mensalidade obrigatória pelo site. Custos de domínio, hospedagem ou manutenção são combinados de forma clara antes do projeto começar.",
-  },
-  {
-    question: "O site é preparado para Google?",
-    answer:
-      "Sim. A entrega inclui estrutura técnica, performance e SEO básico para indexação. O posicionamento depende de concorrência, conteúdo e tempo de busca.",
-  },
-  {
-    question: "Você faz manutenção?",
-    answer:
-      "Sim. Posso cuidar de ajustes, melhorias, novas seções e atualizações depois da entrega, conforme a necessidade do seu negócio.",
-  },
-  {
-    question: "Posso parcelar?",
-    answer:
-      "Sim. O parcelamento pode ser combinado na proposta, junto com escopo, prazo e forma de pagamento.",
-  },
-  {
-    question: "Preciso já ter logo e identidade visual?",
-    answer:
-      "Não precisa. Se você ainda não tiver uma identidade pronta, o site pode ser criado com uma direção visual premium e coerente para o seu nicho.",
-  },
-  {
-    question: "O site funciona no celular?",
-    answer:
-      "Sim. O layout é responsivo e pensado para funcionar bem no celular, onde a maioria dos clientes pesquisa e chama no WhatsApp.",
-  },
-  {
-    question: "Você conecta WhatsApp e Instagram?",
-    answer:
-      "Sim. Os botões podem abrir conversa no WhatsApp com mensagem pronta, além de conectar Instagram e outros canais importantes.",
-  },
-  {
-    question: "Em quanto tempo posso começar a receber contatos?",
-    answer:
-      "Assim que o site estiver no ar, ele já pode receber contatos pelos botões e formulários. O crescimento pelo Google depende de indexação, busca local e divulgação.",
-  },
-] as const;
+import { faqs } from "@/lib/home-content";
 
 export default function FAQ() {
   const [openQuestion, setOpenQuestion] = useState<string | null>(
@@ -55,7 +13,7 @@ export default function FAQ() {
 
   return (
     <section
-      id="faq"
+      id="perguntas"
       className="section-space scroll-mt-28"
       aria-labelledby={headingId}
     >
@@ -63,7 +21,7 @@ export default function FAQ() {
         <Reveal className="max-w-4xl">
           <span className="section-kicker">FAQ</span>
           <h2 id={headingId} className="section-title mt-5">
-            Perguntas antes de fechar.
+            Perguntas frequentes
           </h2>
         </Reveal>
 
@@ -113,7 +71,7 @@ function FAQItem({
   const panelId = `faq-panel-${index}`;
 
   return (
-    <div className="rounded-[24px] border border-white/10 bg-[rgba(17,17,17,0.9)] p-6">
+    <div className="rounded-2xl border border-white/10 bg-[rgba(17,17,17,0.9)] p-6">
       <h3>
         <button
           id={buttonId}
