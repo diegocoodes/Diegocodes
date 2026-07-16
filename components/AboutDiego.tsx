@@ -1,4 +1,11 @@
-import { AtSign, MapPin, MessageCircle, MonitorSmartphone } from "lucide-react";
+import {
+  AtSign,
+  CheckCircle2,
+  Globe2,
+  MapPin,
+  MessageCircle,
+  MonitorSmartphone,
+} from "lucide-react";
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import { contactConfig } from "@/lib/contact";
@@ -7,100 +14,149 @@ type AboutDiegoProps = {
   whatsappUrl: string;
 };
 
+const highlights = [
+  {
+    title: "Desenvolvimento personalizado",
+    icon: <CheckCircle2 aria-hidden="true" className="h-4 w-4" />,
+  },
+  {
+    title: "Atendimento direto comigo",
+    icon: <MessageCircle aria-hidden="true" className="h-4 w-4" />,
+  },
+  {
+    title: "Projetos para todo o Brasil",
+    icon: <Globe2 aria-hidden="true" className="h-4 w-4" />,
+  },
+] as const;
+
 export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
   return (
     <section
       id="sobre"
-      className="section-space scroll-mt-28 bg-[rgba(17,17,17,0.2)]"
+      className="section-space scroll-mt-28 overflow-hidden bg-[#050505]"
     >
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(circle_at_72%_28%,rgba(123,47,190,0.16),transparent_38%)]"
+      />
       <div className="container-shell">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(360px,0.58fr)] lg:items-center">
+        <div className="relative z-10 grid gap-10 lg:grid-cols-[minmax(0,0.92fr)_minmax(380px,0.58fr)] lg:items-center">
           <Reveal>
-            <span className="section-kicker">Sobre</span>
-            <h2 className="section-title mt-5">
-              Quem está por trás da DiegoCodes?
+            <span className="section-kicker">Sobre mim</span>
+            <h2 className="mt-5 max-w-3xl font-display text-[clamp(48px,8vw,92px)] uppercase leading-[0.92] text-white">
+              Prazer, eu sou
+              <span className="mt-1 block text-[var(--accent-hover)]">
+                Diego Ewerton.
+              </span>
             </h2>
-            <div className="mt-6 max-w-3xl space-y-5 text-base leading-8 text-[var(--text-secondary)] md:text-lg">
+            <div className="mt-6 max-w-2xl space-y-5 text-base leading-8 text-white/68 md:text-lg">
               <p>
-                Sou Diego Ewerton, desenvolvedor web de Recife. Crio sites e
-                landing pages para profissionais e negócios locais que precisam
-                apresentar melhor seus serviços, transmitir confiança e facilitar
-                o contato com novos clientes.
+                Sou Diego Ewerton, desenvolvedor web de Recife e criador da
+                DiegoCodes. Ajudo profissionais e negócios locais a
+                transformarem suas ideias em sites claros, modernos e
+                preparados para gerar contatos.
               </p>
               <p>
-                Acompanho cada etapa do projeto, desde a organização inicial das
-                informações até a publicação do site.
+                Cuido de todo o processo, desde a organização das informações e
+                do design até o desenvolvimento, os ajustes e a publicação do
+                projeto.
               </p>
             </div>
 
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {highlights.map((item) => (
+                <div
+                  key={item.title}
+                  className="flex min-h-16 items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.035] px-4 py-3 text-white/76"
+                >
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--success)]/20 bg-[var(--success)]/10 text-[var(--success)]">
+                    {item.icon}
+                  </span>
+                  <span className="font-accent text-sm font-semibold leading-5">
+                    {item.title}
+                  </span>
+                </div>
+              ))}
+            </div>
+
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a
-                href={contactConfig.instagramUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="button-secondary"
-              >
-                Instagram
-                <AtSign aria-hidden="true" className="h-4 w-4" />
-              </a>
               <a
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
                 data-track="whatsapp_about_click"
                 data-track-label="about"
-                className="button-primary"
+                className="button-primary min-h-12 w-full sm:w-auto"
               >
-                WhatsApp
+                Conversar sobre meu projeto
                 <MessageCircle aria-hidden="true" className="h-4 w-4" />
+              </a>
+              <a
+                href={contactConfig.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="button-secondary min-h-12 w-full sm:w-auto"
+              >
+                Conhecer meu Instagram
+                <AtSign aria-hidden="true" className="h-4 w-4" />
               </a>
             </div>
           </Reveal>
 
           <Reveal delay={0.08}>
-            <aside className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[rgba(17,17,17,0.9)] p-6">
+            <aside className="relative overflow-hidden rounded-[28px] border border-white/10 bg-[rgba(17,17,17,0.88)] p-3 shadow-[0_24px_80px_rgba(0,0,0,0.34)]">
               <div
                 aria-hidden="true"
-                className="absolute inset-x-0 top-0 h-32 bg-[radial-gradient(circle_at_center,rgba(123,47,190,0.28),transparent_66%)]"
+                className="absolute -inset-8 bg-[radial-gradient(circle_at_center,rgba(123,47,190,0.18),transparent_58%)] blur-2xl"
               />
-              <div className="relative flex aspect-[4/5] flex-col justify-end overflow-hidden rounded-[22px] border border-white/10 bg-[#070707] p-6">
-                <Image
-                  src="/perfil/diego.png"
-                  alt="Foto profissional de Diego Ewerton."
-                  fill
-                  sizes="(min-width: 1024px) 360px, 100vw"
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,7,7,0.04)_0%,rgba(7,7,7,0.18)_44%,rgba(7,7,7,0.88)_100%)]" />
-                <div className="relative flex items-center justify-between gap-4">
-                  <span className="font-accent text-sm font-semibold text-white/58">
-                    Diego Ewerton
+              <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-[#070707]">
+                <div className="relative min-h-[360px] overflow-hidden md:min-h-[440px] lg:min-h-[500px]">
+                  <div
+                    aria-hidden="true"
+                    className="absolute bottom-8 left-1/2 h-52 w-52 -translate-x-1/2 rounded-full bg-[rgba(123,47,190,0.22)] blur-3xl"
+                  />
+                  <Image
+                    src="/perfil/diego.png"
+                    alt="Foto profissional de Diego Ewerton."
+                    fill
+                    sizes="(min-width: 1024px) 380px, 100vw"
+                    className="object-cover object-center"
+                    priority={false}
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(180deg,transparent_0%,rgba(7,7,7,0.84)_100%)]" />
+                  <span className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/58 px-3 py-2 font-accent text-xs font-semibold text-white/78 backdrop-blur-md">
+                    <span className="h-2 w-2 rounded-full bg-[var(--success)] shadow-[0_0_14px_rgba(61,220,132,0.82)]" />
+                    Disponível para novos projetos
                   </span>
-                  <span className="h-2.5 w-2.5 rounded-full bg-[var(--success)] shadow-[0_0_14px_rgba(61,220,132,0.7)]" />
                 </div>
 
-                <div className="relative">
-                  <p className="mt-4 max-w-xs text-base leading-7 text-white/68">
-                    Desenvolvimento web em Recife com atendimento próximo,
-                    estratégia clara e publicação acompanhada.
+                <div className="p-5 md:p-6">
+                  <h3 className="font-accent text-2xl font-semibold leading-tight text-white">
+                    Diego Ewerton
+                  </h3>
+                  <p className="mt-2 text-base leading-7 text-white/62">
+                    Desenvolvedor web e fundador da DiegoCodes
                   </p>
-                </div>
 
-                <div className="relative mt-5 grid gap-3">
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <MapPin aria-hidden="true" className="h-5 w-5 text-[var(--success)]" />
-                    <span className="text-sm text-white/72">
-                      {contactConfig.location}
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
-                    <MonitorSmartphone
-                      aria-hidden="true"
-                      className="h-5 w-5 text-[var(--success)]"
-                    />
-                    <span className="text-sm text-white/72">
-                      Atendimento online
-                    </span>
+                  <div className="mt-5 grid gap-3">
+                    <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                      <MapPin
+                        aria-hidden="true"
+                        className="h-5 w-5 text-[var(--success)]"
+                      />
+                      <span className="text-sm text-white/72">
+                        {contactConfig.location}
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.04] p-4">
+                      <MonitorSmartphone
+                        aria-hidden="true"
+                        className="h-5 w-5 text-[var(--success)]"
+                      />
+                      <span className="text-sm text-white/72">
+                        Atendimento online
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
