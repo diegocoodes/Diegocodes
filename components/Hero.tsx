@@ -1,4 +1,4 @@
-import { ArrowDownRight, CheckCircle2, MessageCircle } from "lucide-react";
+import { ArrowDownRight, MessageCircle } from "lucide-react";
 import Image from "next/image";
 import Reveal from "@/components/ui/Reveal";
 import ScrollLink from "@/components/ui/ScrollLink";
@@ -7,26 +7,23 @@ type HeroProps = {
   whatsappUrl: string;
 };
 
-const trustItems = [
-  "Atendimento direto com o desenvolvedor",
-  "Recife e atendimento online",
-  "Projetos personalizados",
-  "Proposta em até 24 horas",
-] as const;
-
 export default function Hero({ whatsappUrl }: HeroProps) {
   return (
     <section
       id="topo"
-      className="relative isolate overflow-hidden bg-[#050505] pb-14 pt-[104px] md:pb-16 md:pt-32 lg:min-h-screen lg:pt-32"
+      className="relative isolate overflow-hidden border-b border-white/[0.08] bg-[#050505] pb-0 pt-[92px] md:pt-32 lg:min-h-screen lg:pt-32"
     >
       <HeroBackground />
 
       <div className="container-shell relative z-10">
-        <div className="grid gap-9 lg:min-h-[calc(100svh-8rem)] lg:grid-cols-[minmax(0,0.94fr)_minmax(260px,0.78fr)_minmax(250px,0.58fr)] lg:items-center lg:gap-6 xl:gap-10">
+        <div className="grid lg:min-h-[calc(100svh-8rem)] lg:grid-cols-[minmax(0,0.92fr)_minmax(380px,0.95fr)] lg:items-end lg:gap-4 xl:gap-8">
           <HeroContent whatsappUrl={whatsappUrl} />
           <HeroPortrait />
-          <HeroTrustCard whatsappUrl={whatsappUrl} />
+          <HeroActions
+            whatsappUrl={whatsappUrl}
+            className="order-2 mt-7 md:hidden"
+            mobile
+          />
         </div>
       </div>
     </section>
@@ -38,15 +35,11 @@ function HeroBackground() {
     <>
       <div
         aria-hidden="true"
-        className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_22%_22%,rgba(123,47,190,0.24),transparent_32%),radial-gradient(circle_at_76%_28%,rgba(61,220,132,0.08),transparent_22%),linear-gradient(180deg,#0b0b0f_0%,#050505_58%,#050505_100%)]"
+        className="absolute inset-0 z-0 bg-[linear-gradient(180deg,#090909_0%,#050505_64%,#050505_100%)]"
       />
       <div
         aria-hidden="true"
-        className="ghost-grid absolute inset-0 z-0 opacity-[0.035]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-[58%] z-0 w-[160vw] -translate-x-1/2 -translate-y-1/2 select-none text-center font-display text-[clamp(72px,22vw,250px)] uppercase leading-none text-white/70 md:top-[51%] lg:w-[112vw] lg:text-[clamp(130px,18vw,270px)]"
+        className="pointer-events-none absolute left-1/2 top-[76%] z-0 w-[150vw] -translate-x-1/2 -translate-y-1/2 select-none text-center font-display text-[72px] uppercase leading-none text-white opacity-[0.035] sm:text-[108px] md:top-[36%] md:text-[158px] md:opacity-[0.045] lg:top-[31%] lg:w-[118vw] lg:text-[204px] lg:opacity-[0.055] xl:text-[242px]"
       >
         DIEGOCODES
       </div>
@@ -56,142 +49,108 @@ function HeroBackground() {
 
 function HeroContent({ whatsappUrl }: HeroProps) {
   return (
-    <div className="relative z-30 order-1 max-w-[580px]">
+    <div className="relative z-30 order-1 max-w-[610px] md:pb-10 lg:pb-24">
       <Reveal>
-        <div className="inline-flex items-center gap-3 font-accent text-xs font-semibold uppercase text-[var(--success)] md:text-sm">
-          <span className="h-2 w-2 rounded-full bg-[var(--accent-hover)] shadow-[0_0_18px_rgba(155,77,202,0.72)]" />
+        <div className="inline-flex items-center gap-2.5 font-accent text-[11px] font-semibold uppercase tracking-[0.03em] text-[var(--success)] md:text-sm">
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-hover)]" />
           Desenvolvimento web em Recife
         </div>
       </Reveal>
 
-      <Reveal delay={0.05}>
-        <p className="mt-5 inline-flex rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 font-accent text-xs font-semibold text-white/66">
-          Sites estratégicos, responsivos e personalizados.
-        </p>
-      </Reveal>
-
       <Reveal delay={0.09}>
-        <h1 className="mt-5 font-accent text-[clamp(40px,10vw,62px)] font-bold leading-[0.98] text-[#f5f5f5] md:text-[clamp(52px,6vw,86px)]">
-          Seu negócio merece mais do que apenas um perfil no Instagram.
+        <h1 className="mt-4 max-w-[680px] font-display text-[52px] uppercase leading-[0.86] text-[#f5f5f5] min-[360px]:text-[58px] min-[390px]:text-[62px] sm:text-[76px] md:mt-5 md:text-[96px] lg:text-[112px] xl:text-[128px] min-[1440px]:text-[136px]">
+          <span className="block">VÁ ALÉM DO</span>
+          <span className="hero-highlight mt-2 inline-block rounded-[10px] bg-[var(--accent-primary)] px-3.5 py-1.5 text-white md:rounded-xl md:px-5 md:py-2">
+            INSTAGRAM.
+          </span>
         </h1>
       </Reveal>
 
       <Reveal delay={0.13}>
-        <p className="mt-6 max-w-[540px] text-base leading-8 text-[#a5a5ad] md:text-lg">
-          Crio sites e landing pages para profissionais e negócios locais
-          apresentarem seus serviços, transmitirem mais confiança e receberem
-          contatos pelo WhatsApp.
+        <p className="mt-5 max-w-[540px] text-[15px] leading-7 text-[#c8c8ce] md:mt-6 md:text-lg md:leading-8">
+          Seu negócio não precisa depender só do Instagram. Eu crio{" "}
+          <strong className="font-semibold text-white">sites e landing pages</strong>{" "}
+          que apresentam seu trabalho, mostram seus serviços e levam o cliente
+          direto para o{" "}
+          <strong className="font-semibold text-[var(--success)]">WhatsApp</strong>.
         </p>
       </Reveal>
 
-      <Reveal delay={0.17}>
-        <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Abrir conversa no WhatsApp para solicitar orçamento"
-            data-track="whatsapp_hero_click"
-            data-track-label="hero_primary"
-            className="button-primary min-h-12 w-full shadow-[0_18px_40px_rgba(123,47,190,0.3)] hover:-translate-y-0.5 sm:w-auto"
-          >
-            Solicitar orçamento
-            <MessageCircle aria-hidden="true" className="h-4 w-4" />
-          </a>
-
-          <ScrollLink
-            href="#projetos"
-            ariaLabel="Ir para a seção de projetos"
-            className="button-secondary min-h-12 w-full sm:w-auto"
-          >
-            Ver projetos
-            <ArrowDownRight aria-hidden="true" className="h-4 w-4" />
-          </ScrollLink>
-        </div>
-      </Reveal>
-
-      <Reveal delay={0.21}>
-        <p className="mt-5 max-w-[540px] text-sm leading-6 text-white/56">
-          Proposta em até 24 horas • Atendimento direto comigo
-        </p>
-      </Reveal>
+      <HeroActions whatsappUrl={whatsappUrl} className="hidden md:block" />
     </div>
+  );
+}
+
+function HeroActions({
+  whatsappUrl,
+  className,
+  mobile = false,
+}: HeroProps & {
+  className?: string;
+  mobile?: boolean;
+}) {
+  return (
+    <Reveal delay={0.17} className={className}>
+      <div
+        className={`flex flex-col gap-3 ${
+          mobile ? "" : "md:mt-8 md:flex-row"
+        }`}
+      >
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Abrir conversa no WhatsApp para solicitar orçamento"
+          data-track="whatsapp_hero_click"
+          data-track-label={mobile ? "hero_mobile_primary" : "hero_primary"}
+          className={`button-primary min-h-14 w-full ${
+            mobile ? "" : "md:w-auto"
+          }`}
+        >
+          Solicitar orçamento
+          <MessageCircle aria-hidden="true" className="h-4 w-4" />
+        </a>
+
+        <ScrollLink
+          href="#projetos"
+          ariaLabel="Ir para a seção de projetos"
+          className={`button-secondary min-h-14 w-full border-[var(--accent-primary)] bg-transparent text-white hover:border-[var(--accent-hover)] hover:bg-[rgba(123,47,190,0.08)] ${
+            mobile ? "" : "md:w-auto"
+          }`}
+        >
+          Ver projetos
+          <ArrowDownRight aria-hidden="true" className="h-4 w-4" />
+        </ScrollLink>
+      </div>
+    </Reveal>
   );
 }
 
 function HeroPortrait() {
   return (
-    <Reveal delay={0.11} className="order-2">
-      <div className="relative z-20 mx-auto h-[340px] w-full max-w-[360px] md:h-[430px] md:max-w-[430px] lg:h-[min(68vh,660px)] lg:max-w-[480px]">
+    <Reveal delay={0.11} fromY={10} className="order-3 lg:order-2">
+      <div className="relative z-20 mx-auto mt-7 h-[280px] w-full max-w-[360px] min-[390px]:h-[300px] md:-mt-6 md:h-[520px] md:max-w-[540px] lg:mt-0 lg:h-[min(82vh,780px)] lg:max-w-[700px]">
         <div
           aria-hidden="true"
-          className="absolute left-1/2 top-[52%] h-[74%] w-[82%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(123,47,190,0.24)] blur-[56px]"
+          className="absolute left-1/2 top-[57%] h-[58%] w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(123,47,190,0.08)] blur-[52px] md:top-[54%] md:h-[64%] md:bg-[rgba(123,47,190,0.1)] md:blur-[68px]"
         />
         <div
           aria-hidden="true"
-          className="absolute bottom-[18%] right-[16%] h-16 w-16 rounded-full bg-[rgba(61,220,132,0.16)] blur-2xl"
-        />
-        <div
-          aria-hidden="true"
-          className="absolute inset-x-8 bottom-0 h-24 rounded-full bg-black/70 blur-2xl"
+          className="absolute inset-x-6 bottom-0 h-28 rounded-full bg-black/76 blur-2xl"
         />
         <Image
           src="/perfil/diego.png"
           alt="Diego Ewerton, desenvolvedor web e criador da DiegoCodes"
           fill
           priority
-          sizes="(min-width: 1280px) 430px, (min-width: 1024px) 34vw, 86vw"
-          className="object-contain object-bottom drop-shadow-[0_28px_60px_rgba(0,0,0,0.38)]"
+          sizes="(min-width: 1280px) 620px, (min-width: 1024px) 48vw, (min-width: 768px) 560px, 96vw"
+          className="translate-y-[3%] scale-[1.02] object-contain object-bottom md:translate-y-[4%] md:scale-[1.1] lg:translate-y-[4%] lg:scale-[1.12]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 bottom-0 h-24 bg-[linear-gradient(180deg,transparent_0%,#050505_86%)]"
+          className="absolute inset-x-0 bottom-0 h-28 bg-[linear-gradient(180deg,transparent_0%,rgba(5,5,5,0.2)_34%,#050505_88%)] md:h-36"
         />
       </div>
-    </Reveal>
-  );
-}
-
-function HeroTrustCard({ whatsappUrl }: HeroProps) {
-  return (
-    <Reveal delay={0.16} className="order-3">
-      <aside className="relative z-30 rounded-[22px] border border-white/10 bg-black/45 p-5 shadow-[0_24px_70px_rgba(0,0,0,0.26)] backdrop-blur-xl transition duration-300 hover:border-[var(--accent-hover)]/35 hover:bg-black/55 lg:ml-auto lg:max-w-[300px]">
-        <div
-          aria-hidden="true"
-          className="absolute -inset-5 -z-10 rounded-[28px] bg-[rgba(123,47,190,0.14)] blur-2xl"
-        />
-        <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-3 py-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-[var(--success)] shadow-[0_0_14px_rgba(61,220,132,0.85)] motion-safe:animate-pulse-soft" />
-          <p className="font-accent text-xs font-semibold text-white/78">
-            Disponível para novos projetos
-          </p>
-        </div>
-
-        <ul className="mt-5 grid gap-3">
-          {trustItems.map((item) => (
-            <li key={item} className="flex items-start gap-3 text-sm leading-6 text-white/68">
-              <CheckCircle2
-                aria-hidden="true"
-                className="mt-1 h-4 w-4 shrink-0 text-[var(--success)]"
-              />
-              <span>{item}</span>
-            </li>
-          ))}
-        </ul>
-
-        <a
-          href={whatsappUrl}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Conversar agora com Diego pelo WhatsApp"
-          data-track="whatsapp_hero_click"
-          data-track-label="hero_trust_card"
-          className="mt-6 inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-[var(--success)]/25 bg-[var(--success)]/10 px-5 py-3 font-accent text-xs font-semibold text-[var(--success)] transition duration-300 hover:border-[var(--success)]/55 hover:bg-[var(--success)]/15"
-        >
-          Conversar agora
-          <MessageCircle aria-hidden="true" className="h-4 w-4" />
-        </a>
-      </aside>
     </Reveal>
   );
 }

@@ -30,49 +30,24 @@ export const audienceSegments = [
 
 export const deliverables = [
   {
-    title: "Layout personalizado",
+    title: "Layout e conteúdo",
     description:
-      "Visual alinhado à identidade, ao conteúdo e ao objetivo comercial do cliente.",
+      "Visual alinhado à identidade do negócio, com textos e seções organizados para explicar sua oferta.",
   },
   {
-    title: "Site responsivo",
+    title: "Mobile e desempenho",
     description:
-      "Páginas ajustadas para navegação confortável em celular, tablet e desktop.",
+      "Página responsiva, leve e ajustada para navegação confortável em celular, tablet e desktop.",
   },
   {
-    title: "Integração com WhatsApp",
+    title: "Contato direto",
     description:
-      "Botões com mensagem pronta para facilitar o primeiro contato com interessados.",
+      "Botões para WhatsApp e, quando fizer sentido, formulário simples para organizar pedidos de orçamento.",
   },
   {
-    title: "Formulários de contato",
+    title: "SEO e publicação",
     description:
-      "Quando fizer sentido para o projeto, o site pode receber formulários simples.",
-  },
-  {
-    title: "Estrutura básica para SEO",
-    description:
-      "Estrutura técnica básica para facilitar a indexação no Google.",
-  },
-  {
-    title: "Domínio e publicação",
-    description:
-      "Orientação para configuração de domínio, hospedagem e publicação do site.",
-  },
-  {
-    title: "Otimização de desempenho",
-    description:
-      "Uso de recursos do Next.js para imagens, carregamento e experiência inicial.",
-  },
-  {
-    title: "Ajustes antes da entrega",
-    description:
-      "Revisões previstas no escopo para refinar conteúdo, visual e funcionamento.",
-  },
-  {
-    title: "Orientação após publicar",
-    description:
-      "Entrega com instruções para divulgar, acompanhar e solicitar próximos ajustes.",
+      "Estrutura básica para indexação, configuração de domínio e orientação para colocar o site no ar.",
   },
 ] as const;
 
@@ -116,11 +91,6 @@ export const differentials = [
       "Cada projeto é adaptado ao posicionamento, conteúdo e objetivo do cliente.",
   },
   {
-    title: "Comunicação simples",
-    description:
-      "Escopo, etapas e próximos passos são explicados de forma clara durante o processo.",
-  },
-  {
     title: "Acompanhamento da criação",
     description:
       "Você acompanha o andamento e participa das revisões previstas antes da publicação.",
@@ -129,11 +99,6 @@ export const differentials = [
     title: "Foco em clareza e conversão",
     description:
       "A estrutura ajuda o visitante a entender a oferta e saber como entrar em contato.",
-  },
-  {
-    title: "Suporte após publicar",
-    description:
-      "Depois da entrega, você recebe orientação e pode combinar melhorias ou manutenção.",
   },
 ] as const;
 
@@ -154,7 +119,7 @@ export const proofCards = [
     title: "NeuroPS",
     segment: "Agenda e portfólio",
     projectUrl: "https://neurops-tattooo.vercel.app",
-    imageSrc: "/testimonials/contact-1.jpg",
+    imageSrc: "/projects/neurops-cover.png",
     imageAlt: "Imagem associada ao projeto NeuroPS.",
     description:
       "Portfólio visual com agenda, prova de trabalho e contato direto para novos clientes.",
@@ -163,7 +128,7 @@ export const proofCards = [
     title: "Holanda Personal",
     segment: "Consultoria fitness",
     projectUrl: "https://holandapersonal.vercel.app",
-    imageSrc: "/testimonials/contact-2.jpg",
+    imageSrc: "/projects/holanda-personal-cover.png",
     imageAlt: "Imagem associada ao projeto Holanda Personal.",
     description:
       "Página premium para apresentar consultoria, método e acompanhamento fitness.",
@@ -172,7 +137,7 @@ export const proofCards = [
     title: "RastroMoville",
     segment: "Rastreamento veicular",
     projectUrl: "https://rastromoville.vercel.app",
-    imageSrc: "/testimonials/contact-4.jpg",
+    imageSrc: "/projects/rastromoville-cover.png",
     imageAlt: "Imagem associada ao projeto RastroMoville.",
     description:
       "Site institucional para explicar serviços, gerar confiança e facilitar o contato.",

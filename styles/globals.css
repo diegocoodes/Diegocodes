@@ -178,7 +178,7 @@ summary:focus-visible {
   }
 
   .section-space {
-    @apply relative py-20 md:py-24 lg:py-28;
+    @apply relative py-16 md:py-20 lg:py-24;
   }
 
   .section-kicker {
@@ -212,42 +212,7 @@ summary:focus-visible {
   }
 
   .hero-highlight {
-    position: relative;
-    overflow: hidden;
-    isolation: isolate;
-    box-shadow:
-      0 0 0 1px rgba(255, 255, 255, 0.08),
-      0 12px 30px rgba(123, 47, 190, 0.2);
-    animation: hero-highlight-breathe 4.8s ease-in-out infinite;
-  }
-
-  .hero-highlight::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    background: linear-gradient(
-      120deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.06) 28%,
-      rgba(255, 255, 255, 0.18) 50%,
-      rgba(255, 255, 255, 0.06) 72%,
-      transparent 100%
-    );
-    transform: translateX(-135%);
-    animation: hero-highlight-sheen 5.8s ease-in-out infinite;
-  }
-
-  .hero-highlight::after {
-    content: "";
-    position: absolute;
-    inset: auto 12% -32% 12%;
-    z-index: -1;
-    height: 60%;
-    border-radius: 9999px;
-    background: rgba(155, 77, 202, 0.24);
-    filter: blur(18px);
-    opacity: 0.62;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
   }
 
   .surface-card {
@@ -283,6 +248,35 @@ summary:focus-visible {
     background-position: center;
     background-size: 26px 26px;
   }
+
+  .reveal-motion {
+    opacity: 0;
+    transform: translate3d(var(--reveal-x, 0), var(--reveal-y, 20px), 0)
+      scale(var(--reveal-scale, 1));
+    transition:
+      opacity 560ms cubic-bezier(0.22, 1, 0.36, 1),
+      transform 560ms cubic-bezier(0.22, 1, 0.36, 1);
+    transition-delay: var(--reveal-delay, 0s);
+    will-change: opacity, transform;
+  }
+
+  .reveal-motion[data-visible="true"] {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  .spotlight-glow {
+    left: var(--spotlight-x, 50%);
+    top: var(--spotlight-y, 50%);
+    transition:
+      left 180ms ease-out,
+      top 180ms ease-out,
+      opacity 220ms ease-out;
+  }
+
+  .spotlight-panel[data-spotlight="true"] .spotlight-glow {
+    opacity: 1;
+  }
 }
 
 .hero-float {
@@ -295,6 +289,10 @@ summary:focus-visible {
 
 .hero-float-slow {
   animation: float 8.8s ease-in-out infinite 1.5s;
+}
+
+.hero-orbit {
+  animation: hero-orbit 7.5s ease-in-out infinite;
 }
 
 .spin-badge-text {
@@ -330,27 +328,14 @@ summary:focus-visible {
   }
 }
 
-@keyframes hero-highlight-breathe {
+@keyframes hero-orbit {
   0%,
   100% {
-    transform: translateY(0) scale(1);
-    filter: saturate(1);
+    transform: translate3d(0, 0, 0) scale(1);
   }
 
   50% {
-    transform: translateY(-2px) scale(1.02);
-    filter: saturate(1.12);
-  }
-}
-
-@keyframes hero-highlight-sheen {
-  0% {
-    transform: translateX(-135%);
-  }
-
-  55%,
-  100% {
-    transform: translateX(145%);
+    transform: translate3d(-10px, -14px, 0) scale(1.08);
   }
 }
 
@@ -362,12 +347,14 @@ summary:focus-visible {
   .hero-float,
   .hero-float-delay,
   .hero-float-slow,
-  .hero-highlight {
+  .hero-orbit {
     animation: none;
   }
 
-  .hero-highlight::before {
-    animation: none;
+  .reveal-motion {
+    opacity: 1;
     transform: none;
+    transition: none;
   }
+
 }

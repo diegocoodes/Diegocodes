@@ -11,9 +11,9 @@ export default function WhatsAppFloat({ whatsappUrl }: WhatsAppFloatProps) {
       aria-label="Falar no WhatsApp com Diego"
       data-track="whatsapp_float_click"
       data-track-label="floating_whatsapp"
-      className="group fixed bottom-5 right-5 z-50 inline-flex items-center gap-3 rounded-full border border-[rgba(255,255,255,0.14)] bg-[linear-gradient(135deg,var(--accent-primary),var(--accent-hover))] px-4 py-3 text-white shadow-[0_18px_48px_rgba(123,47,190,0.35)] transition duration-300 hover:scale-[1.03] hover:brightness-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:bottom-7 md:right-7"
+      className="group fixed bottom-4 right-4 z-50 inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/[0.12] bg-[var(--accent-primary)] text-white transition duration-300 hover:bg-[var(--accent-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:bottom-7 md:right-7 md:h-auto md:w-auto md:gap-3 md:px-4 md:py-3"
     >
-      <span className="flex h-11 w-11 items-center justify-center rounded-full bg-black/18 backdrop-blur">
+      <span className="flex h-10 w-10 items-center justify-center rounded-full md:bg-black/15">
         <WhatsAppIcon />
       </span>
       <span className="hidden pr-1 text-left md:block">

@@ -18,6 +18,8 @@ export type PortfolioProject = {
   year?: string;
   shortDescription: string;
   cardDescription: string;
+  cardProblem: string;
+  cardSolution: string;
   resultSummary: string;
   challenge: string;
   solution: string;
@@ -44,6 +46,10 @@ export const portfolioProjects = [
       "Landing page desenvolvida para apresentar o trabalho do personal trainer, organizar planos e facilitar o contato com interessados.",
     cardDescription:
       "Página fitness com visual forte, planos claros e CTA para WhatsApp.",
+    cardProblem:
+      "Apresentar o acompanhamento fitness e organizar os planos em uma página profissional.",
+    cardSolution:
+      "Landing page com oferta clara, prova visual e caminho direto para contato.",
     resultSummary:
       "O projeto deixou a oferta mais organizada, com uma apresentação profissional e um caminho direto para novos contatos.",
     challenge:
@@ -90,6 +96,10 @@ export const portfolioProjects = [
       "Página premium para apresentar consultoria, método de acompanhamento e caminho direto para conversa.",
     cardDescription:
       "Página premium para vender consultoria e acompanhamento.",
+    cardProblem:
+      "Explicar a consultoria, o método e os benefícios antes do primeiro contato.",
+    cardSolution:
+      "Página responsiva com posicionamento premium e jornada objetiva de conversão.",
     resultSummary:
       "A marca ganhou uma apresentação mais forte, com informações organizadas e foco em contato direto.",
     challenge:
@@ -119,7 +129,7 @@ export const portfolioProjects = [
     imageSrc: "/projects/holanda-personal-cover.png",
     imageAlt:
       "Prévia do projeto Holanda Personal com identidade preta e laranja.",
-    imageClassName: "object-center",
+    imageClassName: "object-contain bg-[#bdbdbd]",
     metaTitle: "Landing page para coach fitness | Projeto Holanda Personal",
     metaDescription:
       "Conheça o projeto de landing page premium desenvolvido para Holanda Personal, com foco em consultoria fitness, confiança e contato pelo WhatsApp.",
@@ -137,6 +147,10 @@ export const portfolioProjects = [
       "Site institucional desenvolvido para apresentar serviços, transmitir confiança e facilitar contato pelo WhatsApp.",
     cardDescription:
       "Apresentação digital para tecnologia, rotas e desempenho.",
+    cardProblem:
+      "Organizar os serviços da empresa e transmitir mais confiança aos interessados.",
+    cardSolution:
+      "Site institucional com benefícios claros, identidade da marca e contato facilitado.",
     resultSummary:
       "Com o novo site, o cliente passou a ter uma página própria para apresentar seus serviços, enviar para interessados e usar como link oficial no Instagram, Google e WhatsApp.",
     challenge:
@@ -187,6 +201,10 @@ export const portfolioProjects = [
       "Portfólio visual criado para organizar trabalhos, fortalecer a percepção profissional e facilitar o agendamento.",
     cardDescription:
       "Portfólio visual com agendamento e contato direto.",
+    cardProblem:
+      "Valorizar os trabalhos e transformar interesse em pedidos de agendamento.",
+    cardSolution:
+      "Portfólio responsivo com destaque visual, informações objetivas e chamada para contato.",
     resultSummary:
       "O trabalho ficou mais fácil de apresentar, com portfólio organizado e caminho claro para agendamento.",
     challenge:
@@ -233,6 +251,10 @@ export const portfolioProjects = [
       "Portal de conteúdo local com estrutura para leitura, navegação e divulgação de experiências em Pernambuco.",
     cardDescription:
       "Conteúdo local organizado para busca e leitura rápida.",
+    cardProblem:
+      "Transformar conteúdos locais dispersos em uma experiência simples de consultar.",
+    cardSolution:
+      "Portal responsivo organizado por temas, com leitura clara e navegação direta.",
     resultSummary:
       "O projeto deixou as experiências locais mais organizadas, com uma página própria para consulta e compartilhamento.",
     challenge:

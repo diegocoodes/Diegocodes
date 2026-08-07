@@ -31,16 +31,12 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
             Projetos de sites desenvolvidos para{" "}
             <span className="text-[var(--success)]">clientes</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[var(--text-secondary)] md:text-lg">
-            Cada projeto é pensado estrategicamente para gerar mais
-            visibilidade, mais autoridade e mais contatos pelo WhatsApp.
-          </p>
         </Reveal>
 
-        <div className="mt-12 grid gap-5 lg:grid-cols-2">
+        <div className="mt-10 grid gap-5 lg:grid-cols-2">
           {visibleProjects.map((project, index) => (
             <Reveal key={project.slug} delay={index * 0.05}>
-              <ProjectPortfolioCard project={project} />
+              <ProjectPortfolioCard project={project} priority={index < 2} />
             </Reveal>
           ))}
         </div>
@@ -59,23 +55,31 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
   );
 }
 
-function ProjectPortfolioCard({ project }: { project: PortfolioProject }) {
+function ProjectPortfolioCard({
+  project,
+  priority,
+}: {
+  project: PortfolioProject;
+  priority: boolean;
+}) {
   const targetUrl = project.liveUrl ?? getProjectPath(project);
   const isExternal = Boolean(project.liveUrl);
 
   return (
-    <article className="group h-full overflow-hidden rounded-[8px] border border-white/10 bg-[rgba(12,12,12,0.72)] transition duration-300 hover:border-[var(--success)]/35 hover:bg-[rgba(17,17,17,0.9)]">
-      <div className="relative aspect-[16/8.2] overflow-hidden bg-black">
+    <article className="group h-full overflow-hidden rounded-[12px] border border-white/10 bg-[rgba(12,12,12,0.72)] transition duration-300 hover:-translate-y-1 hover:border-[var(--success)]/35 hover:bg-[rgba(17,17,17,0.9)]">
+      <div className="relative aspect-[16/9] overflow-hidden bg-black">
         <Image
           src={project.imageSrc}
           alt={project.imageAlt}
           fill
-          sizes="(min-width: 1024px) 43vw, 100vw"
-          className={`object-cover transition duration-700 group-hover:scale-[1.025] ${
+          priority={priority}
+          quality={92}
+          sizes="(min-width: 1280px) 560px, (min-width: 1024px) 46vw, 100vw"
+          className={`object-cover transition duration-700 group-hover:scale-[1.035] ${
             project.imageClassName ?? "object-center"
           }`}
         />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0)_52%,rgba(5,5,5,0.34)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0)_62%,rgba(5,5,5,0.42)_100%)]" />
         <span className="absolute left-4 top-4 rounded-[6px] border border-white/12 bg-[#080808]/80 px-3 py-1.5 font-accent text-[10px] font-semibold uppercase text-white/58 backdrop-blur">
           {project.niche}
         </span>

@@ -126,7 +126,7 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
                   <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(180deg,transparent_0%,rgba(7,7,7,0.84)_100%)]" />
                   <span className="absolute bottom-5 left-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/58 px-3 py-2 font-accent text-xs font-semibold text-white/78 backdrop-blur-md">
                     <span className="h-2 w-2 rounded-full bg-[var(--success)] shadow-[0_0_14px_rgba(61,220,132,0.82)]" />
-                    Disponível para novos projetos
+                    Desenvolvedor web em Recife
                   </span>
                 </div>
 

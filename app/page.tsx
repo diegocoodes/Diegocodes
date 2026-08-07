@@ -9,10 +9,6 @@ import { contactConfig } from "@/lib/contact";
 import { getSiteUrl } from "@/lib/site";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
-const AudienceSection = dynamic(() => import("@/components/AudienceSection"), {
-  loading: () => <SectionFallback className="h-[420px]" />,
-});
-
 const Projects = dynamic(() => import("@/components/Projects"), {
   loading: () => <SectionFallback className="h-[520px]" />,
 });
@@ -38,7 +34,9 @@ const FAQ = dynamic(() => import("@/components/FAQ"), {
 });
 
 const CTAFinal = dynamic(() => import("@/components/CTAFinal"), {
-  loading: () => <SectionFallback className="h-[320px]" />,
+  loading: () => (
+    <SectionFallback className="h-[1400px] sm:h-[1050px] lg:h-[760px]" />
+  ),
 });
 
 const Footer = dynamic(() => import("@/components/Footer"), {
@@ -70,12 +68,11 @@ export default function Home() {
       <Navbar whatsappUrl={whatsappUrl} />
       <Hero whatsappUrl={whatsappUrl} />
       <TrustBar />
-      <AudienceSection />
       <Projects limit={4} />
       <Deliverables />
       <HowItWorks whatsappUrl={whatsappUrl} />
-      <WhyChoose whatsappUrl={whatsappUrl} />
       <Testimonials />
+      <WhyChoose />
       <AboutDiego whatsappUrl={whatsappUrl} />
       <FAQ />
       <CTAFinal whatsappUrl={whatsappUrl} />

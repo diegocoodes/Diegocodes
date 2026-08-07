@@ -1,17 +1,16 @@
 "use client";
 
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import type { ReactNode } from "react";
+import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useRef } from "react";
-
-gsap.registerPlugin(ScrollTrigger);
 
 type RevealProps = {
   children: ReactNode;
   className?: string;
   delay?: number;
   amount?: number;
+  fromX?: number;
+  fromY?: number;
+  fromScale?: number;
 };
 
 export default function Reveal({
@@ -19,6 +18,9 @@ export default function Reveal({
   className,
   delay = 0,
   amount = 0.25,
+  fromX = 0,
+  fromY = 20,
+  fromScale = 1,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -34,33 +36,35 @@ export default function Reveal({
     ).matches;
 
     if (prefersReducedMotion) {
-      gsap.set(element, { opacity: 1, y: 0, clearProps: "transform" });
+      element.dataset.visible = "true";
       return;
     }
 
-    const triggerPoint = `${Math.round((1 - amount) * 100)}%`;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          element.dataset.visible = "true";
+          observer.disconnect();
+        }
+      },
+      { threshold: amount }
+    );
 
-    const ctx = gsap.context(() => {
-      gsap.set(element, { opacity: 0, y: 20 });
+    observer.observe(element);
 
-      gsap.to(element, {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        delay,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: element,
-          start: `top ${triggerPoint}`,
-          once: true,
-        },
-      });
-    }, ref);
+    return () => observer.disconnect();
+  }, [amount]);
 
-    return () => {
-      ctx.revert();
-    };
-  }, [amount, delay]);
+  const style = {
+    "--reveal-delay": `${delay}s`,
+    "--reveal-x": `${fromX}px`,
+    "--reveal-y": `${fromY}px`,
+    "--reveal-scale": String(fromScale),
+  } as CSSProperties;
 
-  return <div ref={ref} className={className}>{children}</div>;
+  return (
+    <div ref={ref} className={`reveal-motion ${className ?? ""}`} style={style}>
+      {children}
+    </div>
+  );
 }

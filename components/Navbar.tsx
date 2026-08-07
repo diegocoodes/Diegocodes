@@ -85,12 +85,12 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
     <>
       <header className="fixed inset-x-0 top-0 z-50">
         <div className="container-shell pt-3 md:pt-4">
-          <div className="border border-white/10 bg-[rgba(10,10,10,0.76)] px-4 py-3 shadow-[0_16px_44px_rgba(0,0,0,0.26)] backdrop-blur-xl md:rounded-2xl md:px-5">
+          <div className="border-b border-white/[0.08] bg-[rgba(5,5,5,0.92)] px-4 py-2.5 md:rounded-xl md:border md:border-white/[0.08] md:px-5 md:py-3 md:backdrop-blur-sm">
             <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
               <ScrollLink
                 href={getHref("#topo")}
                 ariaLabel="Voltar ao topo"
-                className="font-display text-[30px] uppercase leading-none text-white md:text-[32px]"
+                className="font-display text-[26px] uppercase leading-none text-white md:text-[30px]"
               >
                 diegocodes
                 <span className="text-[var(--accent-hover)]">_</span>

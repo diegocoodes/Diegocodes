@@ -20,9 +20,6 @@ const config: Config = {
         display: ["var(--font-bebas)", "sans-serif"],
         accent: ["var(--font-space-grotesk)", "sans-serif"],
       },
-      animation: {
-        "pulse-soft": "pulse-soft 2s ease-in-out infinite",
-      },
     },
   },
   plugins: [],
