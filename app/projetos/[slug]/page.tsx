@@ -1,12 +1,12 @@
 import type { Metadata } from "next";
 import { ArrowLeft, CheckCircle2, ExternalLink, MessageCircle } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import Reveal from "@/components/ui/Reveal";
+import TransitionLink from "@/components/ui/TransitionLink";
 import {
   getProjectBySlug,
   getProjectPath,
@@ -115,18 +115,18 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
         />
 
         <div className="container-shell relative z-10">
-          <Link
+          <TransitionLink
             href="/projetos"
             className="inline-flex items-center gap-2 font-accent text-xs font-semibold text-white/56 transition hover:text-white"
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" />
             Voltar aos projetos
-          </Link>
+          </TransitionLink>
 
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,1.1fr)] lg:items-center">
             <Reveal>
               <span className="section-kicker">Projeto DiegoCodes</span>
-              <h1 className="display-title mt-6 max-w-[760px]">
+              <h1 className="motion-heading display-title mt-6 max-w-[760px]">
                 {project.name}
               </h1>
               <p className="eyebrow-copy mt-7 max-w-3xl">
@@ -163,6 +163,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
               <ProjectDesktopVisual
                 visual={desktopVisual}
                 priority
+                transitionName={`project-${project.slug}-visual`}
                 className="shadow-[0_32px_90px_rgba(0,0,0,0.36)]"
               />
             </Reveal>
@@ -205,7 +206,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="container-shell">
           <Reveal className="max-w-3xl">
             <span className="section-kicker">Entrega</span>
-            <h2 className="section-title mt-5">O que foi entregue</h2>
+              <h2 className="motion-heading section-title mt-5">O que foi entregue</h2>
           </Reveal>
 
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -229,7 +230,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
         <div className="container-shell">
           <Reveal className="max-w-3xl">
             <span className="section-kicker text-black/45">Visual</span>
-            <h2 className="section-title mt-5">Prova visual do projeto</h2>
+            <h2 className="motion-heading section-title mt-5">Prova visual do projeto</h2>
             <p className="mt-5 text-base leading-8 text-black/64 md:text-lg">
               A imagem abaixo mostra a prévia desktop do projeto, com foco na
               apresentação principal do site.
@@ -249,7 +250,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(360px,0.6fr)] lg:items-center">
             <Reveal>
               <span className="section-kicker">Resultado</span>
-              <h2 className="section-title mt-5">
+              <h2 className="motion-heading section-title mt-5">
                 Uma presença online mais profissional.
               </h2>
             </Reveal>
@@ -274,7 +275,7 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
           <Reveal>
             <div className="mx-auto max-w-4xl text-center">
               <span className="section-kicker">Contato</span>
-              <h2 className="section-title mt-5">
+              <h2 className="motion-heading section-title mt-5">
                 Quer um site parecido para o seu negócio?
               </h2>
               <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-[var(--text-secondary)] md:text-lg">
@@ -322,15 +323,17 @@ function ProjectDesktopVisual({
   priority = false,
   light = false,
   className,
+  transitionName,
 }: {
   visual: ProjectVisual;
   priority?: boolean;
   light?: boolean;
   className?: string;
+  transitionName?: string;
 }) {
   return (
     <figure
-      className={`overflow-hidden rounded-[24px] border ${
+      className={`motion-media-frame overflow-hidden rounded-[24px] border ${
         light
           ? "border-black/10 bg-white shadow-[0_24px_70px_rgba(0,0,0,0.12)]"
           : "border-white/10 bg-[#050505]"
@@ -341,7 +344,12 @@ function ProjectDesktopVisual({
           light ? "border-black/10 bg-black/[0.03]" : "border-white/10 bg-white/[0.04]"
         } p-2`}
       >
-        <div className="relative aspect-[16/9] overflow-hidden rounded-[14px] bg-black">
+        <div
+          style={
+            transitionName ? { viewTransitionName: transitionName } : undefined
+          }
+          className="relative aspect-[16/9] overflow-hidden rounded-[14px] bg-black"
+        >
           <Image
             src={visual.src}
             alt={visual.alt}

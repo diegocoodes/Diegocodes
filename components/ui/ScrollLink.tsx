@@ -1,6 +1,6 @@
 "use client";
 
-import type { MouseEvent, ReactNode } from "react";
+import type { CSSProperties, MouseEvent, ReactNode } from "react";
 
 type ScrollLinkProps = {
   href: string;
@@ -11,6 +11,8 @@ type ScrollLinkProps = {
   offset?: number;
   duration?: number;
   onClick?: () => void;
+  style?: CSSProperties;
+  tabIndex?: number;
 };
 
 function easeOutCubic(progress: number) {
@@ -26,6 +28,8 @@ export default function ScrollLink({
   offset = 104,
   duration = 760,
   onClick,
+  style,
+  tabIndex,
 }: ScrollLinkProps) {
   function handleClick(event: MouseEvent<HTMLAnchorElement>) {
     onClick?.();
@@ -80,6 +84,8 @@ export default function ScrollLink({
       aria-label={ariaLabel}
       aria-current={ariaCurrent}
       className={className}
+      style={style}
+      tabIndex={tabIndex}
       onClick={handleClick}
     >
       {children}

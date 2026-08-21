@@ -20,14 +20,14 @@ export default function FAQ() {
       <div className="container-shell">
         <Reveal className="max-w-4xl">
           <span className="section-kicker">FAQ</span>
-          <h2 id={headingId} className="section-title mt-5">
+          <h2 id={headingId} className="motion-heading section-title mt-5">
             Perguntas frequentes
           </h2>
         </Reveal>
 
         <div className="mt-10 grid gap-4 lg:grid-cols-2">
           {faqs.map((faq, index) => (
-            <Reveal key={faq.question} delay={index * 0.06}>
+            <Reveal key={faq.question} delay={Math.min(index * 0.035, 0.16)}>
               <FAQItem
                 faq={faq}
                 index={index}
@@ -71,7 +71,11 @@ function FAQItem({
   const panelId = `faq-panel-${index}`;
 
   return (
-    <div className="rounded-2xl border border-white/10 bg-[rgba(17,17,17,0.9)] p-6">
+    <div
+      className={`faq-shell rounded-2xl border bg-[rgba(17,17,17,0.9)] p-6 ${
+        isOpen ? "border-[var(--accent-primary)]/45" : "border-white/10"
+      }`}
+    >
       <h3>
         <button
           id={buttonId}
@@ -97,11 +101,15 @@ function FAQItem({
         id={panelId}
         role="region"
         aria-labelledby={buttonId}
-        hidden={!isOpen}
+        aria-hidden={!isOpen}
+        data-open={isOpen}
+        className="faq-answer-grid"
       >
-        <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--text-secondary)]">
-          {faq.answer}
-        </p>
+        <div className="faq-answer-inner">
+          <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--text-secondary)]">
+            {faq.answer}
+          </p>
+        </div>
       </div>
     </div>
   );

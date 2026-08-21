@@ -1,4 +1,5 @@
 import { AtSign, Mail } from "lucide-react";
+import Reveal from "@/components/ui/Reveal";
 import ScrollLink from "@/components/ui/ScrollLink";
 import { contactConfig } from "@/lib/contact";
 
@@ -15,7 +16,7 @@ export default function Footer() {
 
   return (
     <footer className="border-t border-white/8 py-8">
-      <div className="container-shell flex flex-col gap-6">
+      <Reveal className="container-shell flex flex-col gap-6" fromY={12}>
         <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:items-center">
           <ScrollLink
             href="/#topo"
@@ -34,7 +35,7 @@ export default function Footer() {
               <ScrollLink
                 key={link.href}
                 href={link.href}
-                className="font-accent text-sm font-medium text-[var(--text-secondary)] transition hover:text-white"
+              className="font-accent text-sm font-medium text-[var(--text-secondary)] transition hover:-translate-y-0.5 hover:text-white"
               >
                 {link.label}
               </ScrollLink>
@@ -47,14 +48,14 @@ export default function Footer() {
               target="_blank"
               rel="noreferrer"
               aria-label="Abrir Instagram da DiegoCodes"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-surface)] text-white transition hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-surface)] text-white transition hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
             >
               <AtSign aria-hidden="true" className="h-5 w-5" />
             </a>
             <a
               href={`mailto:${contactConfig.email}`}
               aria-label="Enviar e-mail para Diego"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-surface)] text-white transition hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-surface)] text-white transition hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
             >
               <Mail aria-hidden="true" className="h-5 w-5" />
             </a>
@@ -65,7 +66,7 @@ export default function Footer() {
           <p>© {currentYear} diegocodes_ · Recife, PE</p>
           <p>Criação de sites em Recife e atendimento online.</p>
         </div>
-      </div>
+      </Reveal>
     </footer>
   );
 }

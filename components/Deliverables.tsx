@@ -21,7 +21,7 @@ export default function Deliverables() {
         <Reveal className="grid gap-7 lg:grid-cols-[minmax(0,0.82fr)_minmax(320px,0.48fr)] lg:items-end">
           <div>
           <span className="section-kicker">Serviços</span>
-          <h2 className="section-title mt-5">
+          <h2 className="motion-heading section-title mt-5">
             O que está incluso no seu projeto
           </h2>
           </div>
@@ -40,9 +40,9 @@ export default function Deliverables() {
               <MotionSurface className="group relative flex h-full min-h-[210px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(145deg,rgba(18,18,18,0.96),rgba(8,8,8,0.98))] p-6 transition-colors duration-300 hover:border-[var(--success)]/35">
                 <span
                   aria-hidden="true"
-                  className="absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--accent-primary),var(--success))] opacity-70"
+                  className="motion-rule absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--accent-primary),var(--success))] opacity-70"
                 />
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--success)]/25 bg-[var(--success)]/10 text-[var(--success)] transition duration-300 group-hover:scale-105">
+                <div className="motion-icon flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--success)]/25 bg-[var(--success)]/10 text-[var(--success)]">
                   <Icon aria-hidden="true" className="h-5 w-5" />
                 </div>
                 <h3 className="mt-6 font-accent text-xl font-semibold leading-tight text-white">

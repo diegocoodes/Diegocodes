@@ -8,26 +8,75 @@ import {
   Quote,
 } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
 import { proofCards, testimonials } from "@/lib/home-content";
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [slideDirection, setSlideDirection] = useState<"next" | "previous">("next");
+  const [dragOffset, setDragOffset] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragStartX = useRef<number | null>(null);
+  const dragOffsetRef = useRef(0);
   const activeTestimonial = testimonials[activeIndex];
   const hasMultipleTestimonials = testimonials.length > 1;
 
   const showPrevious = () => {
+    if (!hasMultipleTestimonials) {
+      return;
+    }
+
+    setSlideDirection("previous");
     setActiveIndex((current) =>
       current === 0 ? testimonials.length - 1 : current - 1
     );
   };
 
   const showNext = () => {
+    if (!hasMultipleTestimonials) {
+      return;
+    }
+
+    setSlideDirection("next");
     setActiveIndex((current) =>
       current === testimonials.length - 1 ? 0 : current + 1
     );
   };
+
+  function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
+    if (!hasMultipleTestimonials) {
+      return;
+    }
+
+    dragStartX.current = event.clientX;
+    setIsDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
+  }
+
+  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
+    if (dragStartX.current === null || !hasMultipleTestimonials) {
+      return;
+    }
+
+    const offset = event.clientX - dragStartX.current;
+    const constrainedOffset = Math.max(-72, Math.min(72, offset));
+    dragOffsetRef.current = constrainedOffset;
+    setDragOffset(constrainedOffset);
+  }
+
+  function finishDrag() {
+    if (dragOffsetRef.current <= -42) {
+      showNext();
+    } else if (dragOffsetRef.current >= 42) {
+      showPrevious();
+    }
+
+    dragStartX.current = null;
+    dragOffsetRef.current = 0;
+    setDragOffset(0);
+    setIsDragging(false);
+  }
 
   return (
     <section
@@ -48,7 +97,7 @@ export default function Testimonials() {
             Depoimentos
             <span className="h-px w-8 bg-[var(--success)]" />
           </span>
-          <h2 className="mt-5 font-accent text-[40px] font-bold leading-[0.98] text-white sm:text-[52px] lg:text-[60px]">
+          <h2 className="motion-heading mt-5 font-accent text-[40px] font-bold leading-[0.98] text-white sm:text-[52px] lg:text-[60px]">
             Experiências de <span className="text-[var(--success)]">clientes</span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[var(--text-secondary)] md:text-lg">
@@ -59,14 +108,32 @@ export default function Testimonials() {
         <Reveal delay={0.06} className="mt-10">
           <div
             aria-live="polite"
-            className="relative overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(145deg,rgba(24,24,24,0.96),rgba(10,10,10,0.98))] p-6 md:p-8 lg:p-10"
+            className={`relative overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(145deg,rgba(24,24,24,0.96),rgba(10,10,10,0.98))] p-6 md:p-8 lg:p-10 ${
+              hasMultipleTestimonials ? "cursor-grab touch-pan-y active:cursor-grabbing" : ""
+            }`}
+            onPointerDown={handlePointerDown}
+            onPointerMove={handlePointerMove}
+            onPointerUp={finishDrag}
+            onPointerCancel={finishDrag}
           >
             <span
               aria-hidden="true"
-              className="absolute left-0 top-8 h-24 w-1 bg-[var(--success)] shadow-[0_0_18px_rgba(61,220,132,0.42)]"
+              className="motion-rule-vertical absolute left-0 top-8 h-24 w-1 origin-top bg-[var(--success)]"
             />
 
-            <div className="grid gap-7 md:grid-cols-[190px_minmax(0,1fr)] md:items-start lg:gap-10">
+            <div
+              className="testimonial-drag"
+              style={{
+                transform: `translate3d(${dragOffset}px, 0, 0)`,
+                opacity: 1 - Math.abs(dragOffset) / 240,
+                transition: isDragging ? "none" : undefined,
+              }}
+            >
+              <div
+                key={activeTestimonial.name}
+                data-direction={slideDirection}
+                className="testimonial-swap grid gap-7 md:grid-cols-[190px_minmax(0,1fr)] md:items-start lg:gap-10"
+              >
               <div className="flex items-center gap-4 md:flex-col md:items-start">
                 <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white/20 bg-white p-2 md:h-24 md:w-24">
                   <Image
@@ -113,6 +180,7 @@ export default function Testimonials() {
                   <ExternalLink aria-hidden="true" className="h-4 w-4" />
                 </a>
               </div>
+              </div>
             </div>
           </div>
 
@@ -135,7 +203,10 @@ export default function Testimonials() {
                 <button
                   key={testimonial.name}
                   type="button"
-                  onClick={() => setActiveIndex(index)}
+                  onClick={() => {
+                    setSlideDirection(index >= activeIndex ? "next" : "previous");
+                    setActiveIndex(index);
+                  }}
                   aria-label={`Mostrar depoimento ${index + 1} de ${testimonials.length}`}
                   aria-current={activeIndex === index ? "true" : undefined}
                   className={`h-2.5 rounded-full transition-all ${
@@ -180,9 +251,9 @@ export default function Testimonials() {
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Abrir o projeto ${project.title} em uma nova aba`}
-                className="group overflow-hidden rounded-[12px] border border-white/10 bg-white/[0.025] transition duration-300 hover:-translate-y-1 hover:border-[var(--success)]/38"
+                className="motion-card group overflow-hidden rounded-[12px] border border-white/10 bg-white/[0.025] hover:border-[var(--success)]/38"
               >
-                <div className="relative aspect-[16/9] overflow-hidden bg-black">
+                <div className="motion-media-frame relative aspect-[16/9] overflow-hidden bg-black">
                   <Image
                     src={project.imageSrc}
                     alt={project.imageAlt}

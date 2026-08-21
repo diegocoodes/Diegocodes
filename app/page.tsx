@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import TrustBar from "@/components/TrustBar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import SiteIntro from "@/components/ui/SiteIntro";
 import { contactConfig } from "@/lib/contact";
 import { getSiteUrl } from "@/lib/site";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
@@ -12,6 +13,13 @@ import { createWhatsAppUrl } from "@/lib/whatsapp";
 const Projects = dynamic(() => import("@/components/Projects"), {
   loading: () => <SectionFallback className="h-[520px]" />,
 });
+
+const InstagramIdentity = dynamic(
+  () => import("@/components/InstagramIdentity"),
+  {
+    loading: () => <SectionFallback className="h-[980px]" />,
+  }
+);
 
 const Testimonials = dynamic(() => import("@/components/Testimonials"), {
   loading: () => <SectionFallback className="h-[480px]" />,
@@ -47,7 +55,7 @@ function SectionFallback({ className }: { className?: string }) {
   return (
     <section className="section-space">
       <div className="container-shell">
-        <div className={`surface-card animate-pulse ${className ?? "h-64"}`} />
+        <div className={`skeleton-once surface-card ${className ?? "h-64"}`} />
       </div>
     </section>
   );
@@ -59,16 +67,18 @@ export default function Home() {
   const jsonLd = getHomeJsonLd(siteUrl);
 
   return (
-    <main className="relative overflow-x-clip bg-[var(--bg-primary)]">
+    <main className="site-page-enter relative overflow-x-clip bg-[var(--bg-primary)]">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <SiteIntro />
       <AnalyticsBridge />
       <Navbar whatsappUrl={whatsappUrl} />
       <Hero whatsappUrl={whatsappUrl} />
       <TrustBar />
       <Projects limit={4} />
+      <InstagramIdentity whatsappUrl={whatsappUrl} />
       <Deliverables />
       <HowItWorks whatsappUrl={whatsappUrl} />
       <Testimonials />

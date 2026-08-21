@@ -2,6 +2,7 @@
 
 import {
   AtSign,
+  CheckCircle2,
   Clock3,
   Mail,
   MapPin,
@@ -11,6 +12,7 @@ import {
 import type { FormEvent } from "react";
 import { useState } from "react";
 import Reveal from "@/components/ui/Reveal";
+import MotionWords from "@/components/ui/MotionWords";
 import { contactConfig } from "@/lib/contact";
 import { buildContactMessage, formatPhoneInput } from "@/lib/contact-form";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
@@ -20,15 +22,28 @@ type CTAFinalProps = {
 };
 
 type FieldElement = HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement;
+type SubmitState = "idle" | "sending" | "ready";
+
+const SUBMIT_READY_DELAY_MS = 210;
+const WHATSAPP_REDIRECT_DELAY_MS = 420;
 
 const fieldClassName =
   "min-h-[52px] w-full rounded-[8px] border border-white/10 bg-white/[0.035] px-4 py-3 text-base text-white outline-none transition placeholder:text-white/28 hover:border-white/18 focus:border-[var(--accent-hover)] focus:ring-2 focus:ring-[var(--accent-primary)]/20";
 
 export default function CTAFinal({ whatsappUrl }: CTAFinalProps) {
-  const [submitStatus, setSubmitStatus] = useState("");
+  const [submitState, setSubmitState] = useState<SubmitState>("idle");
+
+  const submitLabel =
+    submitState === "sending"
+      ? "Abrindo WhatsApp…"
+      : submitState === "ready"
+        ? "Tudo certo"
+        : "Enviar pelo WhatsApp";
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (submitState !== "idle") return;
 
     const data = new FormData(event.currentTarget);
     const value = (name: string) => String(data.get(name) ?? "").trim();
@@ -42,11 +57,17 @@ export default function CTAFinal({ whatsappUrl }: CTAFinalProps) {
       deadline: value("deadline"),
     });
 
-    setSubmitStatus("Tudo certo. Abrindo o WhatsApp com sua mensagem...");
+    const destination = createWhatsAppUrl(message);
+
+    setSubmitState("sending");
 
     window.setTimeout(() => {
-      window.location.assign(createWhatsAppUrl(message));
-    }, 250);
+      setSubmitState("ready");
+    }, SUBMIT_READY_DELAY_MS);
+
+    window.setTimeout(() => {
+      window.location.assign(destination);
+    }, WHATSAPP_REDIRECT_DELAY_MS);
   }
 
   return (
@@ -68,9 +89,17 @@ export default function CTAFinal({ whatsappUrl }: CTAFinalProps) {
             Próximo passo
             <span className="h-px w-8 bg-[var(--success)]" />
           </span>
-          <h2 className="mt-5 font-accent text-[40px] font-bold leading-[0.98] text-white sm:text-[52px] lg:text-[60px]">
-            Vamos conversar sobre seu{" "}
-            <span className="text-[var(--success)]">próximo projeto</span>
+          <h2 className="motion-heading mt-5 font-accent text-[40px] font-bold leading-[0.98] text-white sm:text-[52px] lg:text-[60px]">
+            <MotionWords
+              words={[
+                "Vamos",
+                "conversar",
+                "sobre",
+                "seu",
+                { text: "próximo", className: "text-[var(--success)]" },
+                { text: "projeto", className: "text-[var(--success)]" },
+              ]}
+            />
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[var(--text-secondary)] md:text-lg">
             Conte o que você precisa para eu entender o cenário e preparar os próximos passos.
@@ -79,7 +108,11 @@ export default function CTAFinal({ whatsappUrl }: CTAFinalProps) {
 
         <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,1.5fr)_minmax(300px,0.72fr)] lg:items-stretch">
           <Reveal>
-            <form onSubmit={handleSubmit} className="grid gap-5">
+            <form
+              onSubmit={handleSubmit}
+              className="contact-form grid gap-5"
+              data-submit-state={submitState}
+            >
               <div className="grid gap-5 sm:grid-cols-2">
                 <FormField label="Seu nome" htmlFor="contact-name" required>
                   <input
@@ -201,17 +234,31 @@ export default function CTAFinal({ whatsappUrl }: CTAFinalProps) {
                   type="submit"
                   data-track="whatsapp_form_submit"
                   data-track-label="contact_form"
-                  className="inline-flex min-h-[52px] w-full items-center justify-center gap-3 rounded-full bg-[var(--accent-primary)] px-7 py-4 font-accent text-sm font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:bg-[var(--accent-hover)] sm:w-auto"
+                  data-state={submitState}
+                  disabled={submitState !== "idle"}
+                  aria-busy={submitState === "sending"}
+                  className="contact-submit-button button-primary inline-flex min-h-[52px] w-full px-7 py-4 disabled:cursor-wait disabled:hover:translate-y-0 sm:w-auto sm:min-w-[232px]"
                 >
-                  Enviar pelo WhatsApp
-                  <Send aria-hidden="true" className="h-4 w-4" />
+                  <span className="contact-submit-copy">{submitLabel}</span>
+                  {submitState === "ready" ? (
+                    <CheckCircle2
+                      aria-hidden="true"
+                      className="contact-submit-icon h-4 w-4"
+                    />
+                  ) : (
+                    <Send
+                      aria-hidden="true"
+                      className="contact-submit-icon h-4 w-4"
+                    />
+                  )}
                 </button>
                 <p
-                  className="text-sm leading-6 text-[var(--success)]"
+                  className="contact-submit-status min-h-6 text-sm leading-6 text-[var(--success)]"
                   role="status"
                   aria-live="polite"
+                  data-state={submitState}
                 >
-                  {submitStatus}
+                  {submitState === "idle" ? "" : submitLabel}
                 </p>
               </div>
             </form>
@@ -278,7 +325,7 @@ type FormFieldProps = {
 
 function FormField({ label, htmlFor, required = false, children }: FormFieldProps) {
   return (
-    <div>
+    <div className="form-field">
       <label
         htmlFor={htmlFor}
         className="mb-2 block font-accent text-sm font-medium text-white/76"

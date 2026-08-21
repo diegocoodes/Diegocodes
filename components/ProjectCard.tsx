@@ -1,7 +1,7 @@
 import { ArrowRight, CheckCircle2, ExternalLink } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import SpotlightPanel from "@/components/ui/SpotlightPanel";
+import TransitionLink from "@/components/ui/TransitionLink";
 import type { PortfolioProject } from "@/lib/projects";
 import { getProjectPath } from "@/lib/projects";
 
@@ -9,12 +9,14 @@ type ProjectCardProps = {
   project: PortfolioProject;
   index: number;
   featured?: boolean;
+  transitionName?: string;
 };
 
 export default function ProjectCard({
   project,
   index,
   featured = false,
+  transitionName = `project-${project.slug}-visual`,
 }: ProjectCardProps) {
   const highlightedDeliverables = project.deliverables.slice(
     0,
@@ -28,7 +30,11 @@ export default function ProjectCard({
           featured ? "lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)]" : ""
         }`}
       >
-        <ProjectMockup project={project} featured={featured} />
+        <ProjectMockup
+          project={project}
+          featured={featured}
+          transitionName={transitionName}
+        />
 
         <div
           className={`flex flex-col justify-between px-1 pb-2 ${
@@ -93,21 +99,21 @@ export default function ProjectCard({
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Abrir projeto ${project.name} em nova aba`}
-                className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-[var(--accent-primary)]/30 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:brightness-110"
+                className="motion-link inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-[var(--accent-primary)]/30 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
               >
                 Ver projeto
                 <ExternalLink aria-hidden="true" className="h-4 w-4" />
               </a>
             ) : null}
 
-            <Link
+            <TransitionLink
               href={getProjectPath(project)}
               aria-label={`Ver detalhes do projeto ${project.name}`}
-              className="inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:border-[var(--success)]/45 hover:text-[var(--success)]"
+              className="motion-link inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-[var(--success)]/45 hover:text-[var(--success)]"
             >
               Ver estudo de caso
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
-            </Link>
+            </TransitionLink>
           </div>
         </div>
       </article>
@@ -131,13 +137,16 @@ function ProjectContextBlock({ title, body }: { title: string; body: string }) {
 function ProjectMockup({
   project,
   featured,
+  transitionName,
 }: {
   project: PortfolioProject;
   featured: boolean;
+  transitionName: string;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-[22px] border border-white/10 bg-[#050505] p-3 shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
+    <div className="motion-media-frame relative overflow-hidden rounded-[22px] border border-white/10 bg-[#050505] p-3 shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
       <div
+        style={{ viewTransitionName: transitionName }}
         className={`relative overflow-hidden rounded-2xl border border-white/10 bg-black ${
           featured ? "aspect-[16/9]" : "aspect-[4/3]"
         }`}
@@ -152,7 +161,7 @@ function ProjectMockup({
               ? "(min-width: 1024px) 56vw, 100vw"
               : "(min-width: 1024px) 45vw, 100vw"
           }
-          className={`object-cover transition duration-700 group-hover:scale-[1.035] ${
+          className={`object-cover transition duration-700 group-hover:scale-[1.025] ${
             project.imageClassName ?? "object-center"
           }`}
         />

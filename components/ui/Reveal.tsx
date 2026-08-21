@@ -11,6 +11,7 @@ type RevealProps = {
   fromX?: number;
   fromY?: number;
   fromScale?: number;
+  duration?: number;
 };
 
 export default function Reveal({
@@ -21,6 +22,7 @@ export default function Reveal({
   fromX = 0,
   fromY = 20,
   fromScale = 1,
+  duration = 0.64,
 }: RevealProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
@@ -40,6 +42,11 @@ export default function Reveal({
       return;
     }
 
+    if (!("IntersectionObserver" in window)) {
+      element.dataset.visible = "true";
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -47,7 +54,10 @@ export default function Reveal({
           observer.disconnect();
         }
       },
-      { threshold: amount }
+      {
+        rootMargin: "0px 0px -8% 0px",
+        threshold: Math.min(amount, 0.18),
+      }
     );
 
     observer.observe(element);
@@ -60,6 +70,7 @@ export default function Reveal({
     "--reveal-x": `${fromX}px`,
     "--reveal-y": `${fromY}px`,
     "--reveal-scale": String(fromScale),
+    "--reveal-duration": `${duration}s`,
   } as CSSProperties;
 
   return (

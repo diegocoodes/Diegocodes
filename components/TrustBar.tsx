@@ -27,8 +27,8 @@ export default function TrustBar() {
 
             return (
               <Reveal key={indicator.title} delay={index * 0.03}>
-                <div className="flex h-full items-start gap-2 rounded-xl border border-white/8 bg-white/[0.035] px-3 py-3 lg:rounded-none lg:border-x-0 lg:border-y-0 lg:bg-transparent lg:px-2 lg:py-2">
-                  <span className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.055] text-[var(--success)]">
+                <div className="motion-card group flex h-full items-start gap-2 rounded-xl border border-white/8 bg-white/[0.035] px-3 py-3 lg:rounded-none lg:border-x-0 lg:border-y-0 lg:bg-transparent lg:px-2 lg:py-2">
+                  <span className="motion-icon mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.055] text-[var(--success)]">
                     <Icon aria-hidden="true" className="h-3.5 w-3.5" />
                   </span>
                   <div>

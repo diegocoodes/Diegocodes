@@ -39,9 +39,9 @@ function HeroBackground() {
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-[76%] z-0 w-[150vw] -translate-x-1/2 -translate-y-1/2 select-none text-center font-display text-[72px] uppercase leading-none text-white opacity-[0.035] sm:text-[108px] md:top-[36%] md:text-[158px] md:opacity-[0.045] lg:top-[31%] lg:w-[118vw] lg:text-[204px] lg:opacity-[0.055] xl:text-[242px]"
+        className="hero-wordmark pointer-events-none absolute left-1/2 top-[76%] z-0 w-[150vw] -translate-x-1/2 -translate-y-1/2 select-none text-center font-display text-[72px] uppercase leading-none text-white opacity-[0.035] sm:text-[108px] md:top-[36%] md:text-[158px] md:opacity-[0.045] lg:top-[31%] lg:w-[118vw] lg:text-[204px] lg:opacity-[0.055] xl:text-[242px]"
       >
-        DIEGOCODES
+        <span className="hero-wordmark-text inline-block">DIEGOCODES</span>
       </div>
     </>
   );
@@ -103,7 +103,7 @@ function HeroActions({
           aria-label="Abrir conversa no WhatsApp para solicitar orçamento"
           data-track="whatsapp_hero_click"
           data-track-label={mobile ? "hero_mobile_primary" : "hero_primary"}
-          className={`button-primary min-h-14 w-full ${
+          className={`button-primary min-h-14 w-full ${mobile ? "" : "attention-once"} ${
             mobile ? "" : "md:w-auto"
           }`}
         >
@@ -128,8 +128,8 @@ function HeroActions({
 
 function HeroPortrait() {
   return (
-    <Reveal delay={0.11} fromY={10} className="order-3 lg:order-2">
-      <div className="relative z-20 mx-auto mt-7 h-[280px] w-full max-w-[360px] min-[390px]:h-[300px] md:-mt-6 md:h-[520px] md:max-w-[540px] lg:mt-0 lg:h-[min(82vh,780px)] lg:max-w-[700px]">
+    <Reveal delay={0.11} fromX={18} fromY={0} className="order-3 lg:order-2">
+      <div className="motion-media-frame relative z-20 mx-auto mt-7 h-[280px] w-full max-w-[360px] min-[390px]:h-[300px] md:-mt-6 md:h-[520px] md:max-w-[540px] lg:mt-0 lg:h-[min(82vh,780px)] lg:max-w-[700px]">
         <div
           aria-hidden="true"
           className="absolute left-1/2 top-[57%] h-[58%] w-[68%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[rgba(123,47,190,0.08)] blur-[52px] md:top-[54%] md:h-[64%] md:bg-[rgba(123,47,190,0.1)] md:blur-[68px]"

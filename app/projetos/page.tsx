@@ -67,7 +67,7 @@ export default function ProjectsPage() {
         <div className="container-shell relative z-10">
           <Reveal className="max-w-5xl">
             <span className="section-kicker">Portfólio</span>
-            <h1 className="display-title mt-6">
+            <h1 className="motion-heading display-title mt-6">
               Projetos com página própria, prova visual e caminho para contato.
             </h1>
           </Reveal>
@@ -91,13 +91,14 @@ export default function ProjectsPage() {
               return (
                 <Reveal
                   key={project.slug}
-                  delay={index * 0.05}
+                  delay={Math.min(index * 0.045, 0.14)}
                   className={isFeatured ? "lg:col-span-2" : undefined}
                 >
                   <ProjectCard
                     project={project}
                     index={index}
                     featured={isFeatured}
+                    transitionName={`project-${project.slug}-visual`}
                   />
                 </Reveal>
               );

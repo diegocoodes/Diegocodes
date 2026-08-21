@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ScrollLink from "@/components/ui/ScrollLink";
 
 const navLinks = [
@@ -21,7 +21,65 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
   const pathname = usePathname();
   const isHome = pathname === "/";
   const [isOpen, setIsOpen] = useState(false);
+  const [isCompact, setIsCompact] = useState(false);
   const [activeHref, setActiveHref] = useState("#topo");
+  const [activeIndicator, setActiveIndicator] = useState({
+    left: 0,
+    width: 0,
+    visible: false,
+  });
+  const progressRef = useRef<HTMLSpanElement>(null);
+  const navRef = useRef<HTMLElement>(null);
+  const compactRef = useRef(false);
+
+  useEffect(() => {
+    let animationFrame: number | null = null;
+
+    function updateScrollState() {
+      animationFrame = null;
+
+      const root = document.documentElement;
+      const scrollTop = Math.max(window.scrollY, root.scrollTop, 0);
+      const scrollableDistance = Math.max(
+        root.scrollHeight - window.innerHeight,
+        0
+      );
+      const progress =
+        scrollableDistance > 0
+          ? Math.min(scrollTop / scrollableDistance, 1)
+          : 0;
+
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`;
+      }
+
+      const nextCompact = scrollTop > 48;
+
+      if (nextCompact !== compactRef.current) {
+        compactRef.current = nextCompact;
+        setIsCompact(nextCompact);
+      }
+    }
+
+    function requestScrollUpdate() {
+      if (animationFrame === null) {
+        animationFrame = window.requestAnimationFrame(updateScrollState);
+      }
+    }
+
+    updateScrollState();
+    window.addEventListener("scroll", requestScrollUpdate, { passive: true });
+    window.addEventListener("resize", requestScrollUpdate);
+
+    return () => {
+      window.removeEventListener("scroll", requestScrollUpdate);
+      window.removeEventListener("resize", requestScrollUpdate);
+
+      if (animationFrame !== null) {
+        window.cancelAnimationFrame(animationFrame);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
@@ -57,6 +115,10 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
       return;
     }
 
+    if (!("IntersectionObserver" in window)) {
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         const visibleEntry = entries
@@ -78,44 +140,134 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
     return () => observer.disconnect();
   }, [isHome]);
 
+  const updateActiveIndicator = useCallback(() => {
+    const nav = navRef.current;
+
+    if (!nav || !isHome || !activeHref) {
+      setActiveIndicator((current) =>
+        current.visible ? { ...current, visible: false } : current
+      );
+      return;
+    }
+
+    const activeTarget = Array.from(
+      nav.querySelectorAll<HTMLElement>("[data-nav-anchor]")
+    ).find((target) => target.dataset.navAnchor === activeHref);
+
+    if (!activeTarget) {
+      setActiveIndicator((current) =>
+        current.visible ? { ...current, visible: false } : current
+      );
+      return;
+    }
+
+    const navBounds = nav.getBoundingClientRect();
+    const targetBounds = activeTarget.getBoundingClientRect();
+    const nextIndicator = {
+      left: targetBounds.left - navBounds.left,
+      width: targetBounds.width,
+      visible: true,
+    };
+
+    setActiveIndicator((current) => {
+      const positionIsUnchanged =
+        Math.abs(current.left - nextIndicator.left) < 0.5 &&
+        Math.abs(current.width - nextIndicator.width) < 0.5 &&
+        current.visible === nextIndicator.visible;
+
+      return positionIsUnchanged ? current : nextIndicator;
+    });
+  }, [activeHref, isHome]);
+
+  useEffect(() => {
+    let animationFrame = window.requestAnimationFrame(updateActiveIndicator);
+    let isDisposed = false;
+
+    function handleResize() {
+      window.cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(updateActiveIndicator);
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    void document.fonts?.ready.then(() => {
+      if (!isDisposed) {
+        handleResize();
+      }
+    });
+
+    return () => {
+      isDisposed = true;
+      window.removeEventListener("resize", handleResize);
+      window.cancelAnimationFrame(animationFrame);
+    };
+  }, [isCompact, updateActiveIndicator]);
+
   const handleClose = () => setIsOpen(false);
   const getHref = (anchor: string) => (isHome ? anchor : `/${anchor}`);
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50">
-        <div className="container-shell pt-3 md:pt-4">
-          <div className="border-b border-white/[0.08] bg-[rgba(5,5,5,0.92)] px-4 py-2.5 md:rounded-xl md:border md:border-white/[0.08] md:px-5 md:py-3 md:backdrop-blur-sm">
+      <header
+        className="nav-enter nav-header fixed inset-x-0 top-0 z-50"
+        data-compact={isCompact}
+      >
+        <span
+          ref={progressRef}
+          aria-hidden="true"
+          className="nav-scroll-progress pointer-events-none absolute inset-x-0 top-0 h-0.5 origin-left bg-[var(--accent-hover)] will-change-transform"
+          style={{ transform: "scaleX(0)" }}
+        />
+
+        <div className="nav-container container-shell pt-3 md:pt-4">
+          <div className="nav-panel border-b border-white/[0.08] bg-[rgba(5,5,5,0.92)] px-4 py-2.5 md:rounded-xl md:border md:border-white/[0.08] md:px-5 md:py-3 md:backdrop-blur-sm">
             <div className="grid grid-cols-[auto_1fr_auto] items-center gap-4">
               <ScrollLink
                 href={getHref("#topo")}
                 ariaLabel="Voltar ao topo"
-                className="font-display text-[26px] uppercase leading-none text-white md:text-[30px]"
+                className="nav-brand font-display text-[26px] uppercase leading-none text-white md:text-[30px]"
               >
                 diegocodes
                 <span className="text-[var(--accent-hover)]">_</span>
               </ScrollLink>
 
               <nav
+                ref={navRef}
                 aria-label="Navegação principal"
-                className="hidden items-center justify-center gap-4 lg:gap-6 md:flex"
+                className="nav-desktop relative hidden items-center justify-center gap-4 lg:gap-6 md:flex"
               >
+                <span
+                  aria-hidden="true"
+                  data-visible={activeIndicator.visible}
+                  className="nav-active-indicator pointer-events-none absolute -bottom-0.5 left-0 h-px bg-[var(--accent-hover)] transition-[width,transform,opacity] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none"
+                  style={{
+                    opacity: activeIndicator.visible ? 1 : 0,
+                    transform: `translate3d(${activeIndicator.left}px, 0, 0)`,
+                    width: `${activeIndicator.width}px`,
+                  }}
+                />
+
                 {navLinks.map((link) => {
                   const isActive = isHome && activeHref === link.anchor;
 
                   return (
-                    <ScrollLink
+                    <span
                       key={link.anchor}
-                      href={getHref(link.anchor)}
-                      ariaCurrent={isActive ? "location" : undefined}
-                      className={`relative py-2 font-accent text-xs font-semibold transition after:absolute after:inset-x-0 after:-bottom-0.5 after:h-px after:origin-center after:scale-x-0 after:bg-[var(--accent-hover)] after:transition-transform ${
-                        isActive
-                          ? "text-white after:scale-x-100"
-                          : "text-white/56 hover:text-white"
-                      }`}
+                      data-nav-anchor={link.anchor}
+                      className="nav-link-target relative"
                     >
-                      {link.label}
-                    </ScrollLink>
+                      <ScrollLink
+                        href={getHref(link.anchor)}
+                        ariaCurrent={isActive ? "location" : undefined}
+                        className={`motion-nav-link block py-2 font-accent text-xs font-semibold transition ${
+                          isActive
+                            ? "text-white"
+                            : "text-white/56 hover:text-white"
+                        }`}
+                      >
+                        {link.label}
+                      </ScrollLink>
+                    </span>
                   );
                 })}
               </nav>
@@ -128,7 +280,7 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
                   aria-label="Abrir conversa no WhatsApp para solicitar um site"
                   data-track="whatsapp_header_click"
                   data-track-label="header_desktop"
-                  className="inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--accent-primary)]/35 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:scale-[1.02] hover:brightness-110 lg:px-6"
+                  className="nav-budget-cta inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--accent-primary)]/35 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:scale-[1.02] hover:brightness-110 lg:px-6"
                 >
                   Solicitar orçamento
                 </a>
@@ -168,7 +320,8 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
       <button
         type="button"
         aria-label="Fechar menu lateral"
-        className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition ${
+        tabIndex={isOpen ? 0 : -1}
+        className={`fixed inset-0 z-40 bg-black/72 transition-opacity duration-300 ${
           isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         } md:hidden`}
         onClick={handleClose}
@@ -177,12 +330,23 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
       <aside
         id="mobile-menu"
         aria-label="Menu mobile"
-        className={`fixed right-0 top-0 z-50 h-screen w-[min(320px,88vw)] border-l border-white/10 bg-[rgba(10,10,10,0.98)] px-6 py-24 shadow-[-18px_0_48px_rgba(0,0,0,0.34)] transition-transform duration-300 md:hidden ${
+        aria-hidden={!isOpen}
+        data-menu-open={isOpen}
+        className={`fixed right-0 top-0 z-50 h-screen h-[100dvh] w-[min(320px,88vw)] overflow-y-auto border-l border-white/10 bg-[rgba(10,10,10,0.99)] px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-24 shadow-[-18px_0_48px_rgba(0,0,0,0.34)] transition-transform duration-300 md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        <button
+          type="button"
+          aria-label="Fechar menu"
+          tabIndex={isOpen ? 0 : -1}
+          onClick={handleClose}
+          className="absolute right-5 top-5 inline-flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] font-accent text-2xl text-white transition hover:border-[var(--accent-primary)]"
+        >
+          ×
+        </button>
         <nav className="flex flex-col gap-5">
-          {navLinks.map((link) => {
+          {navLinks.map((link, index) => {
             const label =
               link.anchor === "#topo"
                 ? "Ir para o início"
@@ -195,11 +359,13 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
                 href={getHref(link.anchor)}
                 ariaLabel={label}
                 ariaCurrent={isActive ? "location" : undefined}
-                className={`font-display text-4xl uppercase ${
+                className={`mobile-menu-link font-display text-4xl uppercase ${
                   isActive
                     ? "text-[var(--accent-hover)]"
                     : "text-white"
                 }`}
+                style={{ transitionDelay: isOpen ? `${80 + index * 45}ms` : "0ms" }}
+                tabIndex={isOpen ? 0 : -1}
                 onClick={handleClose}
               >
                 {link.label}
@@ -216,6 +382,7 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
           data-track="whatsapp_header_click"
           data-track-label="header_mobile"
           className="button-primary mt-10 w-full"
+          tabIndex={isOpen ? 0 : -1}
           onClick={handleClose}
         >
           Solicitar orçamento

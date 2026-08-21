@@ -1,8 +1,13 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import MotionWords from "@/components/ui/MotionWords";
 import Reveal from "@/components/ui/Reveal";
-import { getProjectPath, portfolioProjects, type PortfolioProject } from "@/lib/projects";
+import TransitionLink from "@/components/ui/TransitionLink";
+import {
+  getProjectPath,
+  portfolioProjects,
+  type PortfolioProject,
+} from "@/lib/projects";
 
 type ProjectsProps = {
   limit?: number;
@@ -14,93 +19,167 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
   return (
     <section
       id="projetos"
-      className="section-space scroll-mt-28 overflow-hidden bg-[#050505]"
+      className="section-space relative scroll-mt-28 overflow-hidden border-y border-white/[0.07] bg-[#070707]"
     >
-      <div aria-hidden="true" className="ghost-grid absolute inset-0 opacity-[0.07]" />
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[420px] bg-[radial-gradient(circle_at_center,rgba(123,47,190,0.18),transparent_62%)]"
+        className="ghost-grid absolute inset-0 opacity-[0.045] [mask-image:linear-gradient(to_bottom,transparent,black_18%,black_82%,transparent)]"
       />
+      <div
+        aria-hidden="true"
+        className="absolute -left-40 top-24 h-[520px] w-[520px] rounded-full bg-[rgba(123,47,190,0.12)] blur-[140px]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-[-0.08em] top-24 select-none font-display text-[clamp(120px,24vw,360px)] uppercase leading-none text-white/[0.018]"
+      >
+        cases
+      </div>
 
       <div className="container-shell relative z-10">
-        <Reveal className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 font-accent text-xs font-semibold text-white/52">
-            Portfólio
-          </span>
-          <h2 className="mt-5 font-accent text-[clamp(36px,7vw,72px)] font-bold leading-[0.95] text-white">
-            Projetos de sites desenvolvidos para{" "}
-            <span className="text-[var(--success)]">clientes</span>
-          </h2>
-        </Reveal>
+        <div className="grid gap-8 border-b border-white/10 pb-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)] lg:items-end lg:pb-14">
+          <Reveal>
+            <div className="flex items-center gap-3 font-accent text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--success)]">
+              <span className="h-px w-10 bg-[var(--success)]" />
+              Projetos selecionados
+            </div>
+            <h2 className="mt-6 max-w-[920px] font-display text-[clamp(58px,9.4vw,126px)] uppercase leading-[0.82] tracking-[-0.015em] text-white">
+              <MotionWords
+                words={[
+                  "Ideias",
+                  "que",
+                  "ganharam",
+                  { text: "tela.", className: "text-[var(--accent-hover)]" },
+                ]}
+              />
+            </h2>
+          </Reveal>
 
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
+          <Reveal delay={0.1} fromX={18} fromY={0}>
+            <div className="lg:border-l lg:border-white/10 lg:pl-8">
+              <span className="font-display text-6xl leading-none text-white/20">
+                {String(visibleProjects.length).padStart(2, "0")}
+              </span>
+              <p className="mt-4 max-w-sm text-sm leading-7 text-white/58 md:text-base">
+                Uma seleção de experiências digitais pensadas para comunicar valor,
+                gerar confiança e transformar visitas em conversas.
+              </p>
+            </div>
+          </Reveal>
+        </div>
+
+        <div className="mt-4 divide-y divide-white/10">
           {visibleProjects.map((project, index) => (
-            <Reveal key={project.slug} delay={index * 0.05}>
-              <ProjectPortfolioCard project={project} priority={index < 2} />
+            <Reveal
+              key={project.slug}
+              delay={Math.min(index * 0.04, 0.12)}
+              fromX={index % 2 === 0 ? -22 : 22}
+              fromY={0}
+            >
+              <ProjectCase project={project} index={index} priority={index === 0} />
             </Reveal>
           ))}
         </div>
 
-        <Reveal className="mt-10 text-center">
-          <Link
+        <Reveal className="mt-10 flex justify-end md:mt-14">
+          <TransitionLink
             href="/projetos"
-            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:border-[var(--success)]/45 hover:text-[var(--success)]"
+            className="motion-link group inline-flex min-h-14 items-center gap-4 rounded-full border border-white/12 bg-white/[0.045] py-2 pl-6 pr-2 font-accent text-xs font-semibold text-white transition hover:border-[var(--accent-hover)]/55 hover:bg-[rgba(123,47,190,0.09)]"
           >
-            Ver todos os projetos
-            <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-          </Link>
+            Explorar portfólio completo
+            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-primary)] text-white">
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </span>
+          </TransitionLink>
         </Reveal>
       </div>
     </section>
   );
 }
 
-function ProjectPortfolioCard({
+function ProjectCase({
   project,
+  index,
   priority,
 }: {
   project: PortfolioProject;
+  index: number;
   priority: boolean;
 }) {
-  const targetUrl = project.liveUrl ?? getProjectPath(project);
-  const isExternal = Boolean(project.liveUrl);
+  const isReversed = index % 2 === 1;
 
   return (
-    <article className="group h-full overflow-hidden rounded-[12px] border border-white/10 bg-[rgba(12,12,12,0.72)] transition duration-300 hover:-translate-y-1 hover:border-[var(--success)]/35 hover:bg-[rgba(17,17,17,0.9)]">
-      <div className="relative aspect-[16/9] overflow-hidden bg-black">
-        <Image
-          src={project.imageSrc}
-          alt={project.imageAlt}
-          fill
-          priority={priority}
-          quality={92}
-          sizes="(min-width: 1280px) 560px, (min-width: 1024px) 46vw, 100vw"
-          className={`object-cover transition duration-700 group-hover:scale-[1.035] ${
-            project.imageClassName ?? "object-center"
-          }`}
-        />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,5,5,0)_62%,rgba(5,5,5,0.42)_100%)]" />
-        <span className="absolute left-4 top-4 rounded-[6px] border border-white/12 bg-[#080808]/80 px-3 py-1.5 font-accent text-[10px] font-semibold uppercase text-white/58 backdrop-blur">
-          {project.niche}
-        </span>
+    <article className="project-case group relative grid gap-7 py-9 md:py-12 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-16">
+      <div
+        className={`project-case-visual motion-media-frame relative overflow-hidden rounded-[18px] border border-white/10 bg-black shadow-[0_28px_90px_rgba(0,0,0,0.34)] lg:col-span-7 ${
+          isReversed ? "lg:order-2" : ""
+        }`}
+        style={{ viewTransitionName: `project-${project.slug}-visual` }}
+      >
+        <div className="relative aspect-[16/10] overflow-hidden">
+          <Image
+            src={project.imageSrc}
+            alt={project.imageAlt}
+            fill
+            priority={priority}
+            quality={92}
+            sizes="(min-width: 1280px) 720px, (min-width: 1024px) 58vw, 100vw"
+            className={`object-cover transition duration-700 ease-out group-hover:scale-[1.035] ${
+              project.imageClassName ?? "object-center"
+            }`}
+          />
+          <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(5,5,5,0.05)_35%,rgba(123,47,190,0.16)_100%)] opacity-70 transition duration-500 group-hover:opacity-30" />
+          <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 to-transparent" />
+
+          <span className="absolute left-4 top-4 flex h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-black/65 px-3 font-accent text-[11px] font-semibold text-white backdrop-blur-md md:left-6 md:top-6">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+          <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/65 px-3 py-2 font-accent text-[10px] font-semibold uppercase tracking-[0.08em] text-white/76 backdrop-blur-md md:bottom-6 md:right-6">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)] shadow-[0_0_12px_rgba(61,220,132,0.8)]" />
+            {project.status}
+          </span>
+        </div>
       </div>
 
-      <div className="p-5 md:p-6">
-        <h3 className="font-accent text-lg font-semibold leading-tight text-white">
+      <div
+        className={`project-case-content lg:col-span-5 ${
+          isReversed ? "lg:order-1 lg:pr-4" : "lg:pl-4"
+        }`}
+      >
+        <div className="flex flex-wrap items-center gap-2 font-accent text-[10px] font-semibold uppercase tracking-[0.1em] text-white/42">
+          <span>{project.niche}</span>
+          <span className="h-1 w-1 rounded-full bg-[var(--accent-hover)]" />
+          <span>{project.service}</span>
+        </div>
+
+        <h3 className="mt-5 font-display text-[clamp(44px,6vw,76px)] uppercase leading-[0.88] text-white transition-colors duration-300 group-hover:text-[var(--accent-hover)]">
           {project.name}
         </h3>
-        <p className="mt-3 min-h-[56px] text-sm leading-7 text-[var(--text-secondary)]">
+        <p className="mt-5 max-w-lg text-sm leading-7 text-white/60 md:text-base">
           {project.shortDescription}
         </p>
-        <a
-          href={targetUrl}
-          target={isExternal ? "_blank" : undefined}
-          rel={isExternal ? "noreferrer" : undefined}
-          className="mt-5 inline-flex items-center gap-2 font-accent text-xs font-semibold text-[var(--success)] transition group-hover:gap-3"
-        >
-          Ver site completo
-          <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-        </a>
+
+        <div className="mt-7 flex flex-wrap items-center gap-5">
+          <TransitionLink
+            href={getProjectPath(project)}
+            className="motion-link inline-flex min-h-11 items-center gap-2 border-b border-[var(--accent-hover)] pb-1 font-accent text-xs font-semibold text-white"
+          >
+            Ver estudo de caso
+            <ArrowRight aria-hidden="true" className="h-4 w-4" />
+          </TransitionLink>
+
+          {project.liveUrl ? (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="motion-link inline-flex min-h-11 items-center gap-2 font-accent text-xs font-semibold text-white/52 transition hover:text-[var(--success)]"
+            >
+              Visitar site
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          ) : null}
+        </div>
       </div>
     </article>
   );
