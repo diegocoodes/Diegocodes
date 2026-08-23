@@ -8,7 +8,7 @@ export const cvExperiences = [
     role: "Desenvolvedor Full Stack",
     company: "Prefeitura da Cidade do Paulista",
     type: "Tempo integral",
-    period: "fev. de 2026 — atual",
+    period: "fev. de 2026 até atual",
     workMode: "Presencial",
     description:
       "Mantenho e evoluo o portal institucional e desenvolvo soluções digitais para a gestão pública, atuando do design de interface ao back-end e ao deploy em produção, com foco em desempenho e confiabilidade.",
@@ -26,7 +26,7 @@ export const cvExperiences = [
     role: "Desenvolvedor de Front-end",
     company: "Prefeitura da Cidade do Paulista",
     type: "Estágio",
-    period: "fev. de 2025 — atual",
+    period: "fev. de 2025 até atual",
     workMode: "Presencial",
     description:
       "Desenvolvo interfaces de alto desempenho e melhorias de performance para sistemas internos e para o portal oficial, além de soluções voltadas ao atendimento dos servidores públicos, como o sistema de recadastramento.",
@@ -43,7 +43,7 @@ export const cvExperiences = [
     role: "Desenvolvedor Web",
     company: "Prefeitura da Cidade do Paulista",
     type: "Estágio",
-    period: "jan. de 2025 — atual",
+    period: "jan. de 2025 até atual",
     workMode: "Presencial",
     description:
       "Construo interfaces responsivas e funcionalidades de back-end para plataformas que simplificam processos administrativos, incluindo o desenvolvimento do sistema de simplificadas.",
@@ -61,7 +61,7 @@ export const cvExperiences = [
     role: "Fundador e Desenvolvedor Full Stack",
     company: "diegocodes",
     type: "Freelance",
-    period: "jan. de 2026 — atual",
+    period: "jan. de 2026 até atual",
     workMode: "Remoto",
     description:
       "Criei a operação do zero para desenvolver soluções digitais para empresas, reunindo estratégia, gestão de projetos, design de interface, desenvolvimento e publicação.",
@@ -71,7 +71,7 @@ export const cvExperiences = [
     role: "Desenvolvedor Full Stack",
     company: "Pernambuco em Foco",
     type: "Freelance",
-    period: "dez. de 2025 — atual",
+    period: "dez. de 2025 até atual",
     workMode: "Remoto",
     description:
       "Desenvolvo um portal de conteúdo e turismo sobre Pernambuco com painel administrativo, autenticação e mapa interativo, pensado para informar e engajar os usuários.",
@@ -81,7 +81,7 @@ export const cvExperiences = [
     role: "Desenvolvedor Front-end",
     company: "RastroMoville",
     type: "Freelance",
-    period: "out. de 2025 — nov. de 2025",
+    period: "out. de 2025 até nov. de 2025",
     workMode: "Recife, Pernambuco",
     description:
       "Desenvolvi uma experiência moderna e responsiva para uma empresa de gestão de frotas, com foco em performance, navegação intuitiva, UX/UI e uma identidade visual consistente.",
@@ -114,12 +114,12 @@ export const cvCertificates = [
   },
   {
     name: "Gamificação para engajamento de colaboradores e clientes",
-    issuer: "UNIBRA — Centro Universitário Brasileiro",
+    issuer: "UNIBRA, Centro Universitário Brasileiro",
     date: "dez. de 2025",
   },
   {
     name: "Gestão em qualidade de projetos",
-    issuer: "UNIBRA — Centro Universitário Brasileiro",
+    issuer: "UNIBRA, Centro Universitário Brasileiro",
     date: "nov. de 2025",
   },
   {

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
-export const alt = "DiegoCodes - sites profissionais para negócios locais";
+export const alt = "DiegoCodes | sites profissionais para negócios locais";
 
 export const size = {
   width: 1200,

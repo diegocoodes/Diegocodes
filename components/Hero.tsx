@@ -17,23 +17,16 @@ export default function Hero({ whatsappUrl }: HeroProps) {
 
       <div className="container-shell relative z-20 flex w-full justify-center">
         <div className="mx-auto flex max-w-[1040px] flex-col items-center text-center">
-          <Reveal>
-            <div className="flex items-center gap-3 font-accent text-xs font-semibold uppercase tracking-[0.04em] text-white/66">
-              <span className="h-px w-10 bg-[var(--success)]" />
-              Design e desenvolvimento web
-            </div>
-          </Reveal>
-
-          <Reveal delay={0.08} fromY={28}>
-            <h1 className="hero-new-title mt-7 max-w-[1100px] font-display text-[clamp(40px,11vw,126px)] uppercase leading-[0.84] tracking-[-0.05em] text-white">
+          <Reveal delay={0.04} fromY={28}>
+            <h1 className="hero-new-title max-w-[1100px] font-display text-[clamp(40px,11vw,126px)] uppercase leading-[0.84] tracking-[-0.05em] text-white">
               <span className="block">
                 Sites que <span className="text-[#c99bea]">transformam</span>
               </span>
             </h1>
           </Reveal>
 
-          <Reveal delay={0.14} fromY={22}>
-            <p className="mt-7 max-w-[720px] text-[15px] leading-7 text-white/68 sm:text-base md:text-lg md:leading-8">
+          <Reveal delay={0.12} fromY={22}>
+            <p className="mt-8 max-w-[720px] text-[15px] leading-7 text-white/68 sm:mt-10 sm:text-base md:text-lg md:leading-8">
               Estratégia, identidade e tecnologia reunidas em experiências digitais
               que apresentam o seu valor, fortalecem sua marca e aproximam novos
               clientes.

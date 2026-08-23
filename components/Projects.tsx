@@ -1,6 +1,5 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import MotionWords from "@/components/ui/MotionWords";
 import Reveal from "@/components/ui/Reveal";
 import TransitionLink from "@/components/ui/TransitionLink";
 import {
@@ -30,21 +29,14 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
         className="absolute -left-40 top-24 h-[520px] w-[520px] rounded-full bg-[rgba(123,47,190,0.12)] blur-[140px]"
       />
       <div className="container-shell relative z-10">
-        <div className="grid gap-8 border-b border-white/10 pb-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)] lg:items-end lg:pb-14">
+        <div className="grid gap-10 border-b border-white/10 pb-12 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)] lg:items-end lg:gap-14 lg:pb-16">
           <Reveal>
-            <div className="flex items-center gap-3 font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
-              <span className="h-px w-10 bg-[var(--success)]" />
+            <div className="font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
               Projetos selecionados
             </div>
             <h2 className="mt-6 max-w-[920px] font-display text-[clamp(54px,9.4vw,126px)] uppercase leading-[0.82] tracking-[-0.045em] text-white">
-              <MotionWords
-                words={[
-                  "Ideias",
-                  "que",
-                  "ganharam",
-                  { text: "tela.", className: "text-[var(--accent-hover)]" },
-                ]}
-              />
+              <span className="block">Ideias que</span>
+              <span className="block text-[var(--accent-hover)]">Ganharam tela</span>
             </h2>
           </Reveal>
 
@@ -58,7 +50,7 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
           </Reveal>
         </div>
 
-        <div className="mt-4 divide-y divide-white/10">
+        <div className="mt-6 divide-y divide-white/10 lg:mt-8">
           {visibleProjects.map((project, index) => (
             <Reveal
               key={project.slug}

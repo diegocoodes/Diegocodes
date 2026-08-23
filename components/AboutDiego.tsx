@@ -24,8 +24,7 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
       />
       <div className="container-shell relative z-10">
         <Reveal>
-          <div className="flex items-center gap-3 font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
-            <span className="h-px w-10 bg-[var(--success)]" />
+          <div className="font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
             Sobre mim
           </div>
           <h2 className="mt-6 max-w-[1100px] font-display text-[clamp(50px,8.5vw,112px)] uppercase leading-[0.86] tracking-[-0.045em] text-white">

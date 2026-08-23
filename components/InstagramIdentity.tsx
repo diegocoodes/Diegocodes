@@ -84,7 +84,6 @@ export default function InstagramIdentity({
                   "que",
                   "parecem",
                   { text: "marca", className: "text-[var(--success)]" },
-                  "—",
                   "não",
                   "apenas",
                   "posts.",

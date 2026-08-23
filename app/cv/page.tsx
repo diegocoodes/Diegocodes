@@ -183,17 +183,6 @@ export default function CvPage() {
       </CvSection>
 
       <CvSection
-        id="stack"
-        label="Stack"
-        title="Tecnologias em movimento"
-        tone="dark"
-      >
-        <Reveal fromY={16}>
-          <TechIconGrid />
-        </Reveal>
-      </CvSection>
-
-      <CvSection
         id="experiencia"
         label="Experiência"
         title="Trajetória profissional"
@@ -205,7 +194,7 @@ export default function CvPage() {
               <header className="grid gap-4 lg:grid-cols-[190px_minmax(0,1fr)] lg:gap-10">
                 <div>
                   <p className="font-accent text-xs font-semibold uppercase tracking-[0.035em] text-[#7b2fbe]">
-                    jan. de 2025 — atual
+                    jan. de 2025 até atual
                   </p>
                   <p className="mt-2 text-xs text-[#625967]">Presencial</p>
                 </div>
@@ -304,10 +293,10 @@ export default function CvPage() {
                 Análise e Desenvolvimento de Sistemas
               </h3>
               <p className="mt-6 font-accent text-sm font-semibold text-[#514858]">
-                UNIBRA — Centro Universitário Brasileiro
+                UNIBRA, Centro Universitário Brasileiro
               </p>
               <p className="mt-2 text-xs text-[#665c68]">
-                fev. de 2023 — dez. de 2025
+                fev. de 2023 até dez. de 2025
               </p>
             </div>
           </Reveal>
@@ -355,6 +344,13 @@ export default function CvPage() {
         title="Contribuições em código"
         tone="dark"
       >
+        <Reveal fromY={16} className="mb-10 sm:mb-12">
+          <p className="mb-5 font-accent text-xs font-semibold uppercase tracking-[0.04em] text-[#d7abea]">
+            Linguagens e tecnologias
+          </p>
+          <TechIconGrid staticMode />
+        </Reveal>
+
         <Reveal fromY={18}>
           <a
             href={cvProfessionalLinks.github}
