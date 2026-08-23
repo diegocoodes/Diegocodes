@@ -6,7 +6,9 @@
     "dev": "next dev -p 3012",
     "build": "next build",
     "start": "next start -p 3012",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run typecheck && npm run build"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

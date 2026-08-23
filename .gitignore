@@ -34,3 +34,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# editor and local tooling
+.vscode/
+/awesome-codex-skills/
+/codex-skills/
