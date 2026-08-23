@@ -16,9 +16,9 @@ const config: Config = {
         panel: "var(--bg-panel)",
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "sans-serif"],
-        display: ["var(--font-bebas)", "sans-serif"],
-        accent: ["var(--font-space-grotesk)", "sans-serif"],
+        sans: ["var(--font-barlow)", "Arial", "sans-serif"],
+        display: ["var(--font-archivo-black)", "Arial Black", "sans-serif"],
+        accent: ["var(--font-barlow)", "Arial", "sans-serif"],
       },
     },
   },

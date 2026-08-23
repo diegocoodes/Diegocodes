@@ -37,7 +37,7 @@ export default function Deliverables() {
 
             return (
             <Reveal key={item.title} delay={index * 0.04}>
-              <MotionSurface className="group relative flex h-full min-h-[210px] flex-col overflow-hidden rounded-2xl border border-white/10 bg-[linear-gradient(145deg,rgba(18,18,18,0.96),rgba(8,8,8,0.98))] p-6 transition-colors duration-300 hover:border-[var(--success)]/35">
+              <MotionSurface className="group relative flex h-full min-h-[210px] flex-col overflow-hidden rounded-md border border-white/10 bg-[linear-gradient(145deg,rgba(18,18,18,0.96),rgba(8,8,8,0.98))] p-6 transition-colors duration-300 hover:border-[var(--success)]/35">
                 <span
                   aria-hidden="true"
                   className="motion-rule absolute inset-x-0 top-0 h-1 bg-[linear-gradient(90deg,var(--accent-primary),var(--success))] opacity-70"
@@ -45,7 +45,7 @@ export default function Deliverables() {
                 <div className="motion-icon flex h-11 w-11 items-center justify-center rounded-2xl border border-[var(--success)]/25 bg-[var(--success)]/10 text-[var(--success)]">
                   <Icon aria-hidden="true" className="h-5 w-5" />
                 </div>
-                <h3 className="mt-6 font-accent text-xl font-semibold leading-tight text-white">
+                <h3 className="mt-6 font-display text-xl uppercase leading-tight tracking-[-0.025em] text-white">
                   {item.title}
                 </h3>
                 <p className="mt-3 text-base leading-7 text-[var(--text-secondary)]">

@@ -30,6 +30,9 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
   });
   const progressRef = useRef<HTMLSpanElement>(null);
   const navRef = useRef<HTMLElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
   const compactRef = useRef(false);
 
   useEffect(() => {
@@ -82,24 +85,100 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
   }, []);
 
   useEffect(() => {
-    document.body.style.overflow = isOpen ? "hidden" : "";
+    if (!isOpen) {
+      return;
+    }
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [isOpen]);
 
   useEffect(() => {
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
+
+    function closeAtDesktop(event: MediaQueryListEvent | MediaQueryList) {
+      if (event.matches) {
+        setIsOpen(false);
+      }
+    }
+
+    closeAtDesktop(desktopQuery);
+    desktopQuery.addEventListener("change", closeAtDesktop);
+
+    return () => desktopQuery.removeEventListener("change", closeAtDesktop);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) {
+      return;
+    }
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const menuButton = menuButtonRef.current;
+    const focusFrame = window.requestAnimationFrame(() => {
+      closeButtonRef.current?.focus({ preventScroll: true });
+    });
+
     function handleKeyDown(event: KeyboardEvent) {
       if (event.key === "Escape") {
+        event.preventDefault();
         setIsOpen(false);
+        return;
+      }
+
+      if (event.key !== "Tab") {
+        return;
+      }
+
+      const drawer = drawerRef.current;
+      if (!drawer) {
+        return;
+      }
+
+      const focusableElements = Array.from(
+        drawer.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+        )
+      );
+
+      if (!focusableElements.length) {
+        event.preventDefault();
+        drawer.focus({ preventScroll: true });
+        return;
+      }
+
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      } else if (!drawer.contains(document.activeElement)) {
+        event.preventDefault();
+        firstElement.focus();
       }
     }
 
     document.addEventListener("keydown", handleKeyDown);
 
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
+    return () => {
+      window.cancelAnimationFrame(focusFrame);
+      document.removeEventListener("keydown", handleKeyDown);
+
+      const focusTarget =
+        previouslyFocused?.isConnected && previouslyFocused !== document.body
+          ? previouslyFocused
+          : menuButton;
+      focusTarget?.focus({ preventScroll: true });
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     if (!isHome) {
@@ -228,7 +307,6 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
                 className="nav-brand font-display text-[26px] uppercase leading-none text-white md:text-[30px]"
               >
                 diegocodes
-                <span className="text-[var(--accent-hover)]">_</span>
               </ScrollLink>
 
               <nav
@@ -280,13 +358,14 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
                   aria-label="Abrir conversa no WhatsApp para solicitar um site"
                   data-track="whatsapp_header_click"
                   data-track-label="header_desktop"
-                  className="nav-budget-cta inline-flex min-h-11 items-center justify-center rounded-full border border-[var(--accent-primary)]/35 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:scale-[1.02] hover:brightness-110 lg:px-6"
+                  className="nav-budget-cta inline-flex min-h-11 items-center justify-center rounded-md border border-[var(--accent-primary)]/35 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:scale-[1.02] hover:brightness-110 lg:px-6"
                 >
                   Solicitar orçamento
                 </a>
               </div>
 
               <button
+                ref={menuButtonRef}
                 type="button"
                 aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
                 aria-expanded={isOpen}
@@ -320,23 +399,28 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
       <button
         type="button"
         aria-label="Fechar menu lateral"
-        tabIndex={isOpen ? 0 : -1}
-        className={`fixed inset-0 z-40 bg-black/72 transition-opacity duration-300 ${
+        tabIndex={-1}
+        className={`fixed inset-0 z-[60] bg-black/72 transition-opacity duration-300 ${
           isOpen ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"
         } md:hidden`}
         onClick={handleClose}
       />
 
       <aside
+        ref={drawerRef}
         id="mobile-menu"
+        role="dialog"
+        aria-modal="true"
         aria-label="Menu mobile"
         aria-hidden={!isOpen}
         data-menu-open={isOpen}
-        className={`fixed right-0 top-0 z-50 h-screen h-[100dvh] w-[min(320px,88vw)] overflow-y-auto border-l border-white/10 bg-[rgba(10,10,10,0.99)] px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-24 shadow-[-18px_0_48px_rgba(0,0,0,0.34)] transition-transform duration-300 md:hidden ${
+        tabIndex={-1}
+        className={`fixed right-0 top-0 z-[70] h-screen h-[100dvh] w-[min(320px,88vw)] overflow-y-auto border-l border-white/10 bg-[rgba(10,10,10,0.99)] px-6 pb-[max(2rem,env(safe-area-inset-bottom))] pt-24 shadow-[-18px_0_48px_rgba(0,0,0,0.34)] transition-transform duration-300 md:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <button
+          ref={closeButtonRef}
           type="button"
           aria-label="Fechar menu"
           tabIndex={isOpen ? 0 : -1}

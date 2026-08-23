@@ -1,4 +1,5 @@
 import { AtSign, Mail } from "lucide-react";
+import { SiGithub } from "react-icons/si";
 import Reveal from "@/components/ui/Reveal";
 import ScrollLink from "@/components/ui/ScrollLink";
 import { contactConfig } from "@/lib/contact";
@@ -24,7 +25,6 @@ export default function Footer() {
             className="font-display text-4xl uppercase leading-none"
           >
             diegocodes
-            <span className="text-[var(--accent-primary)]">_</span>
           </ScrollLink>
 
           <nav
@@ -35,7 +35,7 @@ export default function Footer() {
               <ScrollLink
                 key={link.href}
                 href={link.href}
-              className="font-accent text-sm font-medium text-[var(--text-secondary)] transition hover:-translate-y-0.5 hover:text-white"
+              className="inline-flex min-h-11 items-center font-accent text-sm font-medium text-[var(--text-secondary)] transition hover:-translate-y-0.5 hover:text-white"
               >
                 {link.label}
               </ScrollLink>
@@ -44,18 +44,27 @@ export default function Footer() {
 
           <div className="flex items-center gap-3">
             <a
+              href={contactConfig.githubUrl}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Abrir GitHub de Diego Ewerton"
+              className="flex h-11 w-11 items-center justify-center rounded-md border border-white/10 bg-[var(--bg-surface)] text-white transition hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+            >
+              <SiGithub aria-hidden="true" className="h-5 w-5" />
+            </a>
+            <a
               href={contactConfig.instagramUrl}
               target="_blank"
               rel="noreferrer"
               aria-label="Abrir Instagram da DiegoCodes"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-surface)] text-white transition hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+                className="flex h-11 w-11 items-center justify-center rounded-md border border-white/10 bg-[var(--bg-surface)] text-white transition hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
             >
               <AtSign aria-hidden="true" className="h-5 w-5" />
             </a>
             <a
               href={`mailto:${contactConfig.email}`}
               aria-label="Enviar e-mail para Diego"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-[var(--bg-surface)] text-white transition hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
+              className="flex h-11 w-11 items-center justify-center rounded-md border border-white/10 bg-[var(--bg-surface)] text-white transition hover:-translate-y-1 hover:border-[var(--accent-primary)] hover:text-[var(--accent-primary)]"
             >
               <Mail aria-hidden="true" className="h-5 w-5" />
             </a>
@@ -63,7 +72,7 @@ export default function Footer() {
         </div>
 
         <div className="flex flex-col gap-2 border-t border-white/8 pt-5 text-sm text-[var(--text-secondary)] md:flex-row md:items-center md:justify-between">
-          <p>© {currentYear} diegocodes_ · Recife, PE</p>
+          <p>© {currentYear} DiegoCodes · Recife, PE</p>
           <p>Criação de sites em Recife e atendimento online.</p>
         </div>
       </Reveal>

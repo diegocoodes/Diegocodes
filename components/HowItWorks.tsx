@@ -24,26 +24,23 @@ export default function HowItWorks({ whatsappUrl }: HowItWorksProps) {
           </Reveal>
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
+        <ol className="mt-12 grid gap-4 md:grid-cols-2 xl:grid-cols-5">
           {processSteps.map((step, index) => (
-            <Reveal key={step.title} delay={index * 0.05}>
-              <article className="motion-card surface-card group flex h-full min-h-[250px] flex-col rounded-2xl bg-[rgba(17,17,17,0.9)] p-6">
-                <div className="flex items-center justify-between gap-4">
-                  <span className="motion-index font-display text-6xl leading-none text-[var(--accent-primary)]">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="motion-rule h-px flex-1 bg-white/10" />
-                </div>
-                <h3 className="mt-8 font-accent text-xl font-semibold leading-tight text-white">
-                  {step.title}
-                </h3>
-                <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
-                  {step.description}
-                </p>
-              </article>
-            </Reveal>
+            <li key={step.title}>
+              <Reveal delay={index * 0.05}>
+                <article className="motion-card surface-card group flex h-full min-h-[240px] flex-col rounded-md bg-[rgba(17,17,17,0.9)] p-6">
+                  <span className="motion-rule h-1 w-14 bg-[var(--accent-primary)] transition-all duration-300 group-hover:w-24 group-hover:bg-[var(--success)]" />
+                  <h3 className="mt-9 font-display text-xl uppercase leading-tight tracking-[-0.025em] text-white">
+                    {step.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-7 text-[var(--text-secondary)]">
+                    {step.description}
+                  </p>
+                </article>
+              </Reveal>
+            </li>
           ))}
-        </div>
+        </ol>
 
         <Reveal className="mt-10">
           <a

@@ -113,7 +113,7 @@ export default function OpenGraphImage() {
               letterSpacing: 3,
             }}
           >
-            diegocodes_
+            DIEGOCODES
             <span style={{ color: "#FFFFFF" }}>Projetos responsivos e integrados ao WhatsApp</span>
           </div>
         </div>

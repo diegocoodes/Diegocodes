@@ -29,21 +29,14 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
         aria-hidden="true"
         className="absolute -left-40 top-24 h-[520px] w-[520px] rounded-full bg-[rgba(123,47,190,0.12)] blur-[140px]"
       />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute right-[-0.08em] top-24 select-none font-display text-[clamp(120px,24vw,360px)] uppercase leading-none text-white/[0.018]"
-      >
-        cases
-      </div>
-
       <div className="container-shell relative z-10">
         <div className="grid gap-8 border-b border-white/10 pb-10 lg:grid-cols-[minmax(0,1.35fr)_minmax(280px,0.65fr)] lg:items-end lg:pb-14">
           <Reveal>
-            <div className="flex items-center gap-3 font-accent text-[11px] font-semibold uppercase tracking-[0.16em] text-[var(--success)]">
+            <div className="flex items-center gap-3 font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
               <span className="h-px w-10 bg-[var(--success)]" />
               Projetos selecionados
             </div>
-            <h2 className="mt-6 max-w-[920px] font-display text-[clamp(58px,9.4vw,126px)] uppercase leading-[0.82] tracking-[-0.015em] text-white">
+            <h2 className="mt-6 max-w-[920px] font-display text-[clamp(54px,9.4vw,126px)] uppercase leading-[0.82] tracking-[-0.045em] text-white">
               <MotionWords
                 words={[
                   "Ideias",
@@ -57,10 +50,7 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
 
           <Reveal delay={0.1} fromX={18} fromY={0}>
             <div className="lg:border-l lg:border-white/10 lg:pl-8">
-              <span className="font-display text-6xl leading-none text-white/20">
-                {String(visibleProjects.length).padStart(2, "0")}
-              </span>
-              <p className="mt-4 max-w-sm text-sm leading-7 text-white/58 md:text-base">
+              <p className="max-w-sm text-sm leading-7 text-white/58 md:text-base">
                 Uma seleção de experiências digitais pensadas para comunicar valor,
                 gerar confiança e transformar visitas em conversas.
               </p>
@@ -84,10 +74,10 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
         <Reveal className="mt-10 flex justify-end md:mt-14">
           <TransitionLink
             href="/projetos"
-            className="motion-link group inline-flex min-h-14 items-center gap-4 rounded-full border border-white/12 bg-white/[0.045] py-2 pl-6 pr-2 font-accent text-xs font-semibold text-white transition hover:border-[var(--accent-hover)]/55 hover:bg-[rgba(123,47,190,0.09)]"
+            className="motion-link group inline-flex min-h-14 items-center gap-4 rounded-md border border-white/12 bg-white/[0.045] py-2 pl-6 pr-2 font-accent text-xs font-semibold text-white transition hover:border-[var(--accent-hover)]/55 hover:bg-[rgba(123,47,190,0.09)]"
           >
             Explorar portfólio completo
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-primary)] text-white">
+            <span className="flex h-10 w-10 items-center justify-center rounded-sm bg-[var(--accent-primary)] text-white">
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
             </span>
           </TransitionLink>
@@ -111,7 +101,7 @@ function ProjectCase({
   return (
     <article className="project-case group relative grid gap-7 py-9 md:py-12 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-16">
       <div
-        className={`project-case-visual motion-media-frame relative overflow-hidden rounded-[18px] border border-white/10 bg-black shadow-[0_28px_90px_rgba(0,0,0,0.34)] lg:col-span-7 ${
+        className={`project-case-visual motion-media-frame relative overflow-hidden rounded-md border border-white/10 bg-black shadow-[0_28px_90px_rgba(0,0,0,0.34)] lg:col-span-7 ${
           isReversed ? "lg:order-2" : ""
         }`}
         style={{ viewTransitionName: `project-${project.slug}-visual` }}
@@ -131,13 +121,6 @@ function ProjectCase({
           <div className="absolute inset-0 bg-[linear-gradient(120deg,rgba(5,5,5,0.05)_35%,rgba(123,47,190,0.16)_100%)] opacity-70 transition duration-500 group-hover:opacity-30" />
           <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/70 to-transparent" />
 
-          <span className="absolute left-4 top-4 flex h-11 min-w-11 items-center justify-center rounded-full border border-white/15 bg-black/65 px-3 font-accent text-[11px] font-semibold text-white backdrop-blur-md md:left-6 md:top-6">
-            {String(index + 1).padStart(2, "0")}
-          </span>
-          <span className="absolute bottom-4 right-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-black/65 px-3 py-2 font-accent text-[10px] font-semibold uppercase tracking-[0.08em] text-white/76 backdrop-blur-md md:bottom-6 md:right-6">
-            <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)] shadow-[0_0_12px_rgba(61,220,132,0.8)]" />
-            {project.status}
-          </span>
         </div>
       </div>
 
@@ -146,13 +129,15 @@ function ProjectCase({
           isReversed ? "lg:order-1 lg:pr-4" : "lg:pl-4"
         }`}
       >
-        <div className="flex flex-wrap items-center gap-2 font-accent text-[10px] font-semibold uppercase tracking-[0.1em] text-white/42">
+        <div className="flex flex-wrap items-center gap-2 font-accent text-[11px] font-semibold uppercase leading-5 tracking-[0.035em] text-white/60">
           <span>{project.niche}</span>
-          <span className="h-1 w-1 rounded-full bg-[var(--accent-hover)]" />
+          <span aria-hidden="true">/</span>
           <span>{project.service}</span>
+          <span aria-hidden="true">/</span>
+          <span>{project.status}</span>
         </div>
 
-        <h3 className="mt-5 font-display text-[clamp(44px,6vw,76px)] uppercase leading-[0.88] text-white transition-colors duration-300 group-hover:text-[var(--accent-hover)]">
+        <h3 className="mt-5 break-words font-display text-[38px] uppercase leading-[0.86] tracking-[-0.04em] text-white transition-colors duration-300 group-hover:text-[var(--accent-hover)] sm:text-[clamp(42px,6vw,76px)] [overflow-wrap:anywhere]">
           {project.name}
         </h3>
         <p className="mt-5 max-w-lg text-sm leading-7 text-white/60 md:text-base">

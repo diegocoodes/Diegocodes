@@ -1,29 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Inter, Space_Grotesk } from "next/font/google";
+import { Archivo_Black, Barlow } from "next/font/google";
 import Script from "next/script";
 import { getSiteUrl } from "@/lib/site";
 import "../styles/globals.css";
 
 const siteUrl = getSiteUrl();
 
-const bebasNeue = Bebas_Neue({
+const archivoBlack = Archivo_Black({
   subsets: ["latin"],
   weight: "400",
-  variable: "--font-bebas",
+  variable: "--font-archivo-black",
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-space-grotesk",
-  display: "swap",
-});
-
-const inter = Inter({
+const barlow = Barlow({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
-  variable: "--font-inter",
+  variable: "--font-barlow",
   display: "swap",
 });
 
@@ -98,7 +91,7 @@ export default function RootLayout({
   return (
     <html
       lang="pt-BR"
-      className={`dark ${bebasNeue.variable} ${spaceGrotesk.variable} ${inter.variable} font-sans`}
+      className={`dark ${archivoBlack.variable} ${barlow.variable} font-sans`}
     >
       <body className="bg-[var(--bg-primary)] font-sans text-white antialiased">
         <Script id="meta-pixel" strategy="afterInteractive">

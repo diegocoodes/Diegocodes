@@ -75,21 +75,10 @@ export default function CTAFinal({ whatsappUrl }: CTAFinalProps) {
       id="contato"
       className="section-space scroll-mt-28 overflow-hidden bg-[#070707]"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-2 -translate-x-1/2 select-none font-display text-[120px] uppercase leading-none tracking-normal text-white/[0.025] sm:text-[180px] lg:text-[220px]"
-      >
-        CONTATO
-      </div>
-
       <div className="container-shell relative z-10">
         <Reveal className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex items-center gap-3 font-accent text-xs font-semibold uppercase text-white/62">
-            <span className="h-px w-8 bg-[var(--success)]" />
-            Próximo passo
-            <span className="h-px w-8 bg-[var(--success)]" />
-          </span>
-          <h2 className="motion-heading mt-5 font-accent text-[40px] font-bold leading-[0.98] text-white sm:text-[52px] lg:text-[60px]">
+          <span className="section-kicker text-white/62">Próximo passo</span>
+          <h2 className="motion-heading mt-5 font-display text-[42px] uppercase leading-[0.9] tracking-[-0.04em] text-white sm:text-[58px] lg:text-[72px]">
             <MotionWords
               words={[
                 "Vamos",

@@ -7,14 +7,12 @@ import { getProjectPath } from "@/lib/projects";
 
 type ProjectCardProps = {
   project: PortfolioProject;
-  index: number;
   featured?: boolean;
   transitionName?: string;
 };
 
 export default function ProjectCard({
   project,
-  index,
   featured = false,
   transitionName = `project-${project.slug}-visual`,
 }: ProjectCardProps) {
@@ -24,7 +22,7 @@ export default function ProjectCard({
   );
 
   return (
-    <SpotlightPanel className="surface-card group h-full rounded-[24px] bg-[rgba(17,17,17,0.9)]">
+    <SpotlightPanel className="surface-card group h-full rounded-md bg-[rgba(17,17,17,0.9)]">
       <article
         className={`grid h-full gap-6 p-4 md:p-5 ${
           featured ? "lg:grid-cols-[minmax(0,1.05fr)_minmax(360px,0.95fr)]" : ""
@@ -42,21 +40,11 @@ export default function ProjectCard({
           }`}
         >
           <div>
-            <div className="flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1.5 font-accent text-xs font-semibold text-white/70">
-                Projeto {String(index + 1).padStart(2, "0")}
-              </span>
-              <span className="inline-flex items-center gap-2 rounded-full border border-[var(--success)]/25 bg-[var(--success)]/10 px-3 py-1.5 font-accent text-xs font-semibold text-[var(--success)]">
-                <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)]" />
-                {project.status}
-              </span>
-            </div>
-
-            <p className="mt-7 font-accent text-sm font-semibold text-[var(--text-secondary)]">
-              {project.niche}
+            <p className="font-accent text-xs font-semibold uppercase tracking-[0.035em] text-[var(--text-secondary)]">
+              {project.niche} <span aria-hidden="true">/</span> {project.status}
             </p>
             <h3
-              className={`mt-3 font-display uppercase leading-none text-white ${
+              className={`mt-4 font-display uppercase leading-[0.9] tracking-[-0.04em] text-white ${
                 featured ? "text-[52px] md:text-[68px]" : "text-[42px] md:text-[50px]"
               }`}
             >
@@ -99,7 +87,7 @@ export default function ProjectCard({
                 target="_blank"
                 rel="noreferrer"
                 aria-label={`Abrir projeto ${project.name} em nova aba`}
-                className="motion-link inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-[var(--accent-primary)]/30 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
+                className="motion-link inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-md border border-[var(--accent-primary)]/30 bg-[var(--accent-primary)] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:brightness-110"
               >
                 Ver projeto
                 <ExternalLink aria-hidden="true" className="h-4 w-4" />
@@ -109,7 +97,7 @@ export default function ProjectCard({
             <TransitionLink
               href={getProjectPath(project)}
               aria-label={`Ver detalhes do projeto ${project.name}`}
-              className="motion-link inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-full border border-white/12 bg-white/[0.04] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-[var(--success)]/45 hover:text-[var(--success)]"
+              className="motion-link inline-flex min-h-12 flex-1 items-center justify-center gap-2 rounded-md border border-white/12 bg-white/[0.04] px-5 py-3 font-accent text-xs font-semibold text-white transition duration-300 hover:-translate-y-0.5 hover:border-[var(--success)]/45 hover:text-[var(--success)]"
             >
               Ver estudo de caso
               <ArrowRight aria-hidden="true" className="h-4 w-4" />
@@ -123,7 +111,7 @@ export default function ProjectCard({
 
 function ProjectContextBlock({ title, body }: { title: string; body: string }) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-white/[0.03] p-4">
+    <div className="rounded-md border border-white/8 bg-white/[0.03] p-4">
       <p className="font-accent text-xs font-semibold text-[var(--success)]">
         {title}
       </p>
@@ -144,10 +132,10 @@ function ProjectMockup({
   transitionName: string;
 }) {
   return (
-    <div className="motion-media-frame relative overflow-hidden rounded-[22px] border border-white/10 bg-[#050505] p-3 shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
+    <div className="motion-media-frame relative overflow-hidden rounded-md border border-white/10 bg-[#050505] p-3 shadow-[0_24px_70px_rgba(0,0,0,0.28)]">
       <div
         style={{ viewTransitionName: transitionName }}
-        className={`relative overflow-hidden rounded-2xl border border-white/10 bg-black ${
+        className={`relative overflow-hidden rounded-sm border border-white/10 bg-black ${
           featured ? "aspect-[16/9]" : "aspect-[4/3]"
         }`}
       >

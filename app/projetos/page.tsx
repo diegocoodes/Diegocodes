@@ -96,7 +96,6 @@ export default function ProjectsPage() {
                 >
                   <ProjectCard
                     project={project}
-                    index={index}
                     featured={isFeatured}
                     transitionName={`project-${project.slug}-visual`}
                   />

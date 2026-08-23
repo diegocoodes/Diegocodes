@@ -5,6 +5,7 @@ export const contactConfig = {
   email: "diegoosilvaewerton@gmail.com",
   instagramUrl: "https://instagram.com/diegocodes_",
   instagramHandle: "@diegocodes_",
+  githubUrl: "https://github.com/diegocoodes",
   location: "Recife, Pernambuco",
   serviceArea: "Recife, Pernambuco e atendimento online",
 } as const;

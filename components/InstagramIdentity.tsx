@@ -70,14 +70,14 @@ export default function InstagramIdentity({
       <div className="container-shell relative z-10">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.55fr)] lg:items-end">
           <Reveal>
-            <span className="inline-flex items-center gap-2 font-accent text-xs font-semibold uppercase tracking-[0.16em] text-white/52">
+            <span className="inline-flex items-center gap-2 font-accent text-xs font-semibold uppercase tracking-[0.04em] text-white/52">
               <AtSign
                 aria-hidden="true"
                 className="h-4 w-4 text-[var(--accent-secondary)]"
               />
               Identidade visual para Instagram
             </span>
-            <h2 className="motion-heading mt-5 max-w-4xl font-accent text-[clamp(38px,6.6vw,76px)] font-bold leading-[0.94] tracking-[-0.045em] text-white">
+            <h2 className="motion-heading mt-5 max-w-4xl font-display text-[clamp(42px,6.8vw,82px)] uppercase leading-[0.88] tracking-[-0.045em] text-white">
               <MotionWords
                 words={[
                   "Perfis",
@@ -98,14 +98,6 @@ export default function InstagramIdentity({
               Direção visual, paleta, tipografia e uma linha de conteúdo coerente
               para transformar cada visita ao perfil em percepção de valor.
             </p>
-            <div className="mt-6 flex items-center gap-4 border-t border-white/10 pt-5">
-              <strong className="font-display text-5xl font-normal leading-none text-white">
-                04
-              </strong>
-              <span className="max-w-32 font-accent text-[11px] font-semibold uppercase leading-4 tracking-[0.12em] text-white/42">
-                universos visuais criados
-              </span>
-            </div>
           </Reveal>
         </div>
 
@@ -117,7 +109,7 @@ export default function InstagramIdentity({
               delay={index * 0.055}
               fromY={28}
             >
-              <article className="motion-card group flex h-full flex-col overflow-hidden rounded-[18px] border border-white/10 bg-[#0d0d0d] shadow-[0_22px_70px_rgba(0,0,0,0.18)] hover:border-[rgba(155,77,202,0.42)] sm:rounded-[20px]">
+              <article className="motion-card group flex h-full flex-col overflow-hidden rounded-md border border-white/10 bg-[#0d0d0d] shadow-[0_22px_70px_rgba(0,0,0,0.18)] hover:border-[rgba(155,77,202,0.42)]">
                 <div className="motion-media-frame ghost-grid relative aspect-[7/5] shrink-0 overflow-hidden border-b border-white/[0.07] bg-[#050505]">
                   <Image
                     src={project.imageSrc}
@@ -133,16 +125,15 @@ export default function InstagramIdentity({
                 <div className="flex min-h-[164px] flex-1 flex-col p-4 sm:min-h-[172px] sm:p-5 lg:p-6">
                   <div className="flex items-start gap-3 sm:gap-4">
                     <span
-                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/[0.035] font-display text-2xl leading-none sm:h-11 sm:w-11 sm:text-3xl ${project.accentClassName}`}
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
+                      aria-hidden="true"
+                      className={`mt-1 h-11 w-1 shrink-0 bg-current ${project.accentClassName}`}
+                    />
 
                     <div className="min-w-0 flex-1">
-                      <p className="font-accent text-[10px] font-semibold uppercase leading-4 tracking-[0.13em] text-white/42 sm:text-[11px]">
+                      <p className="font-accent text-[11px] font-semibold uppercase leading-4 tracking-[0.035em] text-white/60">
                         {project.niche}
                       </p>
-                      <h3 className="mt-1 break-words font-accent text-lg font-semibold leading-tight text-white sm:text-xl">
+                      <h3 className="mt-1 break-words font-display text-lg uppercase leading-tight tracking-[-0.02em] text-white sm:text-xl">
                         {project.name}
                       </h3>
                     </div>
@@ -161,15 +152,10 @@ export default function InstagramIdentity({
                     </div>
                   </div>
 
-                  <div className="mt-auto flex flex-wrap items-center gap-2 border-t border-white/[0.07] pt-4">
-                    {project.deliverables.map((deliverable) => (
-                      <span
-                        key={deliverable}
-                        className="rounded-full border border-white/[0.08] bg-white/[0.025] px-2.5 py-1 font-accent text-[10px] font-medium leading-4 text-white/48 sm:px-3 sm:text-[11px]"
-                      >
-                        {deliverable}
-                      </span>
-                    ))}
+                  <div className="mt-auto flex flex-wrap items-center gap-3 border-t border-white/[0.07] pt-4">
+                    <p className="font-accent text-[11px] font-medium uppercase leading-5 tracking-[0.025em] text-white/60">
+                      {project.deliverables.join(" / ")}
+                    </p>
 
                     <div
                       aria-hidden="true"

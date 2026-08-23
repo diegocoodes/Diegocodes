@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  CheckCircle2,
   ChevronLeft,
   ChevronRight,
   ExternalLink,
@@ -10,7 +9,7 @@ import {
 import Image from "next/image";
 import { useRef, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
-import { proofCards, testimonials } from "@/lib/home-content";
+import { testimonials } from "@/lib/home-content";
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -83,21 +82,10 @@ export default function Testimonials() {
       id="depoimentos"
       className="section-space scroll-mt-28 overflow-hidden border-t border-[var(--success)]/35 bg-[#070707]"
     >
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-20 -translate-x-1/2 select-none whitespace-nowrap font-display text-[92px] uppercase leading-none tracking-normal text-white/[0.025] sm:text-[150px] lg:text-[200px]"
-      >
-        EXPERIÊNCIAS
-      </div>
-
       <div className="container-shell relative z-10">
         <Reveal className="mx-auto max-w-4xl text-center">
-          <span className="inline-flex items-center gap-3 font-accent text-xs font-semibold uppercase text-white/62">
-            <span className="h-px w-8 bg-[var(--success)]" />
-            Depoimentos
-            <span className="h-px w-8 bg-[var(--success)]" />
-          </span>
-          <h2 className="motion-heading mt-5 font-accent text-[40px] font-bold leading-[0.98] text-white sm:text-[52px] lg:text-[60px]">
+          <span className="section-kicker text-white/62">Depoimentos</span>
+          <h2 className="motion-heading mt-5 font-display text-[42px] uppercase leading-[0.9] tracking-[-0.04em] text-white sm:text-[58px] lg:text-[72px]">
             Experiências de <span className="text-[var(--success)]">clientes</span>
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[var(--text-secondary)] md:text-lg">
@@ -108,7 +96,7 @@ export default function Testimonials() {
         <Reveal delay={0.06} className="mt-10">
           <div
             aria-live="polite"
-            className={`relative overflow-hidden rounded-[18px] border border-white/10 bg-[linear-gradient(145deg,rgba(24,24,24,0.96),rgba(10,10,10,0.98))] p-6 md:p-8 lg:p-10 ${
+            className={`relative overflow-hidden rounded-md border border-white/10 bg-[linear-gradient(145deg,rgba(24,24,24,0.96),rgba(10,10,10,0.98))] p-6 md:p-8 lg:p-10 ${
               hasMultipleTestimonials ? "cursor-grab touch-pan-y active:cursor-grabbing" : ""
             }`}
             onPointerDown={handlePointerDown}
@@ -153,10 +141,6 @@ export default function Testimonials() {
                   <p className="mt-1 text-sm leading-6 text-white/52">
                     {activeTestimonial.segment}
                   </p>
-                  <p className="mt-3 inline-flex items-center gap-2 font-accent text-xs font-semibold text-[var(--success)]">
-                    <CheckCircle2 aria-hidden="true" className="h-4 w-4" />
-                    Projeto publicado
-                  </p>
                 </div>
               </div>
 
@@ -184,103 +168,59 @@ export default function Testimonials() {
             </div>
           </div>
 
-          <div
-            className="mt-5 flex items-center justify-center gap-4"
-            aria-label="Navegação dos depoimentos"
-          >
-            <button
-              type="button"
-              onClick={showPrevious}
-              disabled={!hasMultipleTestimonials}
-              aria-label="Mostrar depoimento anterior"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)] disabled:cursor-not-allowed disabled:opacity-30"
+          {hasMultipleTestimonials ? (
+            <div
+              className="mt-5 flex items-center justify-center gap-4"
+              aria-label="Navegação dos depoimentos"
             >
-              <ChevronLeft aria-hidden="true" className="h-5 w-5" />
-            </button>
-
-            <div className="flex items-center gap-2" aria-label="Indicadores de depoimentos">
-              {testimonials.map((testimonial, index) => (
-                <button
-                  key={testimonial.name}
-                  type="button"
-                  onClick={() => {
-                    setSlideDirection(index >= activeIndex ? "next" : "previous");
-                    setActiveIndex(index);
-                  }}
-                  aria-label={`Mostrar depoimento ${index + 1} de ${testimonials.length}`}
-                  aria-current={activeIndex === index ? "true" : undefined}
-                  className={`h-2.5 rounded-full transition-all ${
-                    activeIndex === index
-                      ? "w-8 bg-[var(--success)]"
-                      : "w-2.5 bg-white/20 hover:bg-white/40"
-                  }`}
-                />
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={showNext}
-              disabled={!hasMultipleTestimonials}
-              aria-label="Mostrar próximo depoimento"
-              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)] disabled:cursor-not-allowed disabled:opacity-30"
-            >
-              <ChevronRight aria-hidden="true" className="h-5 w-5" />
-            </button>
-          </div>
-        </Reveal>
-
-        <Reveal className="mt-16">
-          <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
-            <div>
-              <span className="section-kicker">Portfólio</span>
-              <h3 className="mt-3 font-accent text-2xl font-semibold text-white md:text-3xl">
-                Outros projetos desenvolvidos
-              </h3>
-            </div>
-            <p className="max-w-lg text-sm leading-6 text-white/52">
-              Soluções publicadas para profissionais e empresas de diferentes segmentos.
-            </p>
-          </div>
-
-          <div className="mt-7 grid gap-4 md:grid-cols-3">
-            {proofCards.map((project) => (
-              <a
-                key={project.title}
-                href={project.projectUrl}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={`Abrir o projeto ${project.title} em uma nova aba`}
-                className="motion-card group overflow-hidden rounded-[12px] border border-white/10 bg-white/[0.025] hover:border-[var(--success)]/38"
+              <button
+                type="button"
+                onClick={showPrevious}
+                aria-label="Mostrar depoimento anterior"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)]"
               >
-                <div className="motion-media-frame relative aspect-[16/9] overflow-hidden bg-black">
-                  <Image
-                    src={project.imageSrc}
-                    alt={project.imageAlt}
-                    fill
-                    quality={90}
-                    sizes="(min-width: 1024px) 360px, (min-width: 768px) 31vw, 100vw"
-                    className="object-cover object-center transition duration-500 group-hover:scale-[1.025]"
-                  />
-                </div>
-                <div className="flex items-start justify-between gap-4 p-4">
-                  <div>
-                    <h4 className="font-accent text-base font-semibold text-white">
-                      {project.title}
-                    </h4>
-                    <p className="mt-1 text-xs leading-5 text-white/48">
-                      {project.segment}
-                    </p>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 font-accent text-[11px] font-semibold text-[var(--success)]">
-                    <span className="h-1.5 w-1.5 rounded-full bg-[var(--success)]" />
-                    Publicado
-                  </span>
-                </div>
-              </a>
-            ))}
-          </div>
+                <ChevronLeft aria-hidden="true" className="h-5 w-5" />
+              </button>
+
+              <div className="flex items-center gap-2" aria-label="Indicadores de depoimentos">
+                {testimonials.map((testimonial, index) => (
+                  <button
+                    key={testimonial.name}
+                    type="button"
+                    onClick={() => {
+                      setSlideDirection(index >= activeIndex ? "next" : "previous");
+                      setActiveIndex(index);
+                    }}
+                    aria-label={`Mostrar depoimento ${index + 1} de ${testimonials.length}`}
+                    aria-current={activeIndex === index ? "true" : undefined}
+                    className={`inline-flex min-h-11 min-w-11 items-center justify-center rounded-full transition ${
+                      activeIndex === index
+                        ? "text-[var(--success)]"
+                        : "text-white/30 hover:text-white/60"
+                    }`}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`h-2.5 rounded-full bg-current transition-all ${
+                        activeIndex === index ? "w-8" : "w-2.5"
+                      }`}
+                    />
+                  </button>
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={showNext}
+                aria-label="Mostrar próximo depoimento"
+                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)]"
+              >
+                <ChevronRight aria-hidden="true" className="h-5 w-5" />
+              </button>
+            </div>
+          ) : null}
         </Reveal>
+
       </div>
     </section>
   );

@@ -25,10 +25,6 @@ const Testimonials = dynamic(() => import("@/components/Testimonials"), {
   loading: () => <SectionFallback className="h-[480px]" />,
 });
 
-const WhyChoose = dynamic(() => import("@/components/WhyChoose"), {
-  loading: () => <SectionFallback className="h-[480px]" />,
-});
-
 const HowItWorks = dynamic(() => import("@/components/HowItWorks"), {
   loading: () => <SectionFallback className="h-[440px]" />,
 });
@@ -67,28 +63,29 @@ export default function Home() {
   const jsonLd = getHomeJsonLd(siteUrl);
 
   return (
-    <main className="site-page-enter relative overflow-x-clip bg-[var(--bg-primary)]">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <>
       <SiteIntro />
-      <AnalyticsBridge />
-      <Navbar whatsappUrl={whatsappUrl} />
-      <Hero whatsappUrl={whatsappUrl} />
-      <TrustBar />
-      <Projects limit={4} />
-      <InstagramIdentity whatsappUrl={whatsappUrl} />
-      <Deliverables />
-      <HowItWorks whatsappUrl={whatsappUrl} />
-      <Testimonials />
-      <WhyChoose />
-      <AboutDiego whatsappUrl={whatsappUrl} />
-      <FAQ />
-      <CTAFinal whatsappUrl={whatsappUrl} />
-      <Footer />
-      <WhatsAppFloat whatsappUrl={whatsappUrl} />
-    </main>
+      <main className="site-page-enter relative overflow-x-clip bg-[var(--bg-primary)]">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <AnalyticsBridge />
+        <Navbar whatsappUrl={whatsappUrl} />
+        <Hero whatsappUrl={whatsappUrl} />
+        <TrustBar />
+        <Projects limit={4} />
+        <InstagramIdentity whatsappUrl={whatsappUrl} />
+        <Deliverables />
+        <HowItWorks whatsappUrl={whatsappUrl} />
+        <Testimonials />
+        <AboutDiego whatsappUrl={whatsappUrl} />
+        <FAQ />
+        <CTAFinal whatsappUrl={whatsappUrl} />
+        <Footer />
+        <WhatsAppFloat whatsappUrl={whatsappUrl} />
+      </main>
+    </>
   );
 }
 
@@ -104,7 +101,7 @@ function getHomeJsonLd(siteUrl: string) {
       name: "Diego Ewerton",
       jobTitle: "Desenvolvedor web",
       url: siteUrl,
-      sameAs: [contactConfig.instagramUrl],
+      sameAs: [contactConfig.instagramUrl, contactConfig.githubUrl],
       homeLocation: {
         "@type": "Place",
         name: "Recife, Pernambuco",
