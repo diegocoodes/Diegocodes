@@ -102,6 +102,13 @@ function getHomeJsonLd(siteUrl: string) {
       jobTitle: "Desenvolvedor web",
       url: siteUrl,
       sameAs: [contactConfig.instagramUrl, contactConfig.githubUrl],
+      knowsAbout: [
+        "Desenvolvimento web",
+        "Criação de sites",
+        "Landing pages",
+        "Design responsivo",
+        "SEO para negócios locais",
+      ],
       homeLocation: {
         "@type": "Place",
         name: "Recife, Pernambuco",
@@ -137,6 +144,26 @@ function getHomeJsonLd(siteUrl: string) {
         "Sites para negócios locais",
         "Desenvolvimento web em Pernambuco",
       ],
+      hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Serviços de desenvolvimento web",
+        itemListElement: [
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Criação de site profissional",
+            },
+          },
+          {
+            "@type": "Offer",
+            itemOffered: {
+              "@type": "Service",
+              name: "Criação de landing page",
+            },
+          },
+        ],
+      },
       contactPoint: {
         "@type": "ContactPoint",
         contactType: "sales",

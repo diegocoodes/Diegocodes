@@ -12,9 +12,16 @@ const siteUrl = getSiteUrl();
 const ogImageUrl = new URL("/opengraph-image", siteUrl).toString();
 
 export const metadata: Metadata = {
-  title: "Projetos de Sites e Landing Pages | DiegoCodes",
+  title: "Projetos de Sites e Landing Pages",
   description:
     "Conheça projetos de sites e landing pages criados pela DiegoCodes para negócios locais apresentarem serviços, transmitirem confiança e receberem contatos pelo WhatsApp.",
+  keywords: [
+    "portfólio desenvolvedor web Recife",
+    "projetos de sites profissionais",
+    "exemplos de landing pages",
+    "sites para negócios locais",
+    "designer de sites Recife",
+  ],
   alternates: {
     canonical: `${siteUrl}/projetos`,
   },

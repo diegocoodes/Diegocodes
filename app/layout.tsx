@@ -22,24 +22,41 @@ const barlow = Barlow({
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Criação de Sites em Recife | DiegoCodes",
+  title: {
+    default: "Criação de Sites em Recife | DiegoCodes",
+    template: "%s | DiegoCodes",
+  },
   description:
-    "Criação de sites e landing pages em Recife para profissionais e negócios locais. Projetos responsivos, personalizados e integrados ao WhatsApp.",
+    "Criação de sites profissionais e landing pages em Recife para empresas, autônomos e negócios locais. Design responsivo, SEO e integração com WhatsApp.",
   applicationName: "DiegoCodes",
   authors: [{ name: "Diego Ewerton", url: siteUrl }],
+  creator: "Diego Ewerton",
+  publisher: "DiegoCodes",
+  category: "Desenvolvimento web",
   keywords: [
     "criação de sites em Recife",
+    "criação de sites Recife",
     "desenvolvedor web em Recife",
     "landing pages em Recife",
+    "landing page Recife",
+    "web designer Recife",
+    "agência de sites Recife",
     "sites para negócios locais",
     "criação de site profissional",
     "desenvolvimento web em Pernambuco",
     "desenvolvedor web Recife",
+    "site institucional Recife",
+    "site para empresa em Recife",
+    "site com WhatsApp",
+    "orçamento de site Recife",
     "site para personal trainer",
     "landing page profissional",
   ],
   alternates: {
     canonical: siteUrl,
+    languages: {
+      "pt-BR": siteUrl,
+    },
   },
   openGraph: {
     title: "Criação de Sites em Recife | DiegoCodes",
@@ -68,6 +85,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   icons: {
     icon: "/icon.svg",

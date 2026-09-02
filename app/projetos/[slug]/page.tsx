@@ -44,6 +44,13 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
   return {
     title: project.metaTitle,
     description: project.metaDescription,
+    keywords: [
+      `${project.service} em Recife`,
+      `site para ${project.niche}`,
+      `projeto de site ${project.name}`,
+      "criação de site profissional",
+      "DiegoCodes",
+    ],
     alternates: {
       canonical: projectUrl,
     },
@@ -104,36 +111,42 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <section className="section-space overflow-hidden">
+      <section className="relative overflow-hidden pb-16 pt-10 md:pb-20 md:pt-14 lg:pb-24 lg:pt-16">
         <div
           aria-hidden="true"
           className="ghost-grid absolute inset-0 opacity-[0.08]"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(circle_at_74%_18%,rgba(123,47,190,0.2),transparent_34%)]"
+          className="absolute inset-x-0 top-0 h-[620px] bg-[radial-gradient(circle_at_78%_22%,rgba(123,47,190,0.22),transparent_38%)]"
         />
 
         <div className="container-shell relative z-10">
           <TransitionLink
             href="/projetos"
-            className="inline-flex items-center gap-2 font-accent text-xs font-semibold text-white/56 transition hover:text-white"
+            className="inline-flex min-h-10 items-center gap-2 font-accent text-xs font-semibold text-white/56 transition hover:text-white"
           >
             <ArrowLeft aria-hidden="true" className="h-4 w-4" />
             Voltar aos projetos
           </TransitionLink>
 
-          <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(420px,1.1fr)] lg:items-center">
+          <div className="mt-9 grid gap-10 lg:mt-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-14 xl:gap-20">
             <Reveal>
-              <span className="section-kicker">Projeto DiegoCodes</span>
-              <h1 className="motion-heading display-title mt-6 max-w-[760px]">
+              <div className="flex flex-wrap items-center gap-3">
+                <span className="section-kicker">Case DiegoCodes</span>
+                <span className="h-1 w-1 rounded-full bg-white/25" />
+                <span className="font-accent text-xs font-semibold uppercase tracking-[0.035em] text-[var(--success)]">
+                  {project.status}
+                </span>
+              </div>
+              <h1 className="motion-heading mt-6 max-w-[680px] whitespace-normal break-normal font-display text-[clamp(46px,5.2vw,76px)] uppercase leading-[0.88] tracking-[-0.045em] text-white [overflow-wrap:normal] [word-break:normal]">
                 {project.name}
               </h1>
-              <p className="eyebrow-copy mt-7 max-w-3xl">
+              <p className="mt-7 max-w-[620px] font-accent text-base font-medium leading-7 text-[var(--text-secondary)] sm:text-lg sm:leading-8">
                 {project.shortDescription}
               </p>
 
-              <div className="mt-9 flex flex-col gap-4 sm:flex-row">
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                 {project.liveUrl ? (
                   <a
                     href={project.liveUrl}
@@ -159,27 +172,28 @@ export default function ProjectDetailPage({ params }: ProjectPageProps) {
               </div>
             </Reveal>
 
-            <Reveal delay={0.08}>
+            <Reveal delay={0.08} className="relative lg:-mr-5 xl:-mr-10">
+              <div aria-hidden="true" className="absolute -inset-6 -z-10 rounded-[40px] bg-[var(--accent-primary)]/10 blur-3xl" />
               <ProjectDesktopVisual
                 visual={desktopVisual}
                 priority
                 transitionName={`project-${project.slug}-visual`}
-                className="shadow-[0_32px_90px_rgba(0,0,0,0.36)]"
+                className="shadow-[0_32px_100px_rgba(0,0,0,0.5)]"
               />
             </Reveal>
           </div>
 
-          <Reveal className="mt-12" delay={0.14}>
-            <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-5">
+          <Reveal className="mt-12 border-t border-white/10 pt-6 lg:mt-16 lg:pt-7" delay={0.14}>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-7 md:grid-cols-3 lg:grid-cols-5 lg:gap-0">
               {quickFacts.map((fact) => (
                 <div
                   key={fact.label}
-                  className="surface-card rounded-[20px] bg-[rgba(17,17,17,0.86)] p-5"
+                  className="min-w-0 lg:border-l lg:border-white/10 lg:px-6 lg:first:border-l-0 lg:first:pl-0"
                 >
-                  <p className="font-accent text-xs font-semibold text-[var(--text-secondary)]">
+                  <p className="font-accent text-[10px] font-semibold uppercase tracking-[0.08em] text-white/40">
                     {fact.label}
                   </p>
-                  <p className="mt-3 text-base font-semibold leading-6 text-white">
+                  <p className="mt-2 line-clamp-3 font-accent text-sm font-semibold leading-5 text-white/88 sm:text-base sm:leading-6">
                     {fact.value}
                   </p>
                 </div>
