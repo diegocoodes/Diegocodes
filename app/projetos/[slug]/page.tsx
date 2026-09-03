@@ -18,9 +18,9 @@ import { getSiteUrl } from "@/lib/site";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
 type ProjectPageProps = {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 };
 
 const siteUrl = getSiteUrl();
@@ -31,8 +31,11 @@ export function generateStaticParams() {
   }));
 }
 
-export function generateMetadata({ params }: ProjectPageProps): Metadata {
-  const project = getProjectBySlug(params.slug);
+export async function generateMetadata({
+  params,
+}: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     return {};
@@ -77,8 +80,9 @@ export function generateMetadata({ params }: ProjectPageProps): Metadata {
   };
 }
 
-export default function ProjectDetailPage({ params }: ProjectPageProps) {
-  const project = getProjectBySlug(params.slug);
+export default async function ProjectDetailPage({ params }: ProjectPageProps) {
+  const { slug } = await params;
+  const project = getProjectBySlug(slug);
 
   if (!project) {
     notFound();

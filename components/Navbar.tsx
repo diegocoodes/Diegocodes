@@ -182,7 +182,6 @@ export default function Navbar({ whatsappUrl }: NavbarProps) {
 
   useEffect(() => {
     if (!isHome) {
-      setActiveHref("");
       return;
     }
 
