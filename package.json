@@ -2,9 +2,13 @@
   "name": "diegocodes",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0",
+    "npm": ">=10"
+  },
   "scripts": {
     "dev": "next dev -p 3012",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start -p 3012",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
