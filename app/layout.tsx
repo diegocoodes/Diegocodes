@@ -4,6 +4,10 @@ import Script from "next/script";
 import { getSiteUrl } from "@/lib/site";
 import "../styles/globals.css";
 
+// HTML must follow the active build: a CDN-cached page can reference deleted CSS.
+// Keep explicitly cached data and immutable static assets cacheable.
+export const revalidate = 0;
+
 const siteUrl = getSiteUrl();
 
 const archivoBlack = Archivo_Black({

@@ -169,33 +169,37 @@ O currículo usa `noindex, nofollow` intencionalmente e, por isso, não é inclu
 
 ## Publicação em produção
 
-O domínio `diegocodes.com.br` é servido diretamente pelo processo PM2 `diego-codes`, a partir de `/opt/diegocodes`, na porta 3012. O proxy público e o TLS ficam na infraestrutura existente do servidor.
+O domínio `diegocodes.com.br` é publicado pela integração do GitHub com o hPanel da Hostinger, usando a branch `master`.
 
 Fluxo de publicação:
 
 ```bash
-cd /opt/diegocodes
-git pull --ff-only origin master
 npm ci
 npm run check
-pm2 restart diego-codes --update-env
-pm2 save
 ```
 
-Validação após o restart:
+Após enviar a alteração para `master`, acompanhe o deploy no hPanel. Se a publicação automática estiver desativada, inicie o deploy pelo painel.
+
+### Cache de HTML e arquivos estáticos
+
+O layout raiz define `revalidate = 0`: as páginas são renderizadas por requisição e o Next.js envia `Cache-Control: private, no-cache, no-store, max-age=0, must-revalidate`. Isso impede que o HTML de um build antigo continue sendo distribuído com referências a CSS/JavaScript removidos. O custo é renderizar o HTML no servidor em cada acesso; os arquivos estáticos com hash continuam usando cache longo.
+
+Na primeira publicação dessa correção, limpe também o cache já armazenado: **hPanel → Sites → Painel do site → Desempenho → CDN → Limpar cache (Flush cache)**. A alteração no código não invalida cópias que a CDN já guardou. Se houver regras personalizadas forçando cache de HTML, remova essa sobreposição para respeitar os cabeçalhos da aplicação.
+
+Validação após o deploy, usando a URL normal, sem parâmetros para contornar o cache:
 
 ```bash
-pm2 describe diego-codes
 curl -I https://diegocodes.com.br/
 curl -I https://diegocodes.com.br/cv
 ```
+
+Confirme `Cache-Control` com `private` e `no-store` nas páginas. No Network do navegador, os arquivos CSS referenciados devem responder `200` com `Content-Type: text/css`. Um HTML antigo com `x-hcdn-cache-status: HIT` e CSS com `404` indica que ainda há cache antigo na infraestrutura.
 
 Antes de publicar, confirme que a home, o portfólio, `/cv`, o formulário e o download do PDF funcionam em desktop e mobile.
 
 ## Convenções do repositório
 
 - Branch de produção remota: `master`.
-- Branch local usada no servidor: `main`, rastreando `origin/master`.
 - Commits devem descrever o resultado entregue.
 - Assets de produção ficam em `public/`; arquivos de editor, builds e dependências permanecem ignorados.
 - Alterações de conteúdo devem preservar URLs, textos alternativos e configurações de SEO.
