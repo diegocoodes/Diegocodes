@@ -6,15 +6,15 @@ Produção: [diegocodes.com.br](https://diegocodes.com.br)
 
 ## Visão geral
 
-O site foi construído com Next.js e App Router, possui uma home comercial, uma área completa de projetos e uma página de currículo. A experiência visual combina tipografia editorial, paleta escura com roxo e verde, animações progressivas e uma abertura em cortina.
+O site foi construído com Next.js e App Router, possui uma home comercial, uma área completa de projetos e uma página de currículo. A experiência visual combina tipografia editorial, paleta escura com roxo e verde e animações progressivas, com o conteúdo principal visível desde o HTML inicial.
 
 Principais recursos:
 
 - Home responsiva com apresentação, projetos, serviços, processo, depoimentos, perfil profissional, FAQ e formulário de contato.
-- Portfólio com listagem e páginas individuais geradas estaticamente.
+- Portfólio com listagem e páginas individuais renderizadas no servidor.
 - Currículo em `/cv`, com experiências, formação, certificados, stack e contribuições públicas do GitHub.
 - Download do currículo em PDF diretamente pela pasta pública do projeto.
-- Fundo WebGL interativo no hero, com fallback e respeito a preferências de movimento reduzido.
+- Fundo WebGL interativo no desktop, carregado após a página em um momento ocioso do navegador. Celulares, dispositivos com economia de dados e visitantes que preferem movimento reduzido recebem um fundo em CSS.
 - Navegação responsiva, rolagem suave e transições entre páginas.
 - Integração com WhatsApp e eventos personalizados para Meta Pixel e `dataLayer`.
 - SEO local com metadata, Open Graph, JSON-LD, sitemap e robots.
@@ -157,13 +157,15 @@ Ao adicionar um projeto, use um `slug` único e forneça `metaTitle`, `metaDescr
 - Imagens relevantes possuem texto alternativo.
 - Seções seguem uma hierarquia semântica de títulos.
 - Animações e o marquee do currículo são desativados com `prefers-reduced-motion`.
-- A abertura do site é ignorada quando o visitante solicita movimento reduzido.
+- O título e os botões da home aparecem sem depender de JavaScript ou de uma animação de abertura.
 
 ## SEO e analytics
 
 Os metadados globais ficam em `app/layout.tsx`. Projetos geram metadados individuais em `app/projetos/[slug]/page.tsx`. A home também publica dados estruturados de pessoa, serviço profissional e website.
 
-O Meta Pixel é carregado pelo layout. Elementos com `data-track` são capturados por `components/AnalyticsBridge.tsx` e enviados ao Pixel e ao `dataLayer`, quando disponíveis.
+O layout prepara a fila do Meta Pixel antes da hidratação e carrega o SDK com `lazyOnload`, após o carregamento da página, em um momento ocioso. Elementos com `data-track` são capturados por `components/AnalyticsBridge.tsx`; os eventos do Pixel aguardam na fila até o SDK carregar, e o `dataLayer` recebe os eventos quando disponível. Visitantes que saem antes do SDK carregar podem não enviar o PageView.
+
+As capas da seção de projetos usam carregamento lazy, qualidade 75 e tamanhos responsivos alinhados à largura dos cards, sem disputar prioridade com o conteúdo inicial.
 
 O currículo usa `noindex, nofollow` intencionalmente e, por isso, não é incluído no sitemap público.
 

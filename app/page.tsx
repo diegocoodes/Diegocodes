@@ -5,7 +5,6 @@ import Hero from "@/components/Hero";
 import Navbar from "@/components/Navbar";
 import TrustBar from "@/components/TrustBar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
-import SiteIntro from "@/components/ui/SiteIntro";
 import { contactConfig } from "@/lib/contact";
 import { getSiteUrl } from "@/lib/site";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
@@ -64,8 +63,7 @@ export default function Home() {
 
   return (
     <>
-      <SiteIntro />
-      <main className="site-page-enter relative overflow-x-clip bg-[var(--bg-primary)]">
+      <main className="relative overflow-x-clip bg-[var(--bg-primary)]">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

@@ -659,16 +659,6 @@ summary:focus-visible {
   transition-delay: 170ms;
 }
 
-.site-intro {
-  background: linear-gradient(135deg, #160822 0%, #4d1975 52%, #7b2fbe 100%);
-  animation: site-intro-exit 2.02s var(--motion-ease-out) both;
-}
-
-.site-intro-word {
-  animation: site-intro-word 1.42s var(--motion-ease-out) both;
-  text-shadow: 0 20px 72px rgba(5, 3, 8, 0.62);
-}
-
 .attention-once {
   animation: attention-nudge 620ms var(--motion-ease) 1.35s 2;
 }
@@ -745,29 +735,6 @@ summary:focus-visible {
   }
   to {
     opacity: 1;
-  }
-}
-
-@keyframes site-intro-exit {
-  0%,
-  72% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
-}
-
-@keyframes site-intro-word {
-  0% {
-    transform: translateY(110%);
-  }
-  28%,
-  82% {
-    transform: translateY(0);
-  }
-  100% {
-    transform: translateY(-8%);
   }
 }
 
@@ -920,17 +887,12 @@ summary:focus-visible {
 
   .nav-enter,
   .site-page-enter,
-  .site-intro-word,
   .cv-hero-rail,
   .cv-tech-track,
   .attention-once,
   .whatsapp-entry,
   .testimonial-swap {
     animation: none;
-  }
-
-  .site-intro {
-    display: none;
   }
 
   ::view-transition-group(*),

@@ -1,6 +1,5 @@
 import { ArrowDownRight, ArrowUpRight, MessageCircle } from "lucide-react";
-import GradientWaves from "@/components/ui/GradientWaves";
-import Reveal from "@/components/ui/Reveal";
+import HeroWaves from "@/components/ui/HeroWaves";
 import ScrollLink from "@/components/ui/ScrollLink";
 
 type HeroProps = {
@@ -17,25 +16,25 @@ export default function Hero({ whatsappUrl }: HeroProps) {
 
       <div className="container-shell relative z-20 flex w-full justify-center">
         <div className="mx-auto flex max-w-[1040px] flex-col items-center text-center">
-          <Reveal delay={0.04} fromY={28}>
+          <div>
             <h1 className="hero-new-title max-w-[1100px] font-display text-[clamp(40px,11vw,126px)] uppercase leading-[0.84] tracking-[-0.05em] text-white">
               <span className="block">
                 Sites que <span className="text-[#c99bea]">transformam</span>
               </span>
             </h1>
-          </Reveal>
+          </div>
 
-          <Reveal delay={0.12} fromY={22}>
+          <div>
             <p className="mt-8 max-w-[720px] text-[15px] leading-7 text-white/68 sm:mt-10 sm:text-base md:text-lg md:leading-8">
               Estratégia, identidade e tecnologia reunidas em experiências digitais
               que apresentam o seu valor, fortalecem sua marca e aproximam novos
               clientes.
             </p>
-          </Reveal>
+          </div>
 
           <HeroActions whatsappUrl={whatsappUrl} />
 
-          <Reveal delay={0.24} fromY={14} className="mt-10 sm:mt-12">
+          <div className="mt-10 sm:mt-12">
             <ScrollLink
               href="#projetos"
               ariaLabel="Conhecer os projetos selecionados"
@@ -47,7 +46,7 @@ export default function Hero({ whatsappUrl }: HeroProps) {
                 className="h-4 w-4 transition-transform duration-300 group-hover:translate-y-1"
               />
             </ScrollLink>
-          </Reveal>
+          </div>
         </div>
       </div>
 
@@ -62,27 +61,7 @@ export default function Hero({ whatsappUrl }: HeroProps) {
 function HeroBackground() {
   return (
     <div aria-hidden="true" className="absolute inset-0 z-0">
-      <GradientWaves
-        horizonColor="#2D1B69"
-        waveColor="#7B2FBE"
-        crestColor="#9B4DCA"
-        speed={0.22}
-        amplitude={1.9}
-        waveScale={0.54}
-        waveRatio={0.86}
-        swell={24}
-        turbulence={13}
-        tilt={1.08}
-        zoom={0.94}
-        height={5.7}
-        fogDepth={18}
-        detail="low"
-        brightness={0.82}
-        opacity={0.78}
-        mouseInteraction
-        parallaxStrength={0.2}
-        grain={false}
-      />
+      <HeroWaves />
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(5,3,8,0.08)_0%,rgba(5,3,8,0.38)_48%,rgba(5,3,8,0.74)_100%)]" />
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(5,3,8,0.48)_0%,rgba(5,3,8,0.06)_46%,rgba(5,3,8,0.74)_100%)]" />
       <div className="noise-overlay pointer-events-none absolute inset-0 opacity-[0.11] mix-blend-soft-light" />
@@ -92,7 +71,7 @@ function HeroBackground() {
 
 function HeroActions({ whatsappUrl }: HeroProps) {
   return (
-    <Reveal delay={0.19} fromY={18}>
+    <div>
       <div className="mt-8 flex w-full flex-col items-center justify-center gap-3 sm:mt-10 sm:flex-row">
         <a
           href={whatsappUrl}
@@ -116,6 +95,6 @@ function HeroActions({ whatsappUrl }: HeroProps) {
           <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
         </ScrollLink>
       </div>
-    </Reveal>
+    </div>
   );
 }

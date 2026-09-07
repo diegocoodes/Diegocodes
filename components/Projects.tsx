@@ -58,7 +58,7 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
               fromX={index % 2 === 0 ? -22 : 22}
               fromY={0}
             >
-              <ProjectCase project={project} index={index} priority={index === 0} />
+              <ProjectCase project={project} index={index} />
             </Reveal>
           ))}
         </div>
@@ -82,11 +82,9 @@ export default function Projects({ limit = 4 }: ProjectsProps) {
 function ProjectCase({
   project,
   index,
-  priority,
 }: {
   project: PortfolioProject;
   index: number;
-  priority: boolean;
 }) {
   const isReversed = index % 2 === 1;
 
@@ -103,9 +101,8 @@ function ProjectCase({
             src={project.imageSrc}
             alt={project.imageAlt}
             fill
-            priority={priority}
-            quality={92}
-            sizes="(min-width: 1280px) 720px, (min-width: 1024px) 58vw, 100vw"
+            quality={75}
+            sizes="(min-width: 1280px) 674px, (min-width: 1024px) calc(58.33vw - 73px), (min-width: 640px) calc(100vw - 72px), calc(100vw - 48px)"
             className={`object-cover transition duration-700 ease-out group-hover:scale-[1.035] ${
               project.imageClassName ?? "object-center"
             }`}
