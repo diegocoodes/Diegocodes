@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import type { IconType } from "react-icons";
 import { FaAws, FaJava } from "react-icons/fa";
 import { IoLogoCss3 } from "react-icons/io5";
@@ -22,125 +23,117 @@ import {
   SiTypescript,
   SiVercel,
 } from "react-icons/si";
+import Reveal from "@/components/ui/Reveal";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-type Technology = {
-  label: string;
-  icon: IconType;
+type Technology = { label: string; icon: IconType; color: string };
+type TechnologyCategory = {
+  title: string;
+  description: string;
+  technologies: Technology[];
 };
 
-const technologies: Technology[] = [
-  { label: "TypeScript", icon: SiTypescript },
-  { label: "JavaScript", icon: SiJavascript },
-  { label: "Java", icon: FaJava },
-  { label: "Go", icon: SiGo },
-  { label: "HTML", icon: SiHtml5 },
-  { label: "CSS", icon: IoLogoCss3 },
-  { label: "React", icon: SiReact },
-  { label: "React Native", icon: SiReact },
-  { label: "Node.js", icon: SiNodedotjs },
-  { label: "AngularJS", icon: SiAngular },
-  { label: "Tailwind CSS", icon: SiTailwindcss },
-  { label: "GSAP", icon: SiGreensock },
-  { label: "EJS", icon: SiEjs },
-  { label: "MySQL", icon: SiMysql },
-  { label: "PostgreSQL", icon: SiPostgresql },
-  { label: "Prisma", icon: SiPrisma },
-  { label: "Supabase", icon: SiSupabase },
-  { label: "MongoDB", icon: SiMongodb },
-  { label: ".NET", icon: SiDotnet },
-  { label: "Docker", icon: SiDocker },
-  { label: "AWS", icon: FaAws },
-  { label: "Git", icon: SiGit },
-  { label: "Vercel", icon: SiVercel },
+const categories: TechnologyCategory[] = [
+  {
+    title: "Linguagens",
+    description:
+      "TypeScript e JavaScript no dia a dia. Java e Go também fazem parte dos meus estudos e projetos.",
+    technologies: [
+      { label: "TypeScript", icon: SiTypescript, color: "#65a9f3" },
+      { label: "JavaScript", icon: SiJavascript, color: "#f0db4f" },
+      { label: "Java", icon: FaJava, color: "#f1a16d" },
+      { label: "Go", icon: SiGo, color: "#60d8e9" },
+      { label: "HTML", icon: SiHtml5, color: "#fa9275" },
+      { label: "CSS", icon: IoLogoCss3, color: "#85b8ff" },
+    ],
+  },
+  {
+    title: "Front-end",
+    description:
+      "React para a web, React Native para mobile. CSS e animação para cuidar dos detalhes da interface.",
+    technologies: [
+      { label: "React", icon: SiReact, color: "#77dff5" },
+      { label: "React Native", icon: SiReact, color: "#77dff5" },
+      { label: "AngularJS", icon: SiAngular, color: "#f788a8" },
+      { label: "Tailwind CSS", icon: SiTailwindcss, color: "#6cdeeb" },
+      { label: "GSAP", icon: SiGreensock, color: "#b2ef6b" },
+    ],
+  },
+  {
+    title: "Back-end",
+    description:
+      "APIs, autenticação e bancos de dados. A parte que faz as telas funcionarem de verdade.",
+    technologies: [
+      { label: "Node.js", icon: SiNodedotjs, color: "#92cb79" },
+      { label: ".NET", icon: SiDotnet, color: "#bc9cff" },
+      { label: "EJS", icon: SiEjs, color: "#d3c885" },
+      { label: "PostgreSQL", icon: SiPostgresql, color: "#94bfe5" },
+      { label: "MySQL", icon: SiMysql, color: "#80bfd1" },
+      { label: "MongoDB", icon: SiMongodb, color: "#8ad89c" },
+      { label: "Prisma", icon: SiPrisma, color: "#d4d6ee" },
+      { label: "Supabase", icon: SiSupabase, color: "#70dfaf" },
+    ],
+  },
+  {
+    title: "Infra & deploy",
+    description:
+      "Git para acompanhar as mudanças. Docker, AWS e Vercel para preparar e publicar as aplicações.",
+    technologies: [
+      { label: "Docker", icon: SiDocker, color: "#7ebaff" },
+      { label: "AWS", icon: FaAws, color: "#ffbf72" },
+      { label: "Git", icon: SiGit, color: "#f79581" },
+      { label: "Vercel", icon: SiVercel, color: "#eee8f4" },
+    ],
+  },
 ];
 
-const technologyRows = [technologies.slice(0, 9), technologies.slice(9)];
-
-export default function TechIconGrid({
-  staticMode = false,
-}: {
-  staticMode?: boolean;
-}) {
-  if (staticMode) {
-    return (
-      <ul
-        className="grid grid-cols-2 border-l border-t border-white/12 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6"
-        aria-label="Linguagens e tecnologias que utilizo"
-      >
-        {technologies.map(({ label, icon: Icon }) => (
-          <li
-            key={label}
-            className="flex min-h-[76px] items-center gap-3 border-b border-r border-white/12 bg-white/[0.025] px-4 py-3 sm:min-h-[84px] sm:px-5"
-          >
-            <Icon
-              aria-hidden="true"
-              className="h-6 w-6 shrink-0 text-[#c99bea] sm:h-7 sm:w-7"
-            />
-            <span className="font-accent text-xs font-semibold text-white/82 sm:text-sm">
-              {label}
-            </span>
-          </li>
-        ))}
-      </ul>
-    );
-  }
-
+export default function TechIconGrid() {
   return (
-    <div
-      className="cv-tech-marquee border-y border-white/15"
-      aria-label="Tecnologias que utilizo"
-    >
-      <ul className="sr-only">
-        {technologies.map(({ label }) => (
-          <li key={label}>{label}</li>
-        ))}
-      </ul>
-
-      {technologyRows.map((row, rowIndex) => (
-        <div
-          key={row[0].label}
-          className={`cv-tech-viewport ${
-            rowIndex === 1 ? "border-t border-white/10" : ""
-          }`}
-          aria-hidden="true"
-        >
-          <div
-            className={`cv-tech-track ${
-              rowIndex === 1 ? "cv-tech-track-reverse" : ""
-            }`}
+    <Reveal>
+      <Tabs defaultValue="Linguagens" className="cv-stack-tabs">
+        <TabsList className="cv-stack-tablist" aria-label="Áreas de tecnologia">
+          {categories.map((category) => (
+            <TabsTrigger
+              key={category.title}
+              value={category.title}
+              className="cv-stack-tab"
+            >
+              {category.title}
+            </TabsTrigger>
+          ))}
+        </TabsList>
+        {categories.map((category) => (
+          <TabsContent
+            key={category.title}
+            value={category.title}
+            forceMount
+            className="cv-stack-panel"
           >
-            <TechnologyGroup technologies={row} />
-            <TechnologyGroup technologies={row} duplicate />
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function TechnologyGroup({
-  technologies,
-  duplicate = false,
-}: {
-  technologies: Technology[];
-  duplicate?: boolean;
-}) {
-  return (
-    <div className="cv-tech-group">
-      {technologies.map(({ label, icon: Icon }) => (
-        <div
-          key={`${duplicate ? "duplicate-" : ""}${label}`}
-          className="cv-tech-item"
-        >
-          <Icon
-            aria-hidden="true"
-            className="h-7 w-7 shrink-0 text-[#c99bea] sm:h-8 sm:w-8"
-          />
-          <span className="font-accent text-sm font-semibold text-white sm:text-base">
-            {label}
-          </span>
-        </div>
-      ))}
-    </div>
+            <header>
+              <h3>{category.title}</h3>
+              <p>{category.description}</p>
+            </header>
+            <ul className="cv-tech-tiles">
+              {category.technologies.map(
+                ({ label, icon: Icon, color }, techIndex) => (
+                  <li
+                    key={label}
+                    style={
+                      {
+                        "--tech-color": color,
+                        "--tech-delay": `${techIndex * 45 + 100}ms`,
+                      } as CSSProperties
+                    }
+                  >
+                    <Icon aria-hidden="true" />
+                    <span>{label}</span>
+                  </li>
+                ),
+              )}
+            </ul>
+          </TabsContent>
+        ))}
+      </Tabs>
+    </Reveal>
   );
 }

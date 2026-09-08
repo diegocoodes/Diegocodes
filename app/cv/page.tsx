@@ -1,592 +1,205 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Mail, MapPin } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Download, Mail } from "lucide-react";
 import { SiGithub } from "react-icons/si";
-import CvPrintButton from "@/components/cv/CvPrintButton";
+import CvSectionNav from "@/components/cv/CvSectionNav";
+import GifCutout from "@/components/cv/GifCutout";
 import TechIconGrid from "@/components/cv/TechIconGrid";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Reveal from "@/components/ui/Reveal";
 import { contactConfig } from "@/lib/contact";
-import {
-  cvCertificates,
-  cvExperiences,
-  cvProfessionalLinks,
-  cvServices,
-} from "@/lib/cv";
-import {
-  getProjectPath,
-  portfolioProjects,
-  type PortfolioProject,
-} from "@/lib/projects";
+import { cvCertificates, cvExperiences, cvProfessionalLinks, cvProjectNotes } from "@/lib/cv";
+import { getProjectPath, portfolioProjects } from "@/lib/projects";
 import { getSiteUrl } from "@/lib/site";
-
-const siteUrl = getSiteUrl();
-const prefeituraExperiences = cvExperiences.filter(
-  (experience) => experience.company === "Prefeitura da Cidade do Paulista"
-);
-const independentExperiences = cvExperiences.filter(
-  (experience) => experience.company !== "Prefeitura da Cidade do Paulista"
-);
-const primarySkills = ["React", "Node.js", "TypeScript", "JavaScript", "SQL"];
 
 export const metadata: Metadata = {
   title: "Diego Ewerton | Desenvolvedor Full Stack",
-  description:
-    "Currículo profissional de Diego Ewerton, desenvolvedor Full Stack Júnior com experiência em projetos institucionais, SaaS e produtos web.",
-  alternates: {
-    canonical: `${siteUrl}/cv`,
-  },
-  robots: {
-    index: false,
-    follow: false,
-  },
+  description: "Experiência, projetos e formação de Diego Ewerton. Desenvolvedor full stack em Recife, com atuação na Prefeitura do Paulista e na diegocodes.",
+  alternates: { canonical: `${getSiteUrl()}/cv` },
+  robots: { index: false, follow: false },
 };
 
 export default function CvPage() {
   return (
-    <main className="cv-page min-h-screen overflow-x-clip bg-white text-[#211b24]">
-      <header className="border-b border-[#24182f]/15 bg-white text-[#24182f]">
-        <div className="mx-auto flex w-full max-w-[1220px] flex-col gap-2 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-8 lg:px-10">
-          <Link
-            href="/cv"
-            aria-label="Voltar ao início do currículo"
-            className="inline-flex min-h-11 items-center font-display text-xl uppercase leading-none tracking-[-0.035em] sm:text-2xl"
-          >
-            Diego Ewerton
-          </Link>
-
-          <nav
-            aria-label="Links profissionais"
-            className="flex w-full flex-wrap items-center justify-between gap-x-4 gap-y-0 sm:w-auto sm:justify-end"
-          >
-            <HeaderLink href={cvProfessionalLinks.github} label="GitHub" icon="github" />
-            <HeaderLink href={cvProfessionalLinks.linkedin} label="LinkedIn" />
-            <HeaderLink
-              href={`mailto:${contactConfig.email}`}
-              label="E-mail"
-              external={false}
-            />
-            <CvPrintButton />
-          </nav>
+    <main className="cv-page" id="inicio">
+      <a href="#perfil" className="cv-skip-link">Pular para o currículo</a>
+      <header className="cv-masthead">
+        <div className="cv-shell cv-masthead-inner">
+          <Link href="/cv" className="cv-wordmark" aria-label="Diego Ewerton, início do currículo">de<span>.</span></Link>
+          <p className="cv-masthead-caption">Diego Ewerton<br /><span>Desenvolvedor full stack</span></p>
+          <div className="cv-masthead-actions">
+            <a href={cvProfessionalLinks.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a>
+            <a href="/curriculo/Diego.cv%20(1)%20(2).pdf" download="Curriculo-Diego-Ewerton.pdf" className="cv-download">Baixar CV <Download aria-hidden="true" /></a>
+          </div>
         </div>
       </header>
 
-      <section className="cv-hero relative overflow-hidden bg-[#17101F] text-white">
-        <div aria-hidden="true" className="ghost-grid absolute inset-0 opacity-[0.05]" />
-        <div
-          aria-hidden="true"
-          className="cv-hero-rail absolute inset-x-0 top-0 h-1 origin-left bg-[linear-gradient(90deg,#7b2fbe,#c99bea,#3ddc84)]"
-        />
+      <CvSectionNav />
 
-        <div className="relative z-10 mx-auto grid min-h-[calc(100svh-118px)] max-w-[1220px] items-center gap-8 px-4 pb-0 pt-12 sm:min-h-0 sm:px-8 sm:py-16 lg:grid-cols-[minmax(320px,0.72fr)_minmax(0,1.28fr)] lg:gap-14 lg:px-10 lg:py-20 xl:gap-20">
-          <div className="order-1 lg:order-2">
-            <Reveal>
-              <p className="font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[#d7abea] sm:text-xs">
-                Desenvolvedor full stack / Recife
-              </p>
-              <h1 className="mt-6 font-display text-[clamp(44px,15vw,150px)] uppercase leading-[0.78] tracking-[-0.065em] text-white sm:mt-7">
-                Diego
-                <span className="block text-[#b96ee2]">Ewerton</span>
-              </h1>
+      <section className="cv-hero" aria-labelledby="cv-name">
+        <div className="cv-shell cv-hero-grid">
+          <div className="cv-identity">
+            <p className="cv-kicker cv-hero-kicker"><span className="cv-dot" aria-hidden="true" />Recife, Pernambuco <span>Brasil</span></p>
+            <h1 id="cv-name" className="cv-name"><span className="cv-name-line"><span>Diego</span></span><span className="cv-name-line"><span>Ewerton<span className="cv-name-period">.</span></span></span></h1>
+            <div className="cv-hero-bottom">
+              <p>Desenvolvedor<br /><strong>Full Stack</strong></p>
+              <a href="#projetos" className="cv-round-link" aria-label="Conhecer os projetos"><ArrowDown aria-hidden="true" /></a>
+            </div>
+          </div>
+          <div className="cv-portrait-panel cv-screen-only">
+            <span className="cv-portrait-caption">Interfaces, sistemas<br />e código em produção.</span>
+            <div className="cv-portrait">
+              <Image src="/perfil/diego.png" alt="Diego Ewerton" fill priority sizes="(min-width: 1024px) 36vw, (min-width: 640px) 40vw, 90vw" className="cv-portrait-image" />
+            </div>
+            <div className="cv-portrait-bottom"><span>Atualmente na<br /><strong>Prefeitura do Paulista</strong></span><ArrowUpRight aria-hidden="true" /></div>
+          </div>
+        </div>
+        <div className="cv-shell cv-hero-footnote"><span>React · TypeScript · Node.js</span><a href={cvProfessionalLinks.github} target="_blank" rel="noreferrer"><SiGithub aria-hidden="true" /> diegocoodes <ArrowUpRight aria-hidden="true" /></a></div>
+      </section>
+
+      <section id="perfil" className="cv-section cv-profile" data-cv-tone="dark">
+        <div className="cv-shell">
+          <SectionHeading number="01" title="Sobre mim" />
+          <div className="cv-profile-grid">
+            <Reveal className="cv-profile-lead" fromY={30}>
+              <p>Eu desenho as telas.<br /><span>E escrevo o código.</span></p>
             </Reveal>
-
-            <Reveal delay={0.08} fromY={20}>
-              <p className="mt-8 max-w-2xl text-base leading-7 text-white/72 sm:text-lg sm:leading-8">
-                Desenvolvo produtos digitais completos, conectando interface,
-                back-end, dados e publicação em soluções que já operam no mundo real.
-              </p>
-            </Reveal>
-
-            <Reveal delay={0.13} fromY={18}>
-              <div className="mt-8 grid gap-5 border-t border-white/15 pt-6 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end sm:gap-8">
-                <div>
-                  <p className="font-accent text-[11px] font-semibold uppercase tracking-[0.035em] text-white/58">
-                    Stack principal
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-white/82">
-                    {primarySkills.join(" / ")}
-                  </p>
-                </div>
-                <p className="flex items-start gap-2 text-xs leading-6 text-white/65 sm:max-w-[220px]">
-                  <MapPin
-                    aria-hidden="true"
-                    className="mt-1 h-4 w-4 shrink-0 text-[#c99bea]"
-                  />
-                  Recife, Pernambuco / presencial ou híbrido
-                </p>
-              </div>
+            <Reveal delay={0.08} className="cv-profile-copy">
+              <p>Sou desenvolvedor full stack em Recife. Na Prefeitura do Paulista, trabalho no portal institucional e em sistemas usados pela gestão e pelos servidores.</p>
+              <p>Também criei a diegocodes, onde desenvolvo sites e aplicações para empresas. Acompanho a conversa com o cliente, o design, o desenvolvimento e a publicação.</p>
+              <dl className="cv-profile-facts"><div><dt>Formação</dt><dd>Análise e Desenvolvimento de Sistemas</dd></div><div><dt>Atuação</dt><dd>Web, interfaces e back-end</dd></div><div><dt>Localização</dt><dd>Recife / PE</dd></div></dl>
             </Reveal>
           </div>
-
-          <Reveal
-            delay={0.1}
-            fromX={-24}
-            fromY={0}
-            className="cv-screen-only order-2 lg:order-1"
-          >
-            <div className="cv-hero-photo relative mx-auto h-[350px] w-full max-w-[420px] sm:h-[470px] lg:h-[590px]">
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-[8%] bottom-[8%] top-[12%] bg-[radial-gradient(circle_at_center,rgba(123,47,190,0.48),rgba(61,220,132,0.1)_48%,transparent_72%)] blur-2xl"
-              />
-              <Image
-                src="/perfil/diego.png"
-                alt="Diego Ewerton, desenvolvedor Full Stack."
-                fill
-                priority
-                sizes="(min-width: 1024px) 38vw, 88vw"
-                className="cv-hero-photo-image object-contain object-bottom"
-              />
-              <div
-                aria-hidden="true"
-                className="absolute inset-x-[5%] bottom-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent"
-              />
-            </div>
-          </Reveal>
+          <div className="cv-personal-strip cv-screen-only">
+            <p>Também cabe<br /><span>um lado nerd.</span></p>
+            <GifCutout character="gengar" />
+            <GifCutout character="gojo" />
+            <GifCutout character="raven" />
+          </div>
         </div>
       </section>
 
-      <CvSection id="perfil" label="Perfil" title="Do design ao deploy" tone="light">
-        <div className="grid gap-9 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.68fr)] lg:gap-16">
-          <Reveal>
-            <p className="max-w-4xl font-display text-[clamp(34px,8.8vw,68px)] uppercase leading-[0.9] tracking-[-0.045em] text-[#24182f]">
-              Produtos digitais claros por fora e sólidos por dentro.
-            </p>
-          </Reveal>
-          <Reveal delay={0.06} fromX={18} fromY={0}>
-            <div className="grid gap-5 text-[15px] leading-7 text-[#5f5663] sm:text-base sm:leading-8">
-              <p>
-                Tenho experiência prática em projetos institucionais e produtos
-                próprios. Atualmente mantenho e evoluo o portal da Prefeitura da
-                Cidade do Paulista.
-              </p>
-              <p>
-                Também desenvolvo soluções completas, do desenho da experiência à
-                integração de dados e ao deploy em produção.
-              </p>
-            </div>
-          </Reveal>
-        </div>
-
-        <Reveal className="mt-10 sm:mt-14">
-          <ul className="cv-service-grid grid grid-cols-1 border-l border-t border-[#24182f]/14 min-[380px]:grid-cols-2 lg:grid-cols-4">
-            {cvServices.map((service) => (
-              <li
-                key={service}
-                className="flex min-h-[72px] items-end border-b border-r border-[#24182f]/14 p-4 font-accent text-sm font-semibold text-[#403745] sm:min-h-24 sm:p-5"
-              >
-                {service}
+      <section id="experiencia" className="cv-section cv-experience" data-cv-tone="dark">
+        <div className="cv-shell cv-experience-layout">
+          <div className="cv-experience-intro">
+            <SectionHeading number="02" title="Experiência" />
+            <p className="cv-section-note">Projetos institucionais,<br />trabalho independente<br />e desenvolvimento web.</p>
+            <span className="cv-experience-years" aria-hidden="true">2025<br /><span>— hoje</span></span>
+          </div>
+          <ol className="cv-career-list">
+            {cvExperiences.map((experience, index) => (
+              <li key={`${experience.company}-${experience.role}`} className={`cv-career-entry ${index === 0 ? "cv-career-current" : ""}`}>
+                <Reveal fromY={20}>
+                  <div className="cv-career-meta"><span>{experience.period}</span><span>{experience.type}</span></div>
+                  <h3>{experience.role}</h3>
+                  <p className="cv-career-company">{experience.company} <span> / {experience.workMode}</span></p>
+                  <p className="cv-body">{experience.description}</p>
+                  <TechnologyLine technologies={experience.technologies} />
+                </Reveal>
               </li>
             ))}
-          </ul>
-        </Reveal>
-      </CvSection>
-
-      <CvSection
-        id="experiencia"
-        label="Experiência"
-        title="Trajetória profissional"
-        tone="light"
-      >
-        <div className="border-t border-[#24182f]/16">
-          <Reveal fromX={14} fromY={0}>
-            <article className="border-b border-[#24182f]/16 py-7 sm:py-9">
-              <header className="grid gap-4 lg:grid-cols-[190px_minmax(0,1fr)] lg:gap-10">
-                <div>
-                  <p className="font-accent text-xs font-semibold uppercase tracking-[0.035em] text-[#7b2fbe]">
-                    jan. de 2025 até atual
-                  </p>
-                  <p className="mt-2 text-xs text-[#625967]">Presencial</p>
-                </div>
-                <h3 className="font-display text-[clamp(30px,9vw,50px)] uppercase leading-[0.9] tracking-[-0.035em] text-[#24182f]">
-                  Prefeitura da Cidade do Paulista
-                </h3>
-              </header>
-
-              <div className="mt-7 lg:ml-[230px] lg:mt-8">
-                {prefeituraExperiences.map((experience) => (
-                  <div
-                    key={`${experience.role}-${experience.period}`}
-                    className="cv-experience-role grid gap-4 border-t border-[#24182f]/12 py-6 sm:grid-cols-[165px_minmax(0,1fr)] sm:gap-7"
-                  >
-                    <div>
-                      <p className="font-accent text-xs font-semibold text-[#7b2fbe]">
-                        {experience.period}
-                      </p>
-                      <p className="mt-1 text-xs text-[#625967]">{experience.type}</p>
-                    </div>
-                    <div>
-                      <h4 className="font-display text-xl uppercase leading-tight tracking-[-0.025em] text-[#24182f] sm:text-2xl">
-                        {experience.role}
-                      </h4>
-                      <p className="mt-3 max-w-3xl text-sm leading-7 text-[#5f5663] sm:text-base">
-                        {experience.description}
-                      </p>
-                      <TechnologyLine technologies={experience.technologies} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </article>
-          </Reveal>
-
-          {independentExperiences.map((experience, index) => (
-            <Reveal
-              key={`${experience.role}-${experience.company}-${experience.period}`}
-              delay={Math.min(index * 0.045, 0.12)}
-              fromX={14}
-              fromY={0}
-            >
-              <article className="cv-experience-role grid gap-5 border-b border-[#24182f]/16 py-7 lg:grid-cols-[190px_minmax(0,1fr)] lg:gap-10 lg:py-9">
-                <div>
-                  <p className="font-accent text-xs font-semibold uppercase tracking-[0.035em] text-[#7b2fbe]">
-                    {experience.period}
-                  </p>
-                  <p className="mt-2 text-xs text-[#625967]">
-                    {experience.type} / {experience.workMode}
-                  </p>
-                </div>
-                <div>
-                  <h3 className="font-display text-[clamp(28px,8vw,42px)] uppercase leading-[0.92] tracking-[-0.035em] text-[#24182f]">
-                    {experience.role}
-                  </h3>
-                  <p className="mt-2 font-accent text-sm font-semibold text-[#514858]">
-                    {experience.company}
-                  </p>
-                  <p className="mt-4 max-w-3xl text-sm leading-7 text-[#5f5663] sm:text-base">
-                    {experience.description}
-                  </p>
-                  <TechnologyLine technologies={experience.technologies} />
-                </div>
-              </article>
-            </Reveal>
-          ))}
+          </ol>
         </div>
-      </CvSection>
-
-      <CvSection
-        id="projetos"
-        label="Projetos feitos"
-        title="Produtos publicados"
-        tone="dark"
-      >
-        <div className="border-t border-white/15">
-          {portfolioProjects.map((project, index) => (
-            <ProjectRow key={project.slug} project={project} index={index} />
-          ))}
-        </div>
-      </CvSection>
-
-      <CvSection
-        id="formacao"
-        label="Formação"
-        title="Base acadêmica e evolução"
-        tone="light"
-      >
-        <div className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-16">
-          <Reveal>
-            <div className="border-l-4 border-[#7b2fbe] py-2 pl-5 sm:pl-8">
-              <p className="font-accent text-xs font-semibold uppercase tracking-[0.035em] text-[#7b2fbe]">
-                Curso Superior de Tecnologia
-              </p>
-              <h3 className="mt-5 font-display text-[clamp(28px,8vw,42px)] uppercase leading-[0.92] tracking-[-0.035em] text-[#24182f]">
-                Análise e Desenvolvimento de Sistemas
-              </h3>
-              <p className="mt-6 font-accent text-sm font-semibold text-[#514858]">
-                UNIBRA, Centro Universitário Brasileiro
-              </p>
-              <p className="mt-2 text-xs text-[#665c68]">
-                fev. de 2023 até dez. de 2025
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="border-t border-[#24182f]/16">
-            {cvCertificates.map((certificate, index) => (
-              <Reveal
-                key={`${certificate.name}-${certificate.date}`}
-                delay={index * 0.03}
-              >
-                <div className="cv-certificate-row grid gap-2 border-b border-[#24182f]/16 py-5 sm:grid-cols-[minmax(0,1fr)_190px] sm:gap-6">
-                  <div>
-                    {"credentialUrl" in certificate ? (
-                      <a
-                        href={certificate.credentialUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex min-h-11 items-center gap-2 py-2 font-accent text-sm font-semibold text-[#24182f] transition hover:text-[#7b2fbe]"
-                      >
-                        {certificate.name}
-                        <ArrowUpRight aria-hidden="true" className="h-3.5 w-3.5" />
-                      </a>
-                    ) : (
-                      <h3 className="font-accent text-sm font-semibold text-[#24182f]">
-                        {certificate.name}
-                      </h3>
-                    )}
-                    <p className="mt-1 text-xs leading-5 text-[#665c68]">
-                      {certificate.issuer}
-                    </p>
-                  </div>
-                  <time className="font-accent text-xs font-semibold text-[#7b2fbe] sm:text-right">
-                    {certificate.date}
-                  </time>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </CvSection>
-
-      <CvSection
-        id="github"
-        label="GitHub"
-        title="Contribuições em código"
-        tone="dark"
-      >
-        <Reveal fromY={16} className="mb-10 sm:mb-12">
-          <p className="mb-5 font-accent text-xs font-semibold uppercase tracking-[0.04em] text-[#d7abea]">
-            Linguagens e tecnologias
-          </p>
-          <TechIconGrid staticMode />
-        </Reveal>
-
-        <Reveal fromY={18}>
-          <a
-            href={cvProfessionalLinks.github}
-            target="_blank"
-            rel="noreferrer"
-            aria-label="Ver o perfil de Diego Ewerton no GitHub"
-            className="group block overflow-hidden border border-white/15 bg-[#21172b] p-4 transition duration-300 hover:border-[#b96ee2]/65 sm:p-7"
-          >
-            <div className="mb-6 flex flex-col gap-3 border-b border-white/10 pb-5 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="font-accent text-xs font-semibold uppercase tracking-[0.04em] text-[#3ddc84]">
-                  github.com/diegocoodes
-                </p>
-                <p className="mt-2 max-w-2xl text-sm leading-6 text-white/62">
-                  Histórico público de contribuições, atualizado pelo GitHub.
-                </p>
-              </div>
-              <span className="inline-flex items-center gap-2 font-accent text-xs font-semibold text-[#d7abea] transition group-hover:text-white">
-                Abrir perfil
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </span>
-            </div>
-            {/* The SVG is generated from the public GitHub contribution calendar. */}
-            <div className="overflow-x-auto pb-2">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="https://ghchart.rshah.org/7b2fbe/diegocoodes"
-                alt="Calendário de contribuições de diegocoodes no GitHub no último ano"
-                loading="lazy"
-                className="h-auto min-w-[720px] w-full rounded-sm bg-white p-3 [filter:saturate(1.15)_hue-rotate(2deg)]"
-              />
-            </div>
-          </a>
-        </Reveal>
-      </CvSection>
-
-      <section className="cv-contact border-t border-white/10 bg-[#17101F] text-white">
-        <Reveal className="mx-auto grid max-w-[1220px] gap-9 px-4 py-14 sm:px-8 md:grid-cols-[minmax(0,1fr)_minmax(280px,0.55fr)] md:items-end md:py-20 lg:px-10">
-          <div>
-            <p className="font-accent text-xs font-semibold uppercase tracking-[0.04em] text-[#d7abea]">
-              Contato profissional
-            </p>
-            <h2 className="mt-5 max-w-4xl font-display text-[clamp(40px,12vw,86px)] uppercase leading-[0.86] tracking-[-0.05em]">
-              Vamos construir o próximo desafio.
-            </h2>
-          </div>
-          <div className="grid border-t border-white/15">
-            <ContactLink href={`mailto:${contactConfig.email}`} label={contactConfig.email} />
-            <ContactLink href={cvProfessionalLinks.github} label="github.com/diegocoodes" />
-            <ContactLink href={cvProfessionalLinks.linkedin} label="LinkedIn / Diego Ewerton" />
-          </div>
-        </Reveal>
       </section>
+
+      <section id="projetos" className="cv-section cv-projects" data-cv-tone="light">
+        <div className="cv-shell">
+          <SectionHeading number="03" title="Projetos selecionados" note="Do briefing ao site publicado. Abra um projeto para ver os detalhes." />
+          <Accordion type="single" collapsible defaultValue={portfolioProjects[0].slug} className="cv-project-directory">
+            {portfolioProjects.map((project, index) => {
+              const note = cvProjectNotes[project.slug as keyof typeof cvProjectNotes];
+              return (
+                <AccordionItem value={project.slug} key={project.slug} className="cv-project-entry">
+                  <AccordionTrigger className="cv-project-trigger">
+                    <span className="cv-project-index">{String(index + 1).padStart(2, "0")}</span>
+                    <span className="cv-project-name">{project.name}</span>
+                    <span className="cv-project-kind">{project.service}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="cv-project-expanded">
+                    <div className="cv-project-detail-grid">
+                      <Link href={getProjectPath(project)} className="cv-project-image" aria-label={`Conhecer ${project.name}`}>
+                        <Image src={project.imageSrc} alt={project.imageAlt} fill quality={82} sizes="(min-width: 1280px) 650px, (min-width: 768px) 55vw, 92vw" className={project.imageClassName ?? "object-cover"} style={{objectFit: project.imageClassName?.includes("object-contain") ? "contain" : "cover"}} />
+                        <span className="cv-image-link-label">Ver projeto <ArrowUpRight aria-hidden="true" /></span>
+                      </Link>
+                      <div className="cv-project-description">
+                        <p className="cv-kicker">{project.niche} / {project.status}</p>
+                        <p className="cv-project-summary">{note?.description ?? project.shortDescription}</p>
+                        <div className="cv-project-delivery"><h4>Meu trabalho</h4><p>{note?.delivery ?? project.resultSummary}</p></div>
+                        <div className="cv-project-actions"><Link href={getProjectPath(project)}>Conhecer o projeto <ArrowUpRight aria-hidden="true" /></Link>{project.liveUrl ? <a href={project.liveUrl} target="_blank" rel="noreferrer">Abrir site <ArrowUpRight aria-hidden="true" /></a> : null}</div>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              );
+            })}
+          </Accordion>
+          <div className="cv-print-projects">{portfolioProjects.map(project => <article key={project.slug}><h3>{project.name}</h3><p>{cvProjectNotes[project.slug as keyof typeof cvProjectNotes]?.description ?? project.shortDescription}</p></article>)}</div>
+        </div>
+      </section>
+
+      <section id="linguagens" className="cv-section cv-stack" data-cv-tone="dark">
+        <div className="cv-shell">
+          <SectionHeading number="04" title="Linguagens & ferramentas" />
+          <div className="cv-stack-layout">
+            <Reveal className="cv-stack-intro"><p className="cv-stack-lead">O projeto define<br /><span>a ferramenta.</span></p><p className="cv-body">React, TypeScript e Node.js fazem parte do meu dia a dia. Também trabalho com bancos de dados, aplicações mobile e infraestrutura.</p><p className="cv-kicker">Explore as áreas ao lado <ArrowUpRight aria-hidden="true" /></p></Reveal>
+            <TechIconGrid />
+          </div>
+        </div>
+      </section>
+
+      <section id="formacao" className="cv-section cv-education" data-cv-tone="dark">
+        <div className="cv-shell">
+          <SectionHeading number="05" title="Formação & estudos" />
+          <div className="cv-education-layout">
+            <Reveal className="cv-degree">
+              <p className="cv-kicker">Graduação / 2023–2025</p>
+              <span className="cv-degree-monogram" aria-hidden="true">ADS</span>
+              <h3>Análise e Desenvolvimento de Sistemas</h3>
+              <p>UNIBRA<br /><span>Centro Universitário Brasileiro</span></p>
+              <p className="cv-degree-date">fev. de 2023 — dez. de 2025</p>
+            </Reveal>
+            <div className="cv-certificates"><h3 className="cv-certificate-heading">Cursos & certificações <span>{String(cvCertificates.length).padStart(2,"0")}</span></h3>
+              {cvCertificates.map((certificate, index) => (
+                <Reveal key={`${certificate.name}-${certificate.date}`} delay={Math.min(index * 0.02, 0.1)} fromY={14}>
+                  <article className="cv-certificate-row">
+                    <div><p className="cv-certificate-issuer">{certificate.issuer}</p><h4>{"credentialUrl" in certificate ? <a href={certificate.credentialUrl} target="_blank" rel="noreferrer">{certificate.name}<ArrowUpRight aria-hidden="true" /></a> : certificate.name}</h4></div>
+                    <p className="cv-certificate-date">{certificate.date}</p>
+                  </article>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="github" className="cv-section cv-github" data-cv-tone="dark">
+        <div className="cv-shell">
+          <SectionHeading number="06" title="Código aberto" />
+          <Reveal className="cv-github-layout">
+            <div className="cv-github-profile"><SiGithub aria-hidden="true" /><h3>@diegocoodes</h3><p>Repositórios, estudos e contribuições públicas.</p><a href={cvProfessionalLinks.github} target="_blank" rel="noreferrer">Ver no GitHub <ArrowUpRight aria-hidden="true" /></a></div>
+            <div className="cv-github-activity"><div className="cv-activity-label"><span>Histórico de contribuições</span><span>Último ano</span></div><div className="cv-chart-scroll" tabIndex={0} role="region" aria-label="Calendário de contribuições; role horizontalmente para ver todo o período">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="https://ghchart.rshah.org/7650a3/diegocoodes" alt="Contribuições públicas de diegocoodes no GitHub durante o último ano" loading="lazy" width={722} height={112} />
+            </div><p className="cv-chart-caption">Dados públicos do GitHub · calendário por ghchart</p></div>
+          </Reveal>
+        </div>
+      </section>
+
+      <footer id="contato" className="cv-contact" data-cv-tone="light">
+        <div className="cv-shell">
+          <Reveal className="cv-contact-top"><p className="cv-kicker">Contato profissional</p><h2>Vamos<br />conversar<span>?</span></h2><a className="cv-contact-email" href={`mailto:${contactConfig.email}`}><span>{contactConfig.email}</span><Mail aria-hidden="true" /></a></Reveal>
+          <div className="cv-footer-bottom"><span>Diego Ewerton / Recife, PE</span><div><a href={cvProfessionalLinks.linkedin} target="_blank" rel="noreferrer">LinkedIn <ArrowUpRight aria-hidden="true" /></a><a href={cvProfessionalLinks.github} target="_blank" rel="noreferrer">GitHub <ArrowUpRight aria-hidden="true" /></a><a href="#inicio">Voltar ao topo <ArrowUpRight aria-hidden="true" /></a></div></div>
+        </div>
+      </footer>
     </main>
   );
 }
 
-function CvSection({
-  id,
-  label,
-  title,
-  tone,
-  children,
-}: {
-  id: string;
-  label: string;
-  title: string;
-  tone: "dark" | "light";
-  children: React.ReactNode;
-}) {
-  const isDark = tone === "dark";
-
-  return (
-    <section
-      id={id}
-      data-cv-tone={tone}
-      className={`cv-section scroll-mt-8 py-14 sm:py-16 lg:py-20 ${
-        isDark ? "bg-[#17101F] text-white" : "bg-white text-[#24182f]"
-      }`}
-    >
-      <div className="mx-auto max-w-[1220px] px-4 sm:px-8 lg:px-10">
-        <Reveal>
-          <header
-            className={`mb-9 border-b pb-6 sm:mb-12 sm:pb-7 ${
-              isDark ? "border-white/15" : "border-[#24182f]/16"
-            }`}
-          >
-            <p
-              className={`font-accent text-[11px] font-semibold uppercase tracking-[0.04em] sm:text-xs ${
-                isDark ? "text-[#d7abea]" : "text-[#7b2fbe]"
-              }`}
-            >
-              {label}
-            </p>
-            <h2
-              className={`mt-4 max-w-5xl font-display text-[clamp(38px,10vw,76px)] uppercase leading-[0.88] tracking-[-0.045em] ${
-                isDark ? "text-white" : "text-[#24182f]"
-              }`}
-            >
-              {title}
-            </h2>
-          </header>
-        </Reveal>
-        {children}
-      </div>
-    </section>
-  );
+function SectionHeading({number, title, note}: {number: string; title: string; note?: string}) {
+  return <Reveal className="cv-section-heading" fromY={22}><header><span className="cv-section-number" aria-hidden="true">{number}</span><h2>{title}</h2>{note ? <p>{note}</p> : null}</header></Reveal>;
 }
 
-function ProjectRow({
-  project,
-  index,
-}: {
-  project: PortfolioProject;
-  index: number;
-}) {
-  const imageOnRight = index % 2 === 1;
-
-  return (
-    <Reveal delay={Math.min(index * 0.04, 0.14)} fromY={20}>
-      <article className="cv-project-row group grid gap-6 border-b border-white/15 py-8 sm:py-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(300px,0.92fr)] lg:items-center lg:gap-12 lg:py-14">
-        <div
-          className={`cv-project-image relative aspect-[16/10] overflow-hidden border border-white/15 bg-[#2d2731] ${
-            imageOnRight ? "lg:order-2" : ""
-          }`}
-        >
-          <Image
-            src={project.imageSrc}
-            alt={project.imageAlt}
-            fill
-            quality={82}
-            sizes="(min-width: 1024px) 55vw, 100vw"
-            className={`cv-project-image-media object-cover ${project.imageClassName ?? ""}`}
-            style={
-              project.imageClassName?.includes("object-contain")
-                ? { objectFit: "contain" }
-                : undefined
-            }
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-gradient-to-t from-[#17101F]/35 via-transparent to-transparent"
-          />
-        </div>
-
-        <div className={imageOnRight ? "lg:order-1" : ""}>
-          <p className="font-accent text-[11px] font-semibold uppercase leading-5 tracking-[0.035em] text-[#d7abea] sm:text-xs">
-            {project.niche} / {project.service}
-          </p>
-          <h3 className="mt-4 font-display text-[clamp(30px,9vw,48px)] uppercase leading-[0.9] tracking-[-0.04em] text-white">
-            {project.name}
-          </h3>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-white/72 sm:text-base">
-            {project.shortDescription}
-          </p>
-          <p className="mt-4 border-l border-[#c99bea]/55 pl-4 text-sm leading-7 text-white/58">
-            {project.resultSummary}
-          </p>
-
-          <div className="cv-no-print mt-6 flex flex-col gap-2 min-[420px]:flex-row min-[420px]:gap-5">
-            <Link
-              href={getProjectPath(project)}
-              className="inline-flex min-h-11 items-center justify-between gap-2 border-b border-[#c99bea] py-2 font-accent text-xs font-semibold text-white transition hover:text-[#d7abea] min-[420px]:justify-start"
-            >
-              Ver estudo do projeto
-              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-            </Link>
-            {project.liveUrl ? (
-              <a
-                href={project.liveUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="inline-flex min-h-11 items-center justify-between gap-2 border-b border-white/20 py-2 font-accent text-xs font-semibold text-white/72 transition hover:border-white/55 hover:text-white min-[420px]:justify-start"
-              >
-                Abrir site
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </a>
-            ) : null}
-          </div>
-        </div>
-      </article>
-    </Reveal>
-  );
-}
-
-function TechnologyLine({ technologies }: { technologies: readonly string[] }) {
-  return (
-    <p className="mt-4 font-accent text-[11px] font-semibold uppercase leading-6 tracking-[0.025em] text-[#625767]">
-      {technologies.join(" / ")}
-    </p>
-  );
-}
-
-function HeaderLink({
-  href,
-  label,
-  external = true,
-  icon,
-}: {
-  href: string;
-  label: string;
-  external?: boolean;
-  icon?: "github";
-}) {
-  return (
-    <a
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
-      className="inline-flex min-h-11 items-center gap-2 border-b border-[#24182f]/20 py-3 font-accent text-xs font-semibold text-[#514858] transition hover:border-[#7b2fbe] hover:text-[#7b2fbe]"
-    >
-      {icon === "github" ? <SiGithub aria-hidden="true" className="h-4 w-4" /> : null}
-      {label}
-    </a>
-  );
-}
-
-function ContactLink({ href, label }: { href: string; label: string }) {
-  const external = href.startsWith("http");
-
-  return (
-    <a
-      href={href}
-      target={external ? "_blank" : undefined}
-      rel={external ? "noreferrer" : undefined}
-      className="group flex min-h-14 items-center justify-between gap-4 border-b border-white/15 py-4 font-accent text-sm font-semibold text-white/72 transition hover:text-white"
-    >
-      <span className="break-words [overflow-wrap:anywhere]">{label}</span>
-      {href.startsWith("mailto:") ? (
-        <Mail aria-hidden="true" className="h-4 w-4 shrink-0 text-[#c99bea]" />
-      ) : (
-        <ArrowUpRight
-          aria-hidden="true"
-          className="h-4 w-4 shrink-0 text-[#c99bea] transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-        />
-      )}
-    </a>
-  );
+function TechnologyLine({technologies}: {technologies: readonly string[]}) {
+  return <ul className="cv-technology-tags" aria-label="Tecnologias utilizadas">{technologies.map(technology => <li key={technology}>{technology}</li>)}</ul>;
 }
