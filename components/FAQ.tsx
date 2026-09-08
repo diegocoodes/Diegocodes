@@ -25,7 +25,7 @@ export default function FAQ() {
           </h2>
         </Reveal>
 
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+        <div className="mt-8 grid gap-3 sm:mt-10 sm:gap-4 lg:grid-cols-2">
           {faqs.map((faq, index) => (
             <Reveal key={faq.question} delay={Math.min(index * 0.035, 0.16)}>
               <FAQItem
@@ -72,7 +72,7 @@ function FAQItem({
 
   return (
     <div
-      className={`faq-shell rounded-2xl border bg-[rgba(17,17,17,0.9)] p-6 ${
+      className={`faq-shell rounded-xl border bg-[rgba(17,17,17,0.9)] p-5 sm:rounded-2xl sm:p-6 ${
         isOpen ? "border-[var(--accent-primary)]/45" : "border-white/10"
       }`}
     >
@@ -82,7 +82,7 @@ function FAQItem({
           type="button"
           aria-expanded={isOpen}
           aria-controls={panelId}
-          className="flex w-full cursor-pointer items-center justify-between gap-6 text-left font-accent text-xl font-semibold text-white"
+          className="flex w-full cursor-pointer items-center justify-between gap-4 text-left font-accent text-lg font-semibold leading-6 text-white sm:gap-6 sm:text-xl"
           onClick={onToggle}
         >
           <span>{faq.question}</span>
@@ -106,7 +106,7 @@ function FAQItem({
         className="faq-answer-grid"
       >
         <div className="faq-answer-inner">
-          <p className="mt-5 max-w-2xl text-base leading-8 text-[var(--text-secondary)]">
+          <p className="mt-4 max-w-2xl text-[15px] leading-7 text-[var(--text-secondary)] sm:mt-5 sm:text-base sm:leading-8">
             {faq.answer}
           </p>
         </div>

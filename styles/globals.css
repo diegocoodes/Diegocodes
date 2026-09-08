@@ -858,6 +858,11 @@ summary:focus-visible {
 }
 
 @media (max-width: 639px) {
+  .section-space {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
   .motion-media-frame {
     clip-path: none;
     transform: translateY(8px);

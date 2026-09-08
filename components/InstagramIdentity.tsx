@@ -1,6 +1,5 @@
 import { AtSign, MessageCircle } from "lucide-react";
 import Image from "next/image";
-import MotionWords from "@/components/ui/MotionWords";
 import Reveal from "@/components/ui/Reveal";
 
 type InstagramIdentityProps = {
@@ -56,7 +55,7 @@ export default function InstagramIdentity({
   return (
     <section
       id="identidade-instagram"
-      className="section-space scroll-mt-28 overflow-hidden border-y border-white/[0.06] bg-[#090909]"
+      className="section-space relative scroll-mt-28 overflow-hidden border-y border-white/[0.06] bg-[#090909]"
     >
       <div
         aria-hidden="true"
@@ -68,39 +67,22 @@ export default function InstagramIdentity({
       />
 
       <div className="container-shell relative z-10">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.55fr)] lg:items-end">
+        <div className="border-b border-white/10 pb-7 sm:pb-9 lg:pb-11">
           <Reveal>
-            <span className="inline-flex items-center gap-2 font-accent text-xs font-semibold uppercase tracking-[0.04em] text-white/52">
+            <span className="inline-flex items-center gap-2 font-accent text-[10px] font-semibold uppercase tracking-[0.03em] text-white/52 sm:text-xs sm:tracking-[0.04em]">
               <AtSign
                 aria-hidden="true"
                 className="h-4 w-4 text-[var(--accent-secondary)]"
               />
               Identidade visual para Instagram
             </span>
-            <h2 className="motion-heading mt-5 max-w-4xl font-display text-[clamp(42px,6.8vw,82px)] uppercase leading-[0.88] tracking-[-0.045em] text-white">
-              <MotionWords
-                words={[
-                  "Perfis",
-                  "que",
-                  "parecem",
-                  { text: "marca", className: "text-[var(--success)]" },
-                  "não",
-                  "apenas",
-                  "posts.",
-                ]}
-              />
+            <h2 className="motion-heading mt-4 whitespace-nowrap font-display text-[clamp(17px,5.25vw,78px)] uppercase leading-none tracking-[-0.045em] text-white sm:mt-5">
+              Perfis com cara de <span className="text-[var(--success)]">marca.</span>
             </h2>
-          </Reveal>
-
-          <Reveal delay={0.08}>
-            <p className="text-base leading-8 text-[var(--text-secondary)] md:text-lg">
-              Direção visual, paleta, tipografia e uma linha de conteúdo coerente
-              para transformar cada visita ao perfil em percepção de valor.
-            </p>
           </Reveal>
         </div>
 
-        <div className="mt-10 grid auto-rows-fr items-stretch gap-5 sm:mt-12 md:grid-cols-2 lg:gap-7">
+        <div className="mt-6 grid auto-rows-fr items-stretch gap-4 sm:mt-10 sm:gap-5 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
           {identityProjects.map((project, index) => (
             <Reveal
               key={project.name}
@@ -109,19 +91,19 @@ export default function InstagramIdentity({
               fromY={28}
             >
               <article className="motion-card group flex h-full flex-col overflow-hidden rounded-md border border-white/10 bg-[#0d0d0d] shadow-[0_22px_70px_rgba(0,0,0,0.18)] hover:border-[rgba(155,77,202,0.42)]">
-                <div className="motion-media-frame ghost-grid relative aspect-[7/5] shrink-0 overflow-hidden border-b border-white/[0.07] bg-[#050505]">
+                <div className="motion-media-frame ghost-grid relative aspect-square shrink-0 overflow-hidden border-b border-white/[0.07] bg-[#050505]">
                   <Image
                     src={project.imageSrc}
                     alt={project.imageAlt}
                     fill
                     quality={92}
                     sizes="(min-width: 1280px) 590px, (min-width: 768px) calc(50vw - 42px), calc(100vw - 40px)"
-                    className="z-10 object-contain transition duration-700 ease-out group-hover:scale-[1.012]"
+                    className="z-10 object-cover object-center transition duration-700 ease-out group-hover:scale-[1.025]"
                   />
                   <div className="pointer-events-none absolute inset-0 z-20 ring-1 ring-inset ring-white/[0.035]" />
                 </div>
 
-                <div className="flex min-h-[164px] flex-1 flex-col p-4 sm:min-h-[172px] sm:p-5 lg:p-6">
+                <div className="flex min-h-[140px] flex-1 flex-col p-4 sm:min-h-[182px] sm:p-5 lg:p-6">
                   <div className="flex items-start gap-3 sm:gap-4">
                     <span
                       aria-hidden="true"
@@ -132,7 +114,7 @@ export default function InstagramIdentity({
                       <p className="font-accent text-[11px] font-semibold uppercase leading-4 tracking-[0.035em] text-white/60">
                         {project.niche}
                       </p>
-                      <h3 className="mt-1 break-words font-display text-lg uppercase leading-tight tracking-[-0.02em] text-white sm:text-xl">
+                      <h3 className="mt-1 break-words font-display text-[17px] uppercase leading-tight tracking-[-0.02em] text-white sm:text-xl">
                         {project.name}
                       </h3>
                     </div>
@@ -151,8 +133,8 @@ export default function InstagramIdentity({
                     </div>
                   </div>
 
-                  <div className="mt-auto flex flex-wrap items-center gap-3 border-t border-white/[0.07] pt-4">
-                    <p className="font-accent text-[11px] font-medium uppercase leading-5 tracking-[0.025em] text-white/60">
+                  <div className="mt-4 flex flex-wrap items-center gap-3 border-t border-white/[0.07] pt-3 sm:mt-auto sm:pt-4">
+                    <p className="font-accent text-[10px] font-medium uppercase leading-5 tracking-[0.02em] text-white/60 sm:text-[11px] sm:tracking-[0.025em]">
                       {project.deliverables.join(" / ")}
                     </p>
 
@@ -175,9 +157,9 @@ export default function InstagramIdentity({
           ))}
         </div>
 
-        <Reveal className="mt-10">
-          <div className="flex flex-col gap-6 border-t border-white/10 pt-8 md:flex-row md:items-center md:justify-between">
-            <p className="max-w-2xl text-base leading-7 text-[var(--text-secondary)]">
+        <Reveal className="mt-7 sm:mt-8">
+          <div className="flex flex-col gap-5 border-t border-white/10 pt-6 sm:gap-6 sm:pt-8 md:flex-row md:items-center md:justify-between">
+            <p className="max-w-2xl text-[15px] leading-6 text-[var(--text-secondary)] sm:text-base sm:leading-7">
               Sua marca também pode ter um perfil reconhecível, consistente e
               pronto para chamar a atenção do cliente certo.
             </p>
@@ -189,7 +171,8 @@ export default function InstagramIdentity({
               data-track-label="instagram_identity"
               className="button-primary w-full max-w-full shrink-0 px-5 text-center sm:w-auto sm:px-8"
             >
-              Quero uma identidade para meu Instagram
+              <span className="sm:hidden">Quero melhorar meu Instagram</span>
+              <span className="hidden sm:inline">Quero uma identidade para meu Instagram</span>
               <MessageCircle aria-hidden="true" className="h-4 w-4" />
             </a>
           </div>

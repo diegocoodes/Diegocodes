@@ -206,6 +206,12 @@ Antes de publicar, confirme que a home, o portfólio, `/cv`, o formulário e o d
 - Assets de produção ficam em `public/`; arquivos de editor, builds e dependências permanecem ignorados.
 - Alterações de conteúdo devem preservar URLs, textos alternativos e configurações de SEO.
 
+## Registros de atualização
+
+- [Revisão visual e responsiva da home — 08/09/2026](docs/home-visual-refresh-2026-09-08.md)
+- [Otimizações de desempenho — 07/09/2026](docs/performance-2026-09-07.md)
+- [Fontes visuais do currículo](docs/cv-visual-sources.md)
+
 ## Licença
 
 Projeto privado de DiegoCodes. O código, o conteúdo, as marcas e os assets não possuem licença de reutilização pública.

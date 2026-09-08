@@ -1,226 +1,186 @@
 "use client";
 
 import {
-  ChevronLeft,
-  ChevronRight,
-  ExternalLink,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  CheckCircle2,
   Quote,
 } from "lucide-react";
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import Reveal from "@/components/ui/Reveal";
-import { testimonials } from "@/lib/home-content";
+import { proofCards, testimonials } from "@/lib/home-content";
+
+const feedbacks = [
+  ...testimonials.map((testimonial) => ({
+    label: "Depoimento do cliente",
+    name: testimonial.name,
+    segment: testimonial.segment,
+    projectUrl: testimonial.projectUrl,
+    imageSrc: testimonial.imageSrc,
+    imageAlt: testimonial.imageAlt,
+    text: testimonial.text,
+    isQuote: true,
+  })),
+  ...proofCards.slice(0, 2).map((project) => ({
+    label: "Resultado do projeto",
+    name: project.title,
+    segment: project.segment,
+    projectUrl: project.projectUrl,
+    imageSrc: project.imageSrc,
+    imageAlt: project.imageAlt,
+    text: project.description,
+    isQuote: false,
+  })),
+] as const;
 
 export default function Testimonials() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [slideDirection, setSlideDirection] = useState<"next" | "previous">("next");
-  const [dragOffset, setDragOffset] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const dragStartX = useRef<number | null>(null);
-  const dragOffsetRef = useRef(0);
-  const activeTestimonial = testimonials[activeIndex];
-  const hasMultipleTestimonials = testimonials.length > 1;
+  const activeFeedback = feedbacks[activeIndex];
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setActiveIndex((current) => (current + 1) % feedbacks.length);
+    }, 6500);
+
+    return () => window.clearInterval(interval);
+  }, []);
 
   const showPrevious = () => {
-    if (!hasMultipleTestimonials) {
-      return;
-    }
-
-    setSlideDirection("previous");
     setActiveIndex((current) =>
-      current === 0 ? testimonials.length - 1 : current - 1
+      current === 0 ? feedbacks.length - 1 : current - 1
     );
   };
 
   const showNext = () => {
-    if (!hasMultipleTestimonials) {
-      return;
-    }
-
-    setSlideDirection("next");
-    setActiveIndex((current) =>
-      current === testimonials.length - 1 ? 0 : current + 1
-    );
+    setActiveIndex((current) => (current + 1) % feedbacks.length);
   };
-
-  function handlePointerDown(event: React.PointerEvent<HTMLDivElement>) {
-    if (!hasMultipleTestimonials) {
-      return;
-    }
-
-    dragStartX.current = event.clientX;
-    setIsDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-  }
-
-  function handlePointerMove(event: React.PointerEvent<HTMLDivElement>) {
-    if (dragStartX.current === null || !hasMultipleTestimonials) {
-      return;
-    }
-
-    const offset = event.clientX - dragStartX.current;
-    const constrainedOffset = Math.max(-72, Math.min(72, offset));
-    dragOffsetRef.current = constrainedOffset;
-    setDragOffset(constrainedOffset);
-  }
-
-  function finishDrag() {
-    if (dragOffsetRef.current <= -42) {
-      showNext();
-    } else if (dragOffsetRef.current >= 42) {
-      showPrevious();
-    }
-
-    dragStartX.current = null;
-    dragOffsetRef.current = 0;
-    setDragOffset(0);
-    setIsDragging(false);
-  }
 
   return (
     <section
       id="depoimentos"
-      className="section-space scroll-mt-28 overflow-hidden border-t border-[var(--success)]/35 bg-[#070707]"
+      className="section-space relative scroll-mt-28 overflow-hidden border-t border-[var(--success)]/35 bg-[#070707]"
     >
+      <div
+        aria-hidden="true"
+        className="ghost-grid absolute inset-0 opacity-[0.035] [mask-image:linear-gradient(to_bottom,black,transparent_78%)]"
+      />
+
       <div className="container-shell relative z-10">
-        <Reveal className="mx-auto max-w-4xl text-center">
-          <span className="section-kicker text-white/62">Depoimentos</span>
-          <h2 className="motion-heading mt-5 font-display text-[42px] uppercase leading-[0.9] tracking-[-0.04em] text-white sm:text-[58px] lg:text-[72px]">
-            Experiências de <span className="text-[var(--success)]">clientes</span>
+        <Reveal className="border-b border-white/10 pb-7 sm:pb-9 lg:pb-11">
+          <span className="section-kicker text-white/62">
+            Feedbacks &amp; resultados
+          </span>
+          <h2 className="motion-heading mt-4 whitespace-nowrap font-display text-[clamp(16px,4.8vw,78px)] uppercase leading-none tracking-[-0.05em] text-white sm:mt-5">
+            Confiança que vira <span className="text-[var(--success)]">parceria.</span>
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[var(--text-secondary)] md:text-lg">
-            Feedbacks reais de quem teve um projeto desenvolvido pela DiegoCodes.
-          </p>
         </Reveal>
 
-        <Reveal delay={0.06} className="mt-10">
-          <div
-            aria-live="polite"
-            className={`relative overflow-hidden rounded-md border border-white/10 bg-[linear-gradient(145deg,rgba(24,24,24,0.96),rgba(10,10,10,0.98))] p-6 md:p-8 lg:p-10 ${
-              hasMultipleTestimonials ? "cursor-grab touch-pan-y active:cursor-grabbing" : ""
-            }`}
-            onPointerDown={handlePointerDown}
-            onPointerMove={handlePointerMove}
-            onPointerUp={finishDrag}
-            onPointerCancel={finishDrag}
-          >
-            <span
-              aria-hidden="true"
-              className="motion-rule-vertical absolute left-0 top-8 h-24 w-1 origin-top bg-[var(--success)]"
-            />
-
-            <div
-              className="testimonial-drag"
-              style={{
-                transform: `translate3d(${dragOffset}px, 0, 0)`,
-                opacity: 1 - Math.abs(dragOffset) / 240,
-                transition: isDragging ? "none" : undefined,
-              }}
+        <Reveal className="mt-6 sm:mt-8" delay={0.04}>
+          <div className="overflow-hidden rounded-md border border-white/10 bg-[linear-gradient(120deg,rgba(123,47,190,0.16),rgba(16,16,16,0.98)_42%,rgba(9,9,9,1))]">
+            <article
+              key={activeFeedback.name}
+              aria-live="polite"
+              className="testimonial-swap relative grid items-center gap-5 p-5 sm:min-h-[260px] sm:gap-6 sm:p-6 md:grid-cols-[112px_minmax(0,1fr)_auto] md:p-8 lg:gap-9 lg:p-10"
             >
-              <div
-                key={activeTestimonial.name}
-                data-direction={slideDirection}
-                className="testimonial-swap grid gap-7 md:grid-cols-[190px_minmax(0,1fr)] md:items-start lg:gap-10"
-              >
-              <div className="flex items-center gap-4 md:flex-col md:items-start">
-                <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-white/20 bg-white p-2 md:h-24 md:w-24">
+              <Quote
+                aria-hidden="true"
+                className="absolute right-4 top-4 h-10 w-10 text-[var(--success)]/14 sm:right-5 sm:top-5 sm:h-12 sm:w-12 md:right-8 md:top-8 md:h-16 md:w-16"
+              />
+
+              <div className="flex items-center gap-4 md:block">
+                <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-full border-2 border-white/18 bg-white sm:h-20 sm:w-20 md:h-24 md:w-24">
                   <Image
-                    src={activeTestimonial.imageSrc}
-                    alt={activeTestimonial.imageAlt}
-                    width={96}
-                    height={96}
-                    quality={92}
-                    className="h-full w-full rounded-full object-cover"
+                    src={activeFeedback.imageSrc}
+                    alt={activeFeedback.imageAlt}
+                    fill
+                    quality={90}
+                    sizes="96px"
+                    className="object-cover"
                   />
                 </div>
-
-                <div>
-                  <h3 className="font-accent text-xl font-semibold text-white">
-                    {activeTestimonial.name}
+                <div className="md:mt-4">
+                  <p className="font-accent text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--success)]">
+                    {activeFeedback.label}
+                  </p>
+                  <h3 className="mt-1 font-accent text-lg font-semibold text-white">
+                    {activeFeedback.name}
                   </h3>
-                  <p className="mt-1 text-sm leading-6 text-white/52">
-                    {activeTestimonial.segment}
+                  <p className="mt-1 text-xs text-white/44">
+                    {activeFeedback.segment}
                   </p>
                 </div>
               </div>
 
-              <div className="relative border-t border-white/8 pt-7 md:border-l md:border-t-0 md:pl-8 md:pt-0 lg:pl-10">
-                <Quote
-                  aria-hidden="true"
-                  className="absolute right-0 top-0 h-9 w-9 text-[var(--success)]/72"
-                />
-                <blockquote className="max-w-3xl pr-10 text-base leading-8 text-white/72 md:text-lg md:leading-9">
-                  “{activeTestimonial.text}”
-                </blockquote>
+              <div className="border-t border-white/10 pt-5 sm:pt-6 md:border-l md:border-t-0 md:pl-8 md:pt-0">
+                <p className="max-w-3xl text-[15px] leading-7 text-white/72 sm:text-base sm:leading-8 md:text-lg md:leading-9">
+                  {activeFeedback.isQuote ? `“${activeFeedback.text}”` : activeFeedback.text}
+                </p>
+                <div className="mt-4 flex items-center gap-2 text-xs text-white/42 sm:mt-5">
+                  <CheckCircle2
+                    aria-hidden="true"
+                    className="h-4 w-4 text-[var(--success)]"
+                  />
+                  Projeto real e publicado
+                </div>
+              </div>
 
-                <a
-                  href={activeTestimonial.projectUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label={`Ver o projeto ${activeTestimonial.project}`}
-                  className="mt-6 inline-flex min-h-11 items-center gap-2 border-t border-white/8 pt-5 font-accent text-sm font-semibold text-white/62 transition hover:text-[var(--success)]"
-                >
-                  Ver projeto relacionado
-                  <ExternalLink aria-hidden="true" className="h-4 w-4" />
-                </a>
-              </div>
-              </div>
-            </div>
+              <a
+                href={activeFeedback.projectUrl}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Abrir projeto ${activeFeedback.name}`}
+                className="motion-link relative inline-flex min-h-11 shrink-0 items-center gap-2 self-end font-accent text-xs font-semibold text-white transition hover:text-[var(--success)] md:self-center"
+              >
+                Ver projeto
+                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+              </a>
+            </article>
           </div>
 
-          {hasMultipleTestimonials ? (
-            <div
-              className="mt-5 flex items-center justify-center gap-4"
-              aria-label="Navegação dos depoimentos"
+          <div className="mt-4 flex items-center justify-center gap-2 sm:mt-5 sm:gap-4">
+            <button
+              type="button"
+              onClick={showPrevious}
+              aria-label="Mostrar feedback anterior"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)] sm:h-11 sm:w-11"
             >
-              <button
-                type="button"
-                onClick={showPrevious}
-                aria-label="Mostrar depoimento anterior"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)]"
-              >
-                <ChevronLeft aria-hidden="true" className="h-5 w-5" />
-              </button>
+              <ArrowLeft aria-hidden="true" className="h-4 w-4" />
+            </button>
 
-              <div className="flex items-center gap-2" aria-label="Indicadores de depoimentos">
-                {testimonials.map((testimonial, index) => (
-                  <button
-                    key={testimonial.name}
-                    type="button"
-                    onClick={() => {
-                      setSlideDirection(index >= activeIndex ? "next" : "previous");
-                      setActiveIndex(index);
-                    }}
-                    aria-label={`Mostrar depoimento ${index + 1} de ${testimonials.length}`}
-                    aria-current={activeIndex === index ? "true" : undefined}
-                    className={`inline-flex min-h-11 min-w-11 items-center justify-center rounded-full transition ${
+            <div className="flex items-center gap-2" aria-label="Navegação dos feedbacks">
+              {feedbacks.map((feedback, index) => (
+                <button
+                  key={feedback.name}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-label={`Mostrar feedback de ${feedback.name}`}
+                  aria-current={activeIndex === index ? "true" : undefined}
+                  className="inline-flex min-h-10 min-w-10 items-center justify-center sm:min-h-11 sm:min-w-11"
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`h-2 rounded-full transition-all ${
                       activeIndex === index
-                        ? "text-[var(--success)]"
-                        : "text-white/30 hover:text-white/60"
+                        ? "w-8 bg-[var(--success)]"
+                        : "w-2 bg-white/24"
                     }`}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className={`h-2.5 rounded-full bg-current transition-all ${
-                        activeIndex === index ? "w-8" : "w-2.5"
-                      }`}
-                    />
-                  </button>
-                ))}
-              </div>
-
-              <button
-                type="button"
-                onClick={showNext}
-                aria-label="Mostrar próximo depoimento"
-                className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)]"
-              >
-                <ChevronRight aria-hidden="true" className="h-5 w-5" />
-              </button>
+                  />
+                </button>
+              ))}
             </div>
-          ) : null}
-        </Reveal>
 
+            <button
+              type="button"
+              onClick={showNext}
+              aria-label="Mostrar próximo feedback"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/12 text-white transition hover:border-[var(--success)] hover:text-[var(--success)] sm:h-11 sm:w-11"
+            >
+              <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </button>
+          </div>
+        </Reveal>
       </div>
     </section>
   );

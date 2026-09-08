@@ -27,7 +27,7 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
           <div className="font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
             Sobre mim
           </div>
-          <h2 className="mt-6 max-w-[1100px] font-display text-[clamp(50px,8.5vw,112px)] uppercase leading-[0.86] tracking-[-0.045em] text-white">
+          <h2 className="mt-5 max-w-[1100px] font-display text-[clamp(36px,8.5vw,112px)] uppercase leading-[0.88] tracking-[-0.045em] text-white sm:mt-6 sm:leading-[0.86]">
             <MotionWords
               words={[
                 "Ideias",
@@ -43,7 +43,7 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
           </h2>
         </Reveal>
 
-        <div className="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-[minmax(340px,0.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-16 xl:gap-24">
+        <div className="mt-8 grid gap-8 sm:mt-12 sm:gap-10 lg:mt-16 lg:grid-cols-[minmax(340px,0.78fr)_minmax(0,1.22fr)] lg:items-center lg:gap-16 xl:gap-24">
           <Reveal fromX={-24} fromY={0}>
             <div className="about-portrait motion-media-frame relative mx-auto max-w-[520px] lg:mx-0">
               <div className="relative aspect-[4/5] overflow-hidden rounded-md border border-white/10 bg-[#111] shadow-[0_30px_100px_rgba(0,0,0,0.4)]">
@@ -55,8 +55,8 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
                   className="object-cover object-center transition duration-700 hover:scale-[1.02]"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
-                <div className="absolute inset-x-0 bottom-0 p-5 md:p-7">
-                  <p className="font-display text-4xl uppercase leading-none tracking-[-0.035em] text-white md:text-5xl">
+                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-7">
+                  <p className="font-display text-3xl uppercase leading-none tracking-[-0.035em] text-white sm:text-4xl md:text-5xl">
                     Diego Ewerton
                   </p>
                   <p className="mt-2 font-accent text-xs font-semibold uppercase tracking-[0.12em] text-white/54">
@@ -70,7 +70,7 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
 
           <div>
             <Reveal delay={0.05} fromX={20} fromY={0}>
-              <p className="max-w-3xl font-accent text-[clamp(28px,3.5vw,48px)] font-medium leading-[1.15] tracking-[-0.035em] text-white">
+              <p className="max-w-3xl font-accent text-[clamp(23px,3.5vw,48px)] font-medium leading-[1.2] tracking-[-0.03em] text-white sm:leading-[1.15] sm:tracking-[-0.035em]">
                 Sou Diego Ewerton, desenvolvedor web e criador da DiegoCodes.
                 Transformo ideias em sites claros, atuais e preparados para conectar
                 marcas às pessoas certas.
@@ -78,7 +78,7 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
             </Reveal>
 
             <Reveal delay={0.1} fromX={20} fromY={0}>
-              <div className="mt-8 max-w-2xl border-l border-[var(--accent-hover)]/55 pl-6 text-base leading-8 text-white/60 md:pl-8 md:text-lg">
+              <div className="mt-6 max-w-2xl border-l border-[var(--accent-hover)]/55 pl-4 text-[15px] leading-7 text-white/60 sm:mt-8 sm:pl-6 sm:text-base sm:leading-8 md:pl-8 md:text-lg">
                 <p>
                   Participo de todo o processo: entendo o objetivo, organizo o
                   conteúdo, desenho a experiência e desenvolvo a solução até a
