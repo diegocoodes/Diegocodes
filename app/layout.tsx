@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Archivo_Black, Barlow } from "next/font/google";
 import Script from "next/script";
+import SiteIntro from "@/components/ui/SiteIntro";
 import { getSiteUrl } from "@/lib/site";
 import "../styles/globals.css";
 
@@ -122,6 +123,7 @@ export default function RootLayout({
       className={`dark ${archivoBlack.variable} ${barlow.variable} font-sans`}
     >
       <body className="bg-[var(--bg-primary)] font-sans text-white antialiased">
+        <SiteIntro />
         <Script id="meta-pixel-queue" strategy="beforeInteractive">
           {`
             !function(f,n)

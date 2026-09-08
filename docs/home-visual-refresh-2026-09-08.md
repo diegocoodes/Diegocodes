@@ -6,6 +6,14 @@ Melhorar a hierarquia visual da página principal, reduzir excesso de conteúdo 
 
 ## Alterações principais
 
+### Animação de entrada compartilhada
+
+- Uma cortina curta apresenta a marca antes de revelar o conteúdo.
+- O efeito usa apenas CSS, não bloqueia interações e aparece uma vez no carregamento inicial.
+- A implementação fica no layout raiz e atende tanto o site principal quanto `/cv`.
+- Usuários com `prefers-reduced-motion` não recebem a animação.
+- A cortina também é desativada na impressão do currículo.
+
 ### Projetos selecionados
 
 - Título condensado em uma única linha, sem quebra editorial forçada.
@@ -47,6 +55,8 @@ Melhorar a hierarquia visual da página principal, reduzir excesso de conteúdo 
 - `components/AboutDiego.tsx`
 - `components/FAQ.tsx`
 - `styles/globals.css`
+- `components/ui/SiteIntro.tsx`
+- `app/layout.tsx`
 
 ## Validação
 

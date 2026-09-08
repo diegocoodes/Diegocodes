@@ -515,6 +515,70 @@ summary:focus-visible {
   animation: site-page-enter 1.2s var(--motion-ease-out) both;
 }
 
+.site-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  color: #ffffff;
+  background: #070509;
+  pointer-events: none;
+  isolation: isolate;
+  will-change: clip-path;
+  animation: site-intro-curtain 1050ms cubic-bezier(0.76, 0, 0.24, 1) both;
+}
+
+.site-intro-glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 38% 42%, rgba(123, 47, 190, 0.24), transparent 32%),
+    radial-gradient(circle at 64% 58%, rgba(53, 213, 139, 0.1), transparent 28%);
+}
+
+.site-intro-content {
+  display: flex;
+  width: min(78vw, 520px);
+  flex-direction: column;
+  align-items: center;
+}
+
+.site-intro-label {
+  font-family: var(--font-barlow), Arial, sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.48);
+}
+
+.site-intro-wordmark {
+  margin-top: 10px;
+  font-family: var(--font-archivo-black), "Arial Black", sans-serif;
+  font-size: clamp(34px, 9vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.055em;
+  text-transform: uppercase;
+  animation: site-intro-mark 900ms var(--motion-ease-out) both;
+}
+
+.site-intro-wordmark span {
+  color: #c99bea;
+}
+
+.site-intro-line {
+  width: 100%;
+  height: 2px;
+  margin-top: 22px;
+  background: linear-gradient(90deg, #7b2fbe, #c99bea 55%, #35d58b);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: site-intro-line 720ms var(--motion-ease-out) 80ms both;
+}
+
 .hero-new-title {
   text-shadow: 0 18px 70px rgba(5, 3, 8, 0.42);
 }
@@ -738,6 +802,48 @@ summary:focus-visible {
   }
 }
 
+@keyframes site-intro-curtain {
+  0%,
+  62% {
+    clip-path: inset(0 0 0 0);
+  }
+  100% {
+    clip-path: inset(0 0 100% 0);
+  }
+}
+
+@keyframes site-intro-mark {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  24%,
+  66% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes site-intro-line {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  38%,
+  74% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
 @keyframes cv-hero-rail-enter {
   from {
     transform: scaleX(0);
@@ -892,12 +998,19 @@ summary:focus-visible {
 
   .nav-enter,
   .site-page-enter,
+  .site-intro,
+  .site-intro-wordmark,
+  .site-intro-line,
   .cv-hero-rail,
   .cv-tech-track,
   .attention-once,
   .whatsapp-entry,
   .testimonial-swap {
     animation: none;
+  }
+
+  .site-intro {
+    display: none;
   }
 
   ::view-transition-group(*),
@@ -1007,6 +1120,10 @@ summary:focus-visible {
 }
 
 @media print {
+  .site-intro {
+    display: none !important;
+  }
+
   @page {
     size: A4;
     margin: 12mm;
