@@ -678,9 +678,219 @@ summary:focus-visible {
   }
 }
 
+.astro-mission-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-block: 1px solid rgba(191, 131, 223, 0.5);
+  background: #36104f;
+  box-shadow: 0 0 50px rgba(123, 47, 190, 0.18);
+}
+
+.astro-mission-band::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 2;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #bf83df, #3ddc84, transparent);
+}
+
+.astro-band-backdrop {
+  z-index: -3;
+  opacity: 0.4;
+}
+
+.astro-band-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+}
+
+.astro-band-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(90deg, rgba(26, 6, 42, 0.6), rgba(26, 6, 42, 0.72));
+}
+
+.astro-band-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 12px;
+}
+
+.astro-band-heading h2 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  line-height: 1.6;
+}
+
+.astro-band-status {
+  width: 5px;
+  height: 5px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 12px rgba(61, 220, 132, 0.6);
+}
+
+.astro-band-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: white;
+  transition: background 200ms;
+}
+
+.astro-band-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.astro-band-viewport {
+  padding-block: 8px 26px;
+  overflow: hidden;
+}
+
+.astro-band-track {
+  display: flex;
+  width: max-content;
+  animation: astro-band-travel 36s linear infinite;
+  will-change: transform;
+}
+
+.astro-band-group {
+  display: flex;
+  flex-shrink: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.astro-band-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: clamp(320px, 28vw, 420px);
+  padding: 10px 36px 10px 24px;
+}
+
+.astro-band-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.06);
+  color: #68f0a8;
+}
+
+.astro-band-photos {
+  width: auto;
+  border: 0;
+  background: none;
+}
+
+.astro-band-photo {
+  position: relative;
+  overflow: hidden;
+  width: 44px;
+  height: 44px;
+  border: 2px solid #bf83df;
+  border-radius: 50%;
+  background: #1d0e2c;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.astro-band-photo + .astro-band-photo {
+  margin-left: -15px;
+}
+
+.astro-band-value {
+  color: white;
+  font-size: clamp(18px, 1.65vw, 24px);
+  line-height: 1.15;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+}
+
+.astro-band-label {
+  margin-top: 8px;
+  color: #e1d5eb;
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.astro-band-star {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #68f0a8;
+  font-size: 20px;
+}
+
+.astro-mission-band[data-paused="true"] .astro-band-track,
+.astro-mission-band[data-visible="false"] .astro-band-track {
+  animation-play-state: paused;
+}
+
+@keyframes astro-band-travel {
+  to { transform: translateX(-50%); }
+}
+
+.prisma-hero-frame {
+  min-height: max(700px, calc(100svh - 24px));
+}
+
+.prisma-hero-title {
+  font-size: clamp(38px, 11.2vw, 90px);
+  line-height: 0.97;
+  letter-spacing: -0.065em;
+}
+
+.prisma-hero-title > span {
+  display: flex;
+}
+
+.prisma-asterisk {
+  position: absolute;
+  right: -0.65em;
+  top: -0.15em;
+  font-family: Arial, sans-serif;
+  font-size: 0.35em;
+  font-weight: 400;
+  color: var(--success);
+}
+
+.prisma-video {
+  object-position: 52% 42%;
+}
+
+.projects-section {
+  padding-top: 72px;
+  padding-bottom: 72px;
+}
+
 .project-carousel-track {
   display: flex;
-  gap: 24px;
+  gap: 20px;
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
@@ -695,14 +905,14 @@ summary:focus-visible {
 }
 
 .project-carousel-item {
-  flex: 0 0 88%;
+  flex: 0 0 82%;
   min-width: 0;
   scroll-snap-align: start;
 }
 
 .project-carousel-track::after {
   content: "";
-  flex: 0 0 calc(12% - 24px);
+  flex: 0 0 calc(18% - 20px);
 }
 
 .project-carousel-control {
@@ -760,8 +970,21 @@ summary:focus-visible {
 }
 
 @media (min-width: 768px) {
-  .project-carousel-item { flex-basis: 68%; }
-  .project-carousel-track::after { flex-basis: calc(32% - 24px); }
+  .project-carousel-item { flex-basis: 48%; }
+  .project-carousel-track::after { flex-basis: calc(52% - 20px); }
+}
+
+@media (min-width: 1024px) {
+  .prisma-hero-frame {
+    min-height: max(720px, calc(100svh - 24px));
+  }
+
+  .prisma-hero-title {
+    font-size: clamp(72px, 7.5vw, 112px);
+  }
+
+  .project-carousel-item { flex-basis: 40%; }
+  .project-carousel-track::after { flex-basis: calc(60% - 20px); }
 }
 
 .attention-once {
@@ -1033,6 +1256,38 @@ summary:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .astro-band-track {
+    width: 100%;
+    animation: none;
+    transform: none;
+    will-change: auto;
+  }
+
+  .astro-band-group {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
+    width: 100%;
+  }
+
+  .astro-band-item {
+    width: auto;
+    min-width: 0;
+    padding-block: 18px;
+  }
+
+  .astro-band-copy,
+  .astro-band-toggle {
+    display: none;
+  }
+
+  .prisma-word {
+    transform: none !important;
+  }
+
+  .prisma-video-toggle {
+    display: none;
+  }
+
   html {
     scroll-behavior: auto;
   }

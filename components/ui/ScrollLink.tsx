@@ -47,16 +47,16 @@ export default function ScrollLink({
     event.preventDefault();
 
     const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
     const startY = window.scrollY;
     const targetY = Math.max(
       0,
-      target.getBoundingClientRect().top + window.scrollY - offset
+      target.getBoundingClientRect().top + window.scrollY - offset,
     );
 
     if (prefersReducedMotion) {
-      window.scrollTo({ top: targetY });
+      window.scrollTo({ top: targetY, behavior: "instant" });
       return;
     }
 
@@ -68,7 +68,7 @@ export default function ScrollLink({
       const progress = Math.min(elapsed / duration, 1);
       const eased = easeOutCubic(progress);
 
-      window.scrollTo({ top: startY + distance * eased });
+      window.scrollTo({ top: startY + distance * eased, behavior: "instant" });
 
       if (progress < 1) {
         window.requestAnimationFrame(step);

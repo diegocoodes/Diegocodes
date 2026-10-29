@@ -41,7 +41,8 @@ export default function ProjectCarousel({
     getServerReducedMotion,
   );
   const playing = playback ?? !prefersReducedMotion;
-  const [hovered, setHovered] = useState(false);
+  const [focusWithin, setFocusWithin] = useState(false);
+  const lastInteractionRef = useRef(0);
   const [inView, setInView] = useState(false);
   const count = names.length;
 
@@ -69,15 +70,20 @@ export default function ProjectCarousel({
   }, []);
 
   useEffect(() => {
-    if (!playing || hovered || !inView || count < 2) return;
+    if (!playing || focusWithin || !inView || count < 2) return;
     const timer = window.setInterval(() => {
-      if (!document.hidden) goTo((active + 1) % count);
-    }, 6500);
+      if (
+        !document.hidden &&
+        performance.now() - lastInteractionRef.current > 5000
+      ) {
+        goTo((active + 1) % count);
+      }
+    }, 3200);
     return () => window.clearInterval(timer);
-  }, [active, count, goTo, hovered, inView, playing]);
+  }, [active, count, goTo, focusWithin, inView, playing]);
 
   function navigate(index: number) {
-    setPlaying(false);
+    lastInteractionRef.current = performance.now();
     goTo((index + count) % count);
   }
 
@@ -104,11 +110,16 @@ export default function ProjectCarousel({
       aria-roledescription="carrossel"
       aria-label="Projetos selecionados"
       className="mt-6 sm:mt-8"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
       onFocusCapture={(event) => {
-        if (!(event.target as HTMLElement).closest("[data-carousel-rotation]"))
-          setPlaying(false);
+        const target = event.target as HTMLElement;
+        setFocusWithin(
+          target.matches(":focus-visible") &&
+            !target.closest("[data-carousel-rotation]"),
+        );
+      }}
+      onBlurCapture={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget))
+          setFocusWithin(false);
       }}
     >
       <div className="mb-5 flex items-center justify-between gap-3">
@@ -161,7 +172,9 @@ export default function ProjectCarousel({
         tabIndex={0}
         aria-label="Deslize ou use as setas para navegar pelos projetos"
         onScroll={syncActive}
-        onPointerDown={() => setPlaying(false)}
+        onPointerDown={() => {
+          lastInteractionRef.current = performance.now();
+        }}
         onKeyDown={(event) => {
           if (event.target !== event.currentTarget) return;
           if (event.key === "ArrowRight" || event.key === "ArrowLeft") {

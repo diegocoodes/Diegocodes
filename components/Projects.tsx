@@ -18,7 +18,7 @@ export default function Projects() {
     <section
       id="projetos"
       aria-labelledby="projects-heading"
-      className="section-space relative scroll-mt-28 overflow-hidden border-y border-white/[0.07] bg-[#070707]"
+      className="section-space projects-section relative scroll-mt-28 overflow-hidden border-y border-white/[0.07] bg-[#070707]"
     >
       <div
         aria-hidden="true"
@@ -29,7 +29,7 @@ export default function Projects() {
         className="absolute -left-40 top-24 h-[520px] w-[520px] rounded-full bg-[rgba(123,47,190,0.12)] blur-[140px]"
       />
       <div className="container-shell relative z-10">
-        <Reveal className="border-b border-white/10 pb-7 sm:pb-9 lg:pb-11">
+        <Reveal className="border-b border-white/10 pb-6 sm:pb-7">
           <p className="font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
             Projetos selecionados
           </p>
@@ -90,7 +90,7 @@ function ProjectSlide({
       <TransitionLink
         href={getProjectPath(project)}
         aria-label={`Ver estudo de caso de ${project.name}`}
-        className="project-monitor-stage relative block overflow-hidden rounded-t-xl px-4 pb-5 pt-7 sm:px-9 sm:pb-7 sm:pt-10"
+        className="project-monitor-stage relative block overflow-hidden rounded-t-xl px-4 pb-4 pt-5 sm:px-5 sm:pb-5 sm:pt-6"
       >
         <div
           aria-hidden="true"
@@ -107,20 +107,20 @@ function ProjectSlide({
                 alt={project.imageAlt}
                 fill
                 quality={85}
-                sizes="(min-width: 1280px) 740px, (min-width: 768px) 60vw, 82vw"
+                sizes="(min-width: 1280px) 420px, (min-width: 1024px) 34vw, (min-width: 768px) 42vw, 70vw"
                 className={`object-cover transition-transform duration-700 group-hover:scale-[1.015] ${project.imageClassName ?? "object-top"}`}
               />
             </div>
             <div
               aria-hidden="true"
-              className="flex h-5 items-center justify-center sm:h-7"
+              className="flex h-4 items-center justify-center sm:h-5"
             >
               <span className="h-1 w-1 rounded-full bg-[var(--success)] shadow-[0_0_7px_rgba(61,220,132,0.5)]" />
             </div>
           </div>
           <div
             aria-hidden="true"
-            className="project-monitor-neck mx-auto h-5 w-[16%] sm:h-8"
+            className="project-monitor-neck mx-auto h-4 w-[16%] sm:h-5"
           />
           <div
             aria-hidden="true"
@@ -128,7 +128,7 @@ function ProjectSlide({
           />
         </div>
       </TransitionLink>
-      <div className="flex flex-1 flex-col border-t border-white/[0.07] p-5 sm:p-7">
+      <div className="flex flex-1 flex-col border-t border-white/[0.07] p-4 sm:p-5">
         <div className="flex items-center justify-between gap-4 font-accent text-[10px] font-semibold uppercase tracking-[0.06em] text-white/55 sm:text-[11px]">
           <span>{project.niche}</span>
           <span className="flex shrink-0 items-center gap-1.5 text-[var(--success)]">
@@ -139,13 +139,13 @@ function ProjectSlide({
             {project.status}
           </span>
         </div>
-        <h3 className="mt-4 break-words font-display text-[clamp(28px,3.7vw,52px)] uppercase leading-[0.98] tracking-[-0.04em] text-white">
+        <h3 className="mt-3 break-words font-display text-[clamp(23px,2.5vw,34px)] uppercase leading-[1.02] tracking-[-0.04em] text-white">
           {project.name}
         </h3>
-        <p className="mb-6 mt-4 max-w-xl text-sm leading-6 text-white/60 sm:text-base sm:leading-7">
+        <p className="mb-4 mt-3 max-w-xl text-sm leading-6 text-white/60">
           {project.cardDescription}
         </p>
-        <div className="mt-auto flex flex-wrap items-center gap-x-6 gap-y-2 border-t border-white/10 pt-4">
+        <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-1 border-t border-white/10 pt-3">
           <TransitionLink
             href={getProjectPath(project)}
             className="motion-link inline-flex min-h-11 items-center gap-2 font-accent text-[11px] font-semibold text-white sm:text-xs"
