@@ -2,7 +2,7 @@
 const nextConfig = {
   agentRules: false,
   images: {
-    qualities: [75, 82, 92],
+    qualities: [75, 82, 85, 90, 92],
   },
 };
 

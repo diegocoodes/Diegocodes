@@ -8,6 +8,7 @@ export type ProjectVisual = {
 };
 
 export type PortfolioProject = {
+  featuredOnHome?: boolean;
   slug: string;
   name: string;
   liveUrl?: string;
@@ -34,6 +35,196 @@ export type PortfolioProject = {
 };
 
 export const portfolioProjects = [
+  {
+    slug: "universo-mkt",
+    name: "Universo Marketing",
+    liveUrl: "https://universomkt.com.br/",
+    status: "Ao vivo",
+    niche: "Marketing digital",
+    service: "Site institucional",
+    goal: "Apresentar as soluções da agência e facilitar novas conversas comerciais",
+    shortDescription:
+      "Site de agência com apresentação de estratégia, mídia, conteúdo e tecnologia, além de caminhos para contato e reunião.",
+    cardDescription:
+      "Estratégia, mídia e tecnologia em um site com identidade própria e caminhos claros para contato.",
+    cardProblem:
+      "Apresentar diferentes serviços de marketing em uma experiência fácil de entender.",
+    cardSolution:
+      "Site organizado por soluções, com navegação direta e chamadas para iniciar uma conversa.",
+    resultSummary:
+      "As frentes de atuação da agência ficam reunidas em um endereço, com apresentação dos serviços e opções de contato.",
+    challenge:
+      "Comunicar a atuação da agência em marketing e tecnologia, organizando as soluções e os caminhos para quem chega ao site.",
+    solution:
+      "Uma apresentação com identidade escura e amarela, seções para as soluções de marketing e tecnologia e chamadas para formulário, reunião e conversa.",
+    deliverables: [
+      "Design responsivo",
+      "Apresentação de serviços",
+      "Identidade visual aplicada",
+      "Navegação por seções",
+      "Chamadas para contato",
+    ],
+    visuals: [
+      {
+        label: "Versão desktop",
+        description: "Captura da seção inicial do site Universo Marketing.",
+        src: "/projects/universo-mkt-hero.webp",
+        alt: "Seção inicial do site Universo Marketing com identidade preta e amarela.",
+        format: "desktop",
+        className: "object-top",
+      },
+    ],
+    imageSrc: "/projects/universo-mkt-hero.webp",
+    imageAlt:
+      "Hero do site Universo Marketing com apresentação da agência em preto e amarelo.",
+    imageClassName: "object-top",
+    metaTitle: "Site para agência de marketing | Projeto Universo Marketing",
+    metaDescription:
+      "Conheça o site Universo Marketing, com apresentação de serviços de estratégia, mídia, conteúdo e tecnologia e caminhos para contato.",
+  },
+  {
+    slug: "fcar-garage",
+    name: "Fcar Garage",
+    liveUrl: "https://fcargarage.com.br/",
+    status: "Ao vivo",
+    niche: "Estética automotiva",
+    service: "Site institucional",
+    goal: "Apresentar os cuidados automotivos e facilitar pedidos de orçamento",
+    shortDescription:
+      "Site de estética automotiva com destaque para o veículo, apresentação dos serviços, avaliações e solicitação de orçamento.",
+    cardDescription:
+      "Visual preto e vermelho para apresentar cuidados automotivos e facilitar pedidos de orçamento.",
+    cardProblem:
+      "Explicar os serviços de estética automotiva e orientar o visitante até o orçamento.",
+    cardSolution:
+      "Apresentação visual do negócio, serviços organizados e formulário com continuidade pelo WhatsApp.",
+    resultSummary:
+      "Os serviços, as avaliações e o contato ficam reunidos em uma página dedicada à Fcar Garage.",
+    challenge:
+      "Valorizar a identidade da empresa e explicar as opções de proteção, acabamento e cuidado com o veículo de forma acessível.",
+    solution:
+      "Um site com carro em destaque na abertura, informações sobre cada serviço, avaliações e formulário para iniciar um atendimento pelo WhatsApp.",
+    deliverables: [
+      "Design responsivo",
+      "Seção de serviços",
+      "Avaliações de clientes",
+      "Formulário de orçamento",
+      "Contato pelo WhatsApp",
+    ],
+    visuals: [
+      {
+        label: "Versão desktop",
+        description: "Captura da seção inicial do site Fcar Garage.",
+        src: "/projects/fcar-garage-hero.webp",
+        alt: "Seção inicial da Fcar Garage com carro esportivo vermelho sobre fundo escuro.",
+        format: "desktop",
+        className: "object-top",
+      },
+    ],
+    imageSrc: "/projects/fcar-garage-hero.webp",
+    imageAlt:
+      "Hero da Fcar Garage com carro vermelho, serviços automotivos e botão de orçamento.",
+    imageClassName: "object-top",
+    metaTitle: "Site para estética automotiva | Projeto Fcar Garage",
+    metaDescription:
+      "Conheça o site Fcar Garage, com serviços de estética automotiva, avaliações e formulário para solicitação de orçamento pelo WhatsApp.",
+  },
+  {
+    slug: "omj",
+    name: "OMJ Estética Automotiva",
+    liveUrl: "https://omj-test.vercel.app/",
+    status: "Ao vivo",
+    niche: "Estética automotiva",
+    service: "Site institucional",
+    goal: "Apresentar serviços, mostrar trabalhos e receber pedidos de orçamento",
+    shortDescription:
+      "Site automotivo com identidade preta e verde, apresentação dos tratamentos, trabalhos selecionados e contato direto.",
+    cardDescription:
+      "Serviços e trabalhos automotivos em uma experiência visual com preto, verde e foco no acabamento.",
+    cardProblem:
+      "Apresentar tratamentos de proteção e estética e valorizar visualmente os trabalhos da empresa.",
+    cardSolution:
+      "Serviços organizados, galeria de projetos e chamadas para orçamento pelo WhatsApp.",
+    resultSummary:
+      "A OMJ conta com uma apresentação dos serviços e dos veículos atendidos, conectada ao canal de orçamento.",
+    challenge:
+      "Traduzir o cuidado com o acabamento dos veículos em uma presença digital que também explique os tratamentos disponíveis.",
+    solution:
+      "Um site com abertura de impacto, identidade preta e verde, seções para vitrificação, PPF, películas e detalhamento, além de trabalhos selecionados.",
+    deliverables: [
+      "Design responsivo",
+      "Apresentação de serviços",
+      "Galeria de projetos",
+      "Identidade visual aplicada",
+      "Contato pelo WhatsApp",
+    ],
+    visuals: [
+      {
+        label: "Versão desktop",
+        description:
+          "Captura da seção inicial do site OMJ Estética Automotiva.",
+        src: "/projects/omj-hero.webp",
+        alt: "Seção inicial da OMJ com carro verde e chamada para estética automotiva.",
+        format: "desktop",
+        className: "object-top",
+      },
+    ],
+    imageSrc: "/projects/omj-hero.webp",
+    imageAlt:
+      "Hero da OMJ Estética Automotiva com carro verde e chamada para orçamento.",
+    imageClassName: "object-top",
+    metaTitle: "Site para estética automotiva | Projeto OMJ",
+    metaDescription:
+      "Conheça o site OMJ Estética Automotiva, com serviços de detailing, PPF, vitrificação, trabalhos selecionados e contato pelo WhatsApp.",
+  },
+  {
+    slug: "astux-shops",
+    name: "ASTUX Estética Automotiva",
+    liveUrl: "https://astuxshops.vercel.app/",
+    status: "Ao vivo",
+    niche: "Estética automotiva",
+    service: "Site institucional",
+    goal: "Apresentar serviços de proteção automotiva e facilitar o contato para orçamento",
+    shortDescription:
+      "Site de estética e proteção automotiva com apresentação dos serviços, resultados e localização em Boa Viagem, Recife.",
+    cardDescription:
+      "Proteção e estética automotiva em um site com serviços, resultados e identidade visual marcante.",
+    cardProblem:
+      "Organizar os serviços e mostrar o cuidado da empresa com a proteção e o acabamento dos veículos.",
+    cardSolution:
+      "Página com serviços detalhados, apresentação da empresa, resultados e contato para orçamento.",
+    resultSummary:
+      "A apresentação digital reúne os serviços, as informações da empresa e a localização em uma navegação por seções.",
+    challenge:
+      "Comunicar a especialização em proteção automotiva e ajudar o visitante a encontrar os serviços e os canais de atendimento.",
+    solution:
+      "Um site com abertura visual, seções para PPF, vitrificação, películas e detalhamento, informações sobre a empresa e caminhos para orçamento.",
+    deliverables: [
+      "Design responsivo",
+      "Apresentação de serviços",
+      "Seção de resultados",
+      "Informações de localização",
+      "Chamadas para orçamento",
+    ],
+    visuals: [
+      {
+        label: "Versão desktop",
+        description:
+          "Captura da seção inicial do site ASTUX Estética Automotiva.",
+        src: "/projects/astux-shops-hero.webp",
+        alt: "Seção inicial do site ASTUX com apresentação de proteção e estética automotiva.",
+        format: "desktop",
+        className: "object-top",
+      },
+    ],
+    imageSrc: "/projects/astux-shops-hero.webp",
+    imageAlt:
+      "Hero da ASTUX Estética Automotiva com serviços de proteção e chamada para orçamento.",
+    imageClassName: "object-top",
+    metaTitle: "Site para estética automotiva | Projeto ASTUX",
+    metaDescription:
+      "Conheça o site ASTUX Estética Automotiva, com apresentação de PPF, vitrificação, detailing, resultados e localização em Recife.",
+  },
   {
     slug: "matheus-personal",
     name: "Matheus Personal",
@@ -86,6 +277,7 @@ export const portfolioProjects = [
   },
   {
     slug: "holanda-personal",
+    featuredOnHome: false,
     name: "Holanda Personal",
     liveUrl: "https://holandapersonal.vercel.app",
     status: "Ao vivo",
@@ -94,8 +286,7 @@ export const portfolioProjects = [
     goal: "Apresentar consultoria fitness com mais valor percebido",
     shortDescription:
       "Página premium para apresentar consultoria, método de acompanhamento e caminho direto para conversa.",
-    cardDescription:
-      "Página premium para vender consultoria e acompanhamento.",
+    cardDescription: "Página premium para vender consultoria e acompanhamento.",
     cardProblem:
       "Explicar a consultoria, o método e os benefícios antes do primeiro contato.",
     cardSolution:
@@ -136,6 +327,7 @@ export const portfolioProjects = [
   },
   {
     slug: "rastromoville",
+    featuredOnHome: false,
     name: "RastroMoville",
     liveUrl: "https://rastromoville.vercel.app",
     status: "Ao vivo",
@@ -199,8 +391,7 @@ export const portfolioProjects = [
     goal: "Apresentar trabalhos e facilitar pedidos de agenda",
     shortDescription:
       "Portfólio visual criado para organizar trabalhos, fortalecer a percepção profissional e facilitar o agendamento.",
-    cardDescription:
-      "Portfólio visual com agendamento e contato direto.",
+    cardDescription: "Portfólio visual com agendamento e contato direto.",
     cardProblem:
       "Valorizar os trabalhos e transformar interesse em pedidos de agendamento.",
     cardSolution:
@@ -249,8 +440,7 @@ export const portfolioProjects = [
     goal: "Organizar informações locais para busca e leitura rápida",
     shortDescription:
       "Portal de conteúdo local com estrutura para leitura, navegação e divulgação de experiências em Pernambuco.",
-    cardDescription:
-      "Conteúdo local organizado para busca e leitura rápida.",
+    cardDescription: "Conteúdo local organizado para busca e leitura rápida.",
     cardProblem:
       "Transformar conteúdos locais dispersos em uma experiência simples de consultar.",
     cardSolution:

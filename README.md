@@ -140,7 +140,7 @@ Crie `.env.local` apenas no ambiente de desenvolvimento. Arquivos locais de ambi
 ## Atualização de conteúdo
 
 - Informações de contato e mensagem padrão do WhatsApp: `lib/contact.ts`.
-- Projetos, capas, links e estudos de caso: `lib/projects.ts`.
+- Projetos, capas, links e estudos de caso: `lib/projects.ts`. Use `featuredOnHome: false` para manter um projeto apenas no portfólio completo.
 - Serviços, processo, depoimentos e FAQ: `lib/home-content.ts`.
 - Experiência, formação, certificados e links do currículo: `lib/cv.ts`.
 - PDF do currículo: `public/curriculo/` e `components/cv/CvPrintButton.tsx`.
@@ -165,7 +165,7 @@ Os metadados globais ficam em `app/layout.tsx`. Projetos geram metadados individ
 
 O layout prepara a fila do Meta Pixel antes da hidratação e carrega o SDK com `lazyOnload`, após o carregamento da página, em um momento ocioso. Elementos com `data-track` são capturados por `components/AnalyticsBridge.tsx`; os eventos do Pixel aguardam na fila até o SDK carregar, e o `dataLayer` recebe os eventos quando disponível. Visitantes que saem antes do SDK carregar podem não enviar o PageView.
 
-As capas da seção de projetos usam carregamento lazy, qualidade 75 e tamanhos responsivos alinhados à largura dos cards, sem disputar prioridade com o conteúdo inicial.
+Na home, os projetos aparecem em um carrossel horizontal com molduras de monitor, imagens responsivas e carregamento lazy. As capturas das seções iniciais ficam em `public/projects/*-hero.webp`. O carrossel avança para a direita a cada 6,5 segundos enquanto está visível, pausa com o mouse sobre a seção e interrompe a reprodução ao navegar manualmente. Setas, indicadores, teclado e toque permitem navegar; o botão de reprodução controla o avanço automático. A preferência por movimento reduzido desativa a reprodução inicial e a rolagem animada.
 
 O currículo usa `noindex, nofollow` intencionalmente e, por isso, não é incluído no sitemap público.
 

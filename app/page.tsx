@@ -72,7 +72,7 @@ export default function Home() {
         <Navbar whatsappUrl={whatsappUrl} />
         <Hero whatsappUrl={whatsappUrl} />
         <TrustBar />
-        <Projects limit={4} />
+        <Projects />
         <InstagramIdentity whatsappUrl={whatsappUrl} />
         <Deliverables />
         <HowItWorks whatsappUrl={whatsappUrl} />
