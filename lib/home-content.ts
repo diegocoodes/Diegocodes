@@ -59,8 +59,7 @@ export const processSteps = [
   },
   {
     title: "Proposta",
-    description:
-      "Você recebe uma proposta com escopo, prazo e investimento.",
+    description: "Você recebe uma proposta com escopo, prazo e investimento.",
   },
   {
     title: "Planejamento e criação",
@@ -69,8 +68,7 @@ export const processSteps = [
   },
   {
     title: "Revisão",
-    description:
-      "Você acompanha o andamento e solicita os ajustes previstos.",
+    description: "Você acompanha o andamento e solicita os ajustes previstos.",
   },
   {
     title: "Publicação",
@@ -111,6 +109,21 @@ export const testimonials = [
     imageSrc: "/testimonials/contact-4.jpg",
     imageAlt: "Imagem associada ao depoimento do projeto RastroMoville.",
     text: "Quero agradecer ao Diego pelo excelente trabalho no meu site. Ficou exatamente como eu imaginei: moderno, profissional e com uma identidade que realmente representa minha marca. Desde o atendimento até a entrega final, tudo foi feito com atenção aos detalhes e muita dedicação. Dá para perceber o cuidado em cada parte do projeto.",
+  },
+] as const;
+
+export const testimonialExamples = [
+  {
+    title: "Apresentação dos serviços",
+    text: "As informações ficaram organizadas e fáceis de entender. O site apresenta os serviços com clareza e ajuda quem chega a conhecer melhor o negócio antes de entrar em contato.",
+  },
+  {
+    title: "Experiência no celular",
+    text: "A navegação ficou simples e confortável no celular. As imagens, os textos e os botões funcionam bem juntos, sem precisar ficar procurando as informações na página.",
+  },
+  {
+    title: "Contato e orçamento",
+    text: "Gostei de como o visitante consegue conhecer o trabalho e chegar ao WhatsApp em poucos passos. A página ficou prática para compartilhar com quem pede mais informações.",
   },
 ] as const;
 

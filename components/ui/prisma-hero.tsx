@@ -1,14 +1,8 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import {
-  ArrowDownRight,
-  ArrowRight,
-  ArrowUpRight,
-  Pause,
-  Play,
-} from "lucide-react";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import ScrollLink from "@/components/ui/ScrollLink";
 import { createWhatsAppUrl } from "@/lib/whatsapp";
 
@@ -96,7 +90,6 @@ export function WordsPullUpMultiStyle({
 
 function HeroVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [paused, setPaused] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -110,7 +103,6 @@ function HeroVideo() {
     function syncPlayback() {
       if (!video) return;
       if (
-        paused ||
         preference.matches ||
         connection?.saveData ||
         !visible ||
@@ -136,7 +128,7 @@ function HeroVideo() {
       document.removeEventListener("visibilitychange", syncPlayback);
       video.pause();
     };
-  }, [paused]);
+  }, []);
 
   return (
     <>
@@ -151,20 +143,6 @@ function HeroVideo() {
         tabIndex={-1}
         className="prisma-video absolute inset-0 h-full w-full object-cover"
       />
-      <button
-        type="button"
-        onClick={() => setPaused((value) => !value)}
-        aria-label={
-          paused ? "Reproduzir vídeo de fundo" : "Pausar vídeo de fundo"
-        }
-        className="prisma-video-toggle absolute right-5 top-28 z-20 flex h-11 w-11 items-center justify-center rounded-full border border-white/20 bg-black/20 text-white/80 backdrop-blur-sm transition hover:bg-black/45 sm:right-8 sm:top-32"
-      >
-        {paused ? (
-          <Play aria-hidden="true" className="h-3.5 w-3.5" />
-        ) : (
-          <Pause aria-hidden="true" className="h-3.5 w-3.5" />
-        )}
-      </button>
     </>
   );
 }
@@ -236,30 +214,6 @@ export function PrismaHero({
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
               </ScrollLink>
             </div>
-          </div>
-
-          <div className="mt-8 flex items-center justify-between gap-4 border-t border-white/15 pt-5 sm:mt-10">
-            <p className="font-accent text-[9px] uppercase tracking-[0.08em] text-white/50 sm:text-[10px] sm:tracking-[0.14em]">
-              Sites & landing pages{" "}
-              <span
-                aria-hidden="true"
-                className="mx-2 text-[var(--accent-hover)]"
-              >
-                /
-              </span>{" "}
-              Recife, PE
-            </p>
-            <ScrollLink
-              href="#projetos"
-              ariaLabel="Rolar para conhecer os projetos"
-              className="flex min-h-11 items-center gap-2 font-accent text-[9px] uppercase tracking-[0.08em] text-white/65 sm:text-[10px]"
-            >
-              Continue explorando{" "}
-              <ArrowDownRight
-                aria-hidden="true"
-                className="h-4 w-4 text-[var(--success)]"
-              />
-            </ScrollLink>
           </div>
         </div>
       </div>

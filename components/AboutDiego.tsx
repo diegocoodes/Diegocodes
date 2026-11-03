@@ -1,6 +1,5 @@
 import { ArrowUpRight, AtSign, MessageCircle } from "lucide-react";
 import Image from "next/image";
-import MotionWords from "@/components/ui/MotionWords";
 import Reveal from "@/components/ui/Reveal";
 import { contactConfig } from "@/lib/contact";
 
@@ -24,22 +23,8 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
       />
       <div className="container-shell relative z-10">
         <Reveal>
-          <div className="font-accent text-[11px] font-semibold uppercase tracking-[0.04em] text-[var(--success)]">
+          <h2 className="font-display text-[clamp(36px,5vw,64px)] uppercase leading-none tracking-[-0.045em] text-[var(--accent-hover)]">
             Sobre mim
-          </div>
-          <h2 className="mt-5 max-w-[1100px] font-display text-[clamp(36px,8.5vw,112px)] uppercase leading-[0.88] tracking-[-0.045em] text-white sm:mt-6 sm:leading-[0.86]">
-            <MotionWords
-              words={[
-                "Ideias",
-                "ganham",
-                "força",
-                "quando",
-                "cada",
-                { text: "detalhe", className: "text-[#c99bea]" },
-                "tem",
-                "intenção.",
-              ]}
-            />
           </h2>
         </Reveal>
 
@@ -64,16 +49,19 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
                   </p>
                 </div>
               </div>
-
             </div>
           </Reveal>
 
           <div>
             <Reveal delay={0.05} fromX={20} fromY={0}>
-              <p className="max-w-3xl font-accent text-[clamp(23px,3.5vw,48px)] font-medium leading-[1.2] tracking-[-0.03em] text-white sm:leading-[1.15] sm:tracking-[-0.035em]">
-                Sou Diego Ewerton, desenvolvedor web e criador da DiegoCodes.
-                Transformo ideias em sites claros, atuais e preparados para conectar
-                marcas às pessoas certas.
+              <p className="max-w-3xl font-accent text-[clamp(23px,2.8vw,36px)] leading-[1.25] tracking-[-0.03em] text-white">
+                <strong className="font-semibold">
+                  Sou Diego Ewerton, desenvolvedor web e criador da DiegoCodes.
+                </strong>
+              </p>
+              <p className="mt-5 max-w-2xl text-base font-normal leading-8 text-white/60">
+                Transformo ideias em sites claros, atuais e preparados para
+                conectar marcas às pessoas certas.
               </p>
             </Reveal>
 
@@ -82,8 +70,8 @@ export default function AboutDiego({ whatsappUrl }: AboutDiegoProps) {
                 <p>
                   Participo de todo o processo: entendo o objetivo, organizo o
                   conteúdo, desenho a experiência e desenvolvo a solução até a
-                  publicação. Cada entrega mantém intenção, consistência e cuidado do
-                  primeiro rascunho ao site no ar.
+                  publicação. Cada entrega mantém intenção, consistência e
+                  cuidado do primeiro rascunho ao site no ar.
                 </p>
               </div>
             </Reveal>

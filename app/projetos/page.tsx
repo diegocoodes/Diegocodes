@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ProjectCard from "@/components/ProjectCard";
+import { ProjectPreviewCard } from "@/components/Projects";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
 
 export default function ProjectsPage() {
   const whatsappUrl = createWhatsAppUrl(
-    "Olá, Diego! Vi seus projetos e quero um site profissional para meu negócio."
+    "Olá, Diego! Vi seus projetos e quero um site profissional para meu negócio.",
   );
   const jsonLd = getProjectsPageJsonLd();
 
@@ -91,24 +91,10 @@ export default function ProjectsPage() {
 
       <section id="lista-projetos" className="section-space scroll-mt-28 pt-0">
         <div className="container-shell">
-          <div className="grid gap-6 lg:grid-cols-2">
-            {portfolioProjects.map((project, index) => {
-              const isFeatured = index === 0;
-
-              return (
-                <Reveal
-                  key={project.slug}
-                  delay={Math.min(index * 0.045, 0.14)}
-                  className={isFeatured ? "lg:col-span-2" : undefined}
-                >
-                  <ProjectCard
-                    project={project}
-                    featured={isFeatured}
-                    transitionName={`project-${project.slug}-visual`}
-                  />
-                </Reveal>
-              );
-            })}
+          <div className="project-grid grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {portfolioProjects.map((project) => (
+              <ProjectPreviewCard key={project.slug} project={project} />
+            ))}
           </div>
         </div>
       </section>

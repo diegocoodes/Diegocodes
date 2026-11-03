@@ -1,14 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {
-  Clock3,
-  Layers3,
-  MonitorSmartphone,
-  Pause,
-  Play,
-  UserRound,
-} from "lucide-react";
+import { Clock3, Layers3, MonitorSmartphone, UserRound } from "lucide-react";
 import { useEffect, useId, useRef, useState } from "react";
 
 export type AstroStat = {
@@ -57,15 +50,7 @@ function mulberry32(seed: number) {
   };
 }
 
-function Bubbles({
-  palette,
-  paused,
-  seed,
-}: {
-  palette: AstroPalette;
-  paused: boolean;
-  seed: number;
-}) {
+function Bubbles({ palette, seed }: { palette: AstroPalette; seed: number }) {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -104,10 +89,9 @@ function Bubbles({
         const dx = bubble.x - pointer.x;
         const dy = bubble.y - pointer.y;
         const distance = Math.hypot(dx, dy) || 1;
-        const push =
-          !preference.matches && !paused
-            ? Math.max(0, 1 - distance / 150) * 22
-            : 0;
+        const push = !preference.matches
+          ? Math.max(0, 1 - distance / 150) * 22
+          : 0;
         bubble.ox += ((dx / distance) * push - bubble.ox) * 0.09;
         bubble.oy += ((dy / distance) * push - bubble.oy) * 0.09;
         context.fillStyle = bubble.color;
@@ -158,7 +142,7 @@ function Bubbles({
     function sync() {
       stop();
       draw();
-      if (visible && !paused && !preference.matches && !document.hidden)
+      if (visible && !preference.matches && !document.hidden)
         frame = window.requestAnimationFrame(tick);
     }
 
@@ -217,7 +201,7 @@ function Bubbles({
       host.removeEventListener("pointermove", move);
       host.removeEventListener("pointerleave", leave);
     };
-  }, [palette, paused, seed]);
+  }, [palette, seed]);
 
   return <canvas ref={ref} aria-hidden="true" className="astro-band-canvas" />;
 }
@@ -231,7 +215,6 @@ export default function AstroMissionBand({
   seed = 103,
   className = "",
 }: AstroMissionBandProps) {
-  const [paused, setPaused] = useState(false);
   const [visible, setVisible] = useState(false);
   const ref = useRef<HTMLElement>(null);
   const headingId = useId();
@@ -253,7 +236,6 @@ export default function AstroMissionBand({
       ref={ref}
       aria-labelledby={headingId}
       className={`astro-mission-band ${className}`}
-      data-paused={paused}
       data-visible={visible}
     >
       <Image
@@ -264,7 +246,7 @@ export default function AstroMissionBand({
         sizes="100vw"
         className="astro-band-backdrop object-cover object-center"
       />
-      <Bubbles palette={palette} paused={paused} seed={seed} />
+      <Bubbles palette={palette} seed={seed} />
       <div aria-hidden="true" className="astro-band-shade" />
       <div className="container-shell astro-band-heading">
         <h2
@@ -274,21 +256,6 @@ export default function AstroMissionBand({
           <span aria-hidden="true" className="astro-band-status" />
           {bandTitle}
         </h2>
-        <button
-          type="button"
-          aria-label={
-            paused ? "Reproduzir animação da faixa" : "Pausar animação da faixa"
-          }
-          aria-controls={trackId}
-          onClick={() => setPaused((value) => !value)}
-          className="astro-band-toggle"
-        >
-          {paused ? (
-            <Play aria-hidden="true" className="h-3.5 w-3.5" />
-          ) : (
-            <Pause aria-hidden="true" className="h-3.5 w-3.5" />
-          )}
-        </button>
       </div>
       <div className="astro-band-viewport" id={trackId}>
         <div className="astro-band-track">

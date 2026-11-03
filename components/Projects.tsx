@@ -1,8 +1,8 @@
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import Image from "next/image";
-import ProjectCarousel from "@/components/ProjectCarousel";
 import Reveal from "@/components/ui/Reveal";
 import TransitionLink from "@/components/ui/TransitionLink";
+import { createWhatsAppUrl } from "@/lib/whatsapp";
 import {
   getProjectPath,
   portfolioProjects,
@@ -41,20 +41,37 @@ export default function Projects() {
             <span className="text-[var(--accent-hover)]">ganharam tela</span>
           </h2>
           <p className="mt-5 max-w-xl text-sm leading-6 text-white/60 sm:text-base">
-            Uma seleção do que já saiu do papel. Deslize para conhecer cada
-            projeto.
+            Uma seleção do que já saiu do papel. Conheça cada projeto.
           </p>
         </Reveal>
-        <ProjectCarousel names={visibleProjects.map((project) => project.name)}>
-          {visibleProjects.map((project, index) => (
-            <ProjectSlide
-              key={project.slug}
-              project={project}
-              index={index}
-              total={visibleProjects.length}
-            />
+        <div className="project-grid mt-7 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {visibleProjects.map((project) => (
+            <ProjectPreviewCard key={project.slug} project={project} />
           ))}
-        </ProjectCarousel>
+          <aside className="project-contact-card flex h-full min-w-0 flex-col items-start justify-center rounded-xl border border-[var(--accent-hover)]/40 bg-[linear-gradient(145deg,rgba(123,47,190,0.18),rgba(16,16,18,0.96))] p-6 sm:p-8">
+            <span className="font-accent text-[10px] font-semibold uppercase tracking-[0.12em] text-[var(--success)]">
+              Vamos criar juntos
+            </span>
+            <h3 className="mt-5 font-display text-[clamp(28px,3vw,42px)] uppercase leading-[1.02] tracking-[-0.04em] text-white">
+              Seu próximo projeto.
+            </h3>
+            <p className="mt-5 text-sm leading-7 text-white/65">
+              Um site com a identidade do seu negócio pode começar com uma
+              conversa.
+            </p>
+            <a
+              href={createWhatsAppUrl(
+                "Olá, Diego! Quero conversar sobre um site para meu negócio.",
+              )}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-8 inline-flex min-h-12 items-center gap-3 rounded-md bg-[var(--accent-primary)] px-5 py-3 text-xs font-semibold text-white transition hover:brightness-110"
+            >
+              Conversar com Diego
+              <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </aside>
+        </div>
         <div className="mt-8 flex justify-end md:mt-12">
           <TransitionLink
             href="/projetos"
@@ -71,22 +88,9 @@ export default function Projects() {
   );
 }
 
-function ProjectSlide({
-  project,
-  index,
-  total,
-}: {
-  project: PortfolioProject;
-  index: number;
-  total: number;
-}) {
+export function ProjectPreviewCard({ project }: { project: PortfolioProject }) {
   return (
-    <article
-      role="group"
-      aria-roledescription="slide"
-      aria-label={`${index + 1} de ${total}: ${project.name}`}
-      className="project-slide group flex h-full flex-col rounded-xl border border-white/10 bg-[#101012]"
-    >
+    <article className="project-preview-card group flex h-full min-w-0 flex-col rounded-xl border border-white/10 bg-[#101012]">
       <TransitionLink
         href={getProjectPath(project)}
         aria-label={`Ver estudo de caso de ${project.name}`}
@@ -107,7 +111,7 @@ function ProjectSlide({
                 alt={project.imageAlt}
                 fill
                 quality={85}
-                sizes="(min-width: 1280px) 420px, (min-width: 1024px) 34vw, (min-width: 768px) 42vw, 70vw"
+                sizes="(min-width: 1280px) 330px, (min-width: 1024px) 29vw, (min-width: 768px) 42vw, 85vw"
                 className={`object-cover transition-transform duration-700 group-hover:scale-[1.015] ${project.imageClassName ?? "object-top"}`}
               />
             </div>
@@ -139,7 +143,7 @@ function ProjectSlide({
             {project.status}
           </span>
         </div>
-        <h3 className="mt-3 break-words font-display text-[clamp(23px,2.5vw,34px)] uppercase leading-[1.02] tracking-[-0.04em] text-white">
+        <h3 className="mt-3 break-words font-display text-[clamp(23px,2.2vw,30px)] uppercase leading-[1.02] tracking-[-0.04em] text-white">
           {project.name}
         </h3>
         <p className="mb-4 mt-3 max-w-xl text-sm leading-6 text-white/60">

@@ -36,6 +36,53 @@ export type PortfolioProject = {
 
 export const portfolioProjects = [
   {
+    slug: "retem-peliculas",
+    name: "Retém Películas",
+    liveUrl: "https://retempeliculas.com.br/",
+    status: "Ao vivo",
+    niche: "Películas e estética premium",
+    service: "Portal institucional",
+    goal: "Apresentar as duas frentes da marca e direcionar cada visitante para o atendimento certo",
+    shortDescription:
+      "Portal da Retém que apresenta a estética premium e a loja distribuidora, com caminhos próprios para cada público.",
+    cardDescription:
+      "Uma entrada para duas experiências: estética premium e distribuição de películas.",
+    cardProblem:
+      "Diferenciar o atendimento ao consumidor e a distribuição para profissionais em uma mesma marca.",
+    cardSolution:
+      "Portal de entrada com duas opções claras, apresentação visual de cada frente e navegação direta.",
+    resultSummary:
+      "O visitante encontra os dois caminhos da Retém e escolhe entre os serviços de estética premium e a loja distribuidora.",
+    challenge:
+      "Organizar a apresentação de uma marca que atende tanto quem procura proteção e estética quanto os profissionais que aplicam películas.",
+    solution:
+      "Uma página de entrada que separa as duas experiências, explica a proposta de cada uma e direciona o visitante para o site da Retém ou para a loja.",
+    deliverables: [
+      "Design responsivo",
+      "Portal de entrada",
+      "Apresentação das duas frentes",
+      "Identidade visual aplicada",
+      "Navegação por público",
+    ],
+    visuals: [
+      {
+        label: "Versão desktop",
+        description: "Captura da página de entrada da Retém Películas.",
+        src: "/projects/retem-peliculas-hero.webp",
+        alt: "Portal da Retém com opções para estética premium e loja distribuidora.",
+        format: "desktop",
+        className: "object-top",
+      },
+    ],
+    imageSrc: "/projects/retem-peliculas-hero.webp",
+    imageAlt:
+      "Página de entrada da Retém Películas com duas experiências para consumidores e profissionais.",
+    imageClassName: "object-top",
+    metaTitle: "Portal para películas e estética premium | Projeto Retém",
+    metaDescription:
+      "Conheça o portal Retém Películas, com apresentação da estética premium e da loja distribuidora e navegação para cada público.",
+  },
+  {
     slug: "universo-mkt",
     name: "Universo Marketing",
     liveUrl: "https://universomkt.com.br/",
@@ -132,7 +179,7 @@ export const portfolioProjects = [
   {
     slug: "omj",
     name: "OMJ Estética Automotiva",
-    liveUrl: "https://omj-test.vercel.app/",
+    liveUrl: "https://omj-esteticaautomotiva.com.br/",
     status: "Ao vivo",
     niche: "Estética automotiva",
     service: "Site institucional",

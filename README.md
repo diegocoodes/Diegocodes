@@ -14,8 +14,8 @@ Principais recursos:
 - Portfólio com listagem e páginas individuais renderizadas no servidor.
 - Currículo em `/cv`, com experiências, formação, certificados, stack e contribuições públicas do GitHub.
 - Download do currículo em PDF diretamente pela pasta pública do projeto.
-- Hero inspirada no componente Prisma, com vídeo de fundo, tipografia em destaque e CTAs do portfólio. Uma imagem local aparece antes do vídeo e atende visitantes com economia de dados ou preferência por movimento reduzido. O vídeo pausa fora da tela e possui controle de reprodução.
-- Faixa de diferenciais inspirada no Astro Mission Band, com bolhas em canvas, paleta roxa e verde, miniaturas reais e rolagem contínua dos indicadores. O botão pausa o movimento; a preferência por movimento reduzido apresenta os quatro indicadores em uma grade estática.
+- Hero inspirada no componente Prisma, com vídeo de fundo, tipografia em destaque e CTAs do portfólio. Uma imagem local aparece antes do vídeo e atende visitantes com economia de dados ou preferência por movimento reduzido. O vídeo pausa automaticamente fora da tela.
+- Faixa de diferenciais inspirada no Astro Mission Band, com bolhas em canvas, paleta roxa e verde, miniaturas reais e rolagem contínua dos indicadores. A preferência por movimento reduzido apresenta os quatro indicadores em uma grade estática.
 - Navegação responsiva, rolagem suave e transições entre páginas.
 - Integração com WhatsApp e eventos personalizados para Meta Pixel e `dataLayer`.
 - SEO local com metadata, Open Graph, JSON-LD, sitemap e robots.
@@ -166,7 +166,7 @@ Os metadados globais ficam em `app/layout.tsx`. Projetos geram metadados individ
 
 O layout prepara a fila do Meta Pixel antes da hidratação e carrega o SDK com `lazyOnload`, após o carregamento da página, em um momento ocioso. Elementos com `data-track` são capturados por `components/AnalyticsBridge.tsx`; os eventos do Pixel aguardam na fila até o SDK carregar, e o `dataLayer` recebe os eventos quando disponível. Visitantes que saem antes do SDK carregar podem não enviar o PageView.
 
-Na home, os projetos aparecem em um carrossel horizontal compacto com molduras de monitor, imagens responsivas e carregamento lazy. As capturas das seções iniciais ficam em `public/projects/*-hero.webp`. O carrossel avança para a direita a cada 3,2 segundos enquanto está visível, inclusive com o mouse sobre os cards. Ao navegar manualmente, aguarda pelo menos 5 segundos para retomar o movimento; o foco de teclado dentro da seção também pausa o avanço. Setas, indicadores, teclado e toque permitem navegar; o botão de reprodução controla o avanço automático. A preferência por movimento reduzido desativa a reprodução inicial e a rolagem animada.
+Os projetos da home e do portfólio aparecem em uma grade estática com três colunas no desktop, duas no tablet e uma no celular. Na home, oito projetos e um card de contato completam a grade 3×3. Os cards usam molduras de monitor, imagens responsivas e carregamento lazy. As capturas das seções iniciais ficam em `public/projects/*-hero.webp`. Os depoimentos de clientes são apresentados como citações; os textos em `testimonialExamples` são identificados como exemplos ilustrativos. As descrições das entregas ficam em uma área separada de resultados de projetos.
 
 O currículo usa `noindex, nofollow` intencionalmente e, por isso, não é incluído no sitemap público.
 
